@@ -21,5 +21,10 @@ body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
 
+.login-body {
+  background-image: url("/images/DashBoard/Backgound_login.png") !important;
+  background-size: cover !important;
+  background-repeat: no-repeat !important;
 }

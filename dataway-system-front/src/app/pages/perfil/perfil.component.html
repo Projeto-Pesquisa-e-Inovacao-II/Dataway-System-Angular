@@ -1,5 +1,5 @@
 <div class="container">
-    <app-aside></app-aside>
+  <app-aside></app-aside>
 
   <div class="wrapper_profile">
     <div class="profile_banner">
@@ -20,17 +20,19 @@
         </div>
         <div class="right">
           <span class="right_span_title"> Email: </span>
-          <span id="email" class="right_span_text"
-            >leandro&#64;ecorodovias.com</span
-          >
+          <span id="email" class="right_span_text">{{ userData.email }}</span>
           <span class="right_span_title"> Telefone: </span>
-          <span id="telefone" class="right_span_text">11940028922</span>
+          <span id="telefone" class="right_span_text">{{
+            userData.telefone
+          }}</span>
           <span class="right_span_title"> Representante Legal: </span>
-          <span id="representanteLegal" class="right_span_text"
-            >Leandro Robatino</span
-          >
+          <span id="representanteLegal" class="right_span_text">{{
+            userData.representanteLegal
+          }}</span>
           <span class="right_span_title"> Nome Fantasia: </span>
-          <span id="nomeFantasia" class="right_span_text">Ecorodovias</span>
+          <span id="nomeFantasia" class="right_span_text">{{
+            userData.nomeFantasia
+          }}</span>
 
           <button onclick="changeTextToInput()" class="edit_profile_data">
             Editar dados
