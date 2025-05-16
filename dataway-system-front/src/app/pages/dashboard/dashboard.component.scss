@@ -1,0 +1,322 @@
+/* config */
+@import url("https://fonts.googleapis.com/css2?family=Monda:wght@400..700&display=swap");
+
+/* Red Hat Display font */
+
+@import url("https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@400..700&display=swap");
+
+/* Poppins font */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400..700&display=swap");
+
+/* Montserrat font */
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
+
+
+$primary-color: #1ef0a6;
+$secondary-color: #1becaa;
+$accent-color: #0bc47a;
+
+$logo-color: #003c64;
+$text-color: #fff;
+$cards-styling: #0098b1;
+$text-color-secondary: #000;
+
+$background-color: #050d20;
+$background-color-cards: #232a3c;
+$background-color-aside: #171e31;
+
+$background-color-secondary: #ef6a47;
+
+// aside
+.container {
+  display: flex;
+  font-family: "Montserrat", sans-serif;
+
+}
+
+aside {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100vh;
+  width: 20vw;
+  background-color: $background-color-aside;
+  padding: 30px;
+  position: fixed;
+  * {
+    font-weight: normal;
+  }
+}
+
+aside .first-sect {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  padding: 1rem 2rem;
+}
+
+aside .first-sect .user-name {
+  margin-top: 20px;
+}
+
+.logo .title-aside {
+  text-align: center;
+  font-size: 2rem;
+}
+
+.user-image {
+  width: 150px;
+  height: 150px;
+  border-radius: 100px;
+  object-fit: cover;
+}
+
+aside div.second-secct form div.period {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+  flex-direction: column;
+  font-family: "Montserrat", sans-serif;
+}
+
+aside div.second-secct form div.period .period_input {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: "Montserrat", sans-serif;
+}
+
+aside div.second-secct form div.period .period_input input:first-of-type {
+  margin-right: 20px;
+  font-family: "Montserrat", sans-serif;
+
+}
+
+.second-secct .region {
+  margin-top: 20px;
+}
+
+.second-secct .region select {
+  width: 100%;
+  font-family: "Montserrat", sans-serif;
+}
+
+.second-secct form .region select,
+.second-secct form .period .period_input input {
+  height: 30px;
+  margin-top: 10px;
+  background-color: transparent;
+  color: $text-color;
+  padding: 0 5px;
+  font-family: "Montserrat", sans-serif;
+
+}
+
+#select-concessao:focus {
+  background-color: $text-color-secondary;
+}
+
+.second-secct .search-button {
+  margin-top: 20px;
+}
+
+.second-secct .search-button {
+  width: 100%;
+  height: 50px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: $background-color-secondary;
+  color: $text-color;
+  font-size: 1.2rem;
+  font-weight: bold;
+  transition: all 0.3s ease-in-out;
+  text-transform: uppercase;
+}
+
+.other-pages {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  a {
+    text-decoration: none;
+    color: $text-color;
+    font-weight: bold;
+    font-size: 16px;
+    padding: 10px 0;
+    transition: all 0.3s ease-in-out;
+    text-transform: uppercase;
+  }
+
+  .route_page {
+    display: flex;
+    align-items: center;
+    i {
+      margin-right: 15px;
+      font-size: 25px;
+    }
+  }
+}
+
+/* dashboard */
+.container-dashboard {
+  width: 100%;
+  margin: 0px 20px;
+  margin-left: 23vw; /* GAMBIARRRAAAAAAA */
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    h1 {
+      font-size: 2.5rem;
+      text-transform: uppercase;
+      margin: 30px 0;
+      margin-top: 25px;
+      font-weight: bold;
+    }
+
+    i {
+      font-size: 2rem;
+      color: $text-color;
+      margin-right: 20px;
+    }
+  }
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(3, 2fr);
+  gap: 20px;
+}
+
+.cards .card {
+  background-color: $background-color-cards;
+  border-left: 10px solid $cards-styling;
+}
+
+.cards .card h4 {
+  text-transform: uppercase;
+  margin: 15px;
+  font-weight: bold;
+}
+
+div.cards div.card .card-details div.details-data {
+  display: flex;
+}
+
+div.cards div.card .card-details div.details-data img {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+}
+
+div.cards div.card .card-details div.details-data i {
+  font-size: 2rem;
+}
+
+.cards .card .card-details .details-data {
+  display: flex;
+  align-items: center;
+  margin: 25px 15px;
+}
+
+.cards .card .card-details .details-data h1 {
+  display: flex;
+  font-size: 2.5rem;
+  font-weight: bolder;
+  margin-left: 15px;
+}
+
+.graphs {
+  margin-top: 20px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  width: 100%;
+}
+
+.graphs .container-left-graphs,
+.graphs .container-right-graphs {
+  height: 100%;
+}
+
+.graphs .container-right-graphs {
+  display: flex;
+  flex-direction: column;
+  height: 94vh;
+}
+
+.graphs .container-right-graphs .graph-above,
+.graphs .container-right-graphs .graph-below {
+  background-color: $background-color-cards;
+  height: 54%;
+}
+
+.graphs .container-right-graphs .graph-below {
+  height: 46vh !important;
+}
+
+.graphs .container-right-graphs .graph-above {
+  margin-bottom: 20px;
+  height: 38.5vh;
+}
+
+.graphs .container-left-graphs {
+  display: grid;
+  grid-template-rows: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.graphs .container-left-graphs .graph-above {
+  display: flex;
+}
+
+.graphs .container-left-graphs .graph-below {
+  background-color: $background-color-cards;
+  height: 38.5vh;
+}
+
+.graphs .container-left-graphs .graph-above {
+  margin: 0;
+}
+
+.horizontal-bar-chart {
+  width: 100%;
+  height: 100% !important;
+  display: flex;
+  flex-direction: column;
+  background-color: $background-color-cards;
+}
+
+.line-chart {
+  display: flex;
+  flex-direction: column;
+}
+
+.radar-chart h4,
+.horizontal-bar-chart h4,
+.line-chart h4,
+.bar-chart h4,
+.heat-map-chart h4 {
+  margin: 15px;
+  margin-bottom: 30px;
+  font-weight: 700;
+}
+
+.line-chart canvas {
+  margin: 0;
+}
+
+#lineCanvas,
+#heatMapCanvas {
+  height: 100% !important;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.heat-map-chart {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}

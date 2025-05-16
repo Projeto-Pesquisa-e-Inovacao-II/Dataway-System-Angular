@@ -1,0 +1,130 @@
+<div class="container">
+  <aside>
+    <div class="logo">
+      <h1 class="title-aside">
+        <span>Data</span><span style="font-weight: bold">Way</span>
+      </h1>
+    </div>
+    <div class="first-sect">
+      <img
+        src="../images/DashBoard/eco.png"
+        alt="user-image"
+        class="user-image"
+      />
+      <h2 class="user-name">Ecorodovias</h2>
+    </div>
+    <div class="second-secct">
+      <form action="">
+        <div class="period">
+          <h2>Período</h2>
+          <div class="period_input">
+            <input type="date" name="" id="" />
+            <input type="date" name="" id="" />
+          </div>
+        </div>
+        <div class="region">
+          <h2>Concessão</h2>
+          <select name="" id="select-concessao">
+            <option value="">Selecione uma concessão</option>
+            <option value="">Ecovias do Cerrado</option>
+            <option value="">Ecovias Imigrantes</option>
+            <option value="">Ecovias Rio Minas</option>
+            <option value="">Ecovias Ponte</option>
+            <option value="">Ecovias Raposo Castello</option>
+          </select>
+        </div>
+        <button type="submit" class="search-button">Filtrar</button>
+      </form>
+    </div>
+
+    <div class="other-pages">
+      <div class="route_page">
+        <i class="fa-solid fa-circle-user"></i>
+        <a href="/dashboard/perfil"><h2>Perfil</h2></a>
+      </div>
+      <div class="route_page">
+        <i class="fa-solid fa-headset"></i>
+        <a href="/dashboard/suporte"><h2>Suporte</h2></a>
+      </div>
+    </div>
+  </aside>
+
+  <section class="container-dashboard">
+    <header>
+      <h1>Dashboard</h1>
+      <i class="fa-solid fa-bell"></i>
+    </header>
+
+    <div class="cards">
+      <div class="card">
+        <div class="card-details">
+          <h4>Horário Crítico</h4>
+
+          <div class="details-data">
+            <img src="../images/DashBoard/relogio.png" alt="" />
+            <h1>21:00</h1>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-details">
+          <h4>Impacto financeiro</h4>
+
+          <div class="details-data">
+            <img src="../images/DashBoard/dinheiro.png" alt="" />
+            <h1>150,1K</h1>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-details">
+          <h4>Praça mais crítica</h4>
+
+          <div class="details-data">
+            <img src="../images/DashBoard/cancela.png" alt="" />
+            <h1>Campo Limpo</h1>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="graphs">
+      <div class="container-left-graphs">
+        <div class="graph-above">
+          <div class="horizontal-bar-chart" id="barHorizontalId">
+            <h4>EVASÕES POR CATEGORIA</h4>
+            <canvas id="horizontalBarChart"></canvas>
+          </div>
+          <!-- <div class="radar-chart" id="radarChartId">
+                <h4>EVASÕES POR REGIÃO</h4>
+                <canvas id="radarCanvas"></canvas>
+              </div> -->
+        </div>
+        <div class="graph-below">
+          <div class="heat-map-chart">
+            <h4>EVASÕES POR DIA X MÊS</h4>
+            <div class="teste" style="height: 30vh">
+              <canvas id="heatMapCanvas"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="container-right-graphs">
+        <div class="graph-above">
+          <div class="line-chart" id="lineChartId">
+            <h4>AVANÇOS: MANUAL X AUTOMÁTICO</h4>
+            <div class="teste" style="height: 30vh">
+              <canvas id="lineCanvas"></canvas>
+            </div>
+          </div>
+        </div>
+        <div class="graph-below">
+          <div class="bar-chart" id="barChartId">
+            <h4>EVASÕES POR DIA DA SEMANA</h4>
+            <canvas id="barCanvas"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

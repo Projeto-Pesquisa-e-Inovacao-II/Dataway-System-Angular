@@ -1,0 +1,25 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import url("https://fonts.googleapis.com/css2?family=Monda:wght@400..700&display=swap");
+
+/* Red Hat Display font */
+
+@import url("https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@400..700&display=swap");
+
+/* Poppins font */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400..700&display=swap");
+
+$text-color: #fff;
+$background-color: #050d20;
+
+body {
+  background-color: $background-color;
+  color: $text-color;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+
+}
