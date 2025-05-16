@@ -1,4 +1,7 @@
+import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faCircleUser, faHeadset } from '@fortawesome/free-solid-svg-icons';
 import { Chart, registerables } from 'chart.js';
 import { MatrixController, MatrixElement } from 'chartjs-chart-matrix';
 Chart.register(...registerables);
@@ -6,10 +9,12 @@ Chart.register(MatrixController, MatrixElement);
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [],
+  imports: [CommonModule, FontAwesomeModule],
+  // imports: [],
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
 })
+
 export class DashboardComponent implements OnInit {
   // Dados do gráfico horizontal
   public data: any = {
@@ -297,53 +302,65 @@ export class DashboardComponent implements OnInit {
   };
 
   // dados bar and line
-  public barAndLine: any[] = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+  public barAndLine: any[] = [
+    'Jan',
+    'Feb',
+    'Mar',
+    'Apr',
+    'May',
+    'Jun',
+    'Jul',
+    'Aug',
+    'Sep',
+    'Oct',
+    'Nov',
+    'Dec',
+  ];
 
-public dataBarAndLine: any = {
-  labels: this.barAndLine,
-  datasets: [
-    {
-      type: 'line',
-      label: 'Evasões',
-      data: [5, 7, 6, 8, 10, 9, 6, 7, 9, 10, 9, 20],
-      borderColor: 'orange',
-      backgroundColor: 'orange',
-      fill: false
+  public dataBarAndLine: any = {
+    labels: this.barAndLine,
+    datasets: [
+      {
+        type: 'line',
+        label: 'Evasões',
+        data: [5, 7, 6, 8, 10, 9, 6, 7, 9, 10, 9, 20],
+        borderColor: 'orange',
+        backgroundColor: 'orange',
+        fill: false,
+      },
+      {
+        type: 'bar',
+        label: 'Tráfego',
+        data: [10, 12, 15, 14, 20, 18, 10, 13, 16, 19, 22, 28],
+        backgroundColor: [
+          'rgb(108, 229, 232)',
+          'rgb(65, 184, 213)',
+          'rgb(45, 139, 186)',
+          'rgb(47, 95, 152)',
+        ],
+        borderColor: [
+          'rgb(108, 229, 232)',
+          'rgb(65, 184, 213)',
+          'rgb(45, 139, 186)',
+          'rgb(47, 95, 152)',
+        ],
+        borderWidth: 1,
+        borderRadius: 4,
+      },
+    ],
+  };
+
+  public configBarAndLine: any = {
+    data: this.dataBarAndLine,
+    options: {
+      responsive: true,
+      scales: {
+        y: {
+          beginAtZero: true,
+        },
+      },
     },
-    {
-      type: 'bar',
-      label: 'Tráfego',
-      data: [10, 12, 15, 14, 20, 18, 10, 13, 16, 19, 22, 28],
-      backgroundColor: [
-        'rgb(108, 229, 232)',
-        'rgb(65, 184, 213)',
-        'rgb(45, 139, 186)',
-        'rgb(47, 95, 152)',
-      ],
-      borderColor: [
-        'rgb(108, 229, 232)',
-        'rgb(65, 184, 213)',
-        'rgb(45, 139, 186)',
-        'rgb(47, 95, 152)',
-      ],
-      borderWidth: 1,
-      borderRadius: 4,
-    }
-    
-  ]
-};
-
-public configBarAndLine: any = {
-  data: this.dataBarAndLine,
-  options: {
-    responsive: true,
-    scales: {
-      y: {
-        beginAtZero: true
-      }
-    }
-  }
-};
+  };
   public chart: any;
 
   ngOnInit(): void {
@@ -353,5 +370,6 @@ public configBarAndLine: any = {
     this.chart = new Chart('heatMapCanvas', this.configHeatMap);
     this.chart = new Chart('barCanvas', this.configBarAndLine);
   }
-
+  faCircleUser = faCircleUser;
+  faHeadset = faHeadset;
 }

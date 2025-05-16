@@ -11,7 +11,6 @@
 /* Montserrat font */
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
 
-
 $primary-color: #1ef0a6;
 $secondary-color: #1becaa;
 $accent-color: #0bc47a;
@@ -31,7 +30,6 @@ $background-color-secondary: #ef6a47;
 .container {
   display: flex;
   font-family: "Montserrat", sans-serif;
-
 }
 
 aside {
@@ -90,7 +88,6 @@ aside div.second-secct form div.period .period_input {
 aside div.second-secct form div.period .period_input input:first-of-type {
   margin-right: 20px;
   font-family: "Montserrat", sans-serif;
-
 }
 
 .second-secct .region {
@@ -110,7 +107,6 @@ aside div.second-secct form div.period .period_input input:first-of-type {
   color: $text-color;
   padding: 0 5px;
   font-family: "Montserrat", sans-serif;
-
 }
 
 #select-concessao:focus {
@@ -133,6 +129,7 @@ aside div.second-secct form div.period .period_input input:first-of-type {
   font-weight: bold;
   transition: all 0.3s ease-in-out;
   text-transform: uppercase;
+  font-weight: normal;
 }
 
 .other-pages {
@@ -152,7 +149,7 @@ aside div.second-secct form div.period .period_input input:first-of-type {
   .route_page {
     display: flex;
     align-items: center;
-    i {
+    fa-icon {
       margin-right: 15px;
       font-size: 25px;
     }

@@ -1,0 +1,54 @@
+<div class="container">
+    <app-aside></app-aside>
+
+  <div class="wrapper_profile">
+    <div class="profile_banner">
+      <div class="text_banner">
+        <h1>Meu perfil</h1>
+      </div>
+      <div class="border_text"></div>
+    </div>
+
+    <section class="profile_sect">
+      <div class="container_profile_sect">
+        <div class="left">
+          <img
+            src="../images/DashBoard/eco.png"
+            alt="Imagem de perfil"
+            alt=""
+          />
+        </div>
+        <div class="right">
+          <span class="right_span_title"> Email: </span>
+          <span id="email" class="right_span_text"
+            >leandro&#64;ecorodovias.com</span
+          >
+          <span class="right_span_title"> Telefone: </span>
+          <span id="telefone" class="right_span_text">11940028922</span>
+          <span class="right_span_title"> Representante Legal: </span>
+          <span id="representanteLegal" class="right_span_text"
+            >Leandro Robatino</span
+          >
+          <span class="right_span_title"> Nome Fantasia: </span>
+          <span id="nomeFantasia" class="right_span_text">Ecorodovias</span>
+
+          <button onclick="changeTextToInput()" class="edit_profile_data">
+            Editar dados
+          </button>
+        </div>
+        <div class="buttons">
+          <div class="popup" id="popup">
+            <h2>Deseja excluir sua conta?</h2>
+            <p>Digite o código a seguir:</p>
+            <p>1654789</p>
+            <form action="" class="form_delete" onsubmit="deleteUser(event)">
+              <input type="text" name="" id="numberConfirm" />
+              <button type="submit" class="btn_delete">Excluir</button>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="triangle"></div>
+    </section>
+  </div>
+</div>
