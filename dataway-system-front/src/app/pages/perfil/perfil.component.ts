@@ -1,17 +1,22 @@
 import { Component } from '@angular/core';
 import { AsideComponent } from '../../aside/aside.component';
 import { PerfilService } from '../../services/perfil/perfil.service';
+import { UserData } from '../../interfaces/perfil/user-data';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { log } from 'console';
 
 @Component({
   selector: 'app-perfil',
-  imports: [AsideComponent],
+  standalone: true,
+  imports: [CommonModule, AsideComponent, FormsModule],
   templateUrl: './perfil.component.html',
   styleUrls: ['./perfil.component.scss'],
 })
 export class PerfilComponent {
   constructor(private perfilService: PerfilService) {}
-
-  userData: any = {
+  isEditing = false;
+  userData: UserData = {
     email: '',
     telefone: '',
     representanteLegal: '',
@@ -33,5 +38,31 @@ export class PerfilComponent {
       this.userData.representanteLegal = res[0].representanteLegal;
       this.userData.nomeFantasia = res[0].nomeFantasia;
     });
+  }
+
+  updateUserData() {
+    console.log(this.userData);
+    this.perfilService.updateUserData(this.userData).subscribe(() => {});
+    this.isEditing = false;
+    console.log('Dados atualizados com sucesso!');
+  }
+
+  confirmationCode: string = '';
+  deleteUser() {
+    console.log(this.confirmationCode);
+    if (this.confirmationCode == '1654789') {
+      const idUsuario = localStorage.getItem('idUsuario');
+      if (idUsuario) {
+        this.perfilService.deleteUser(idUsuario).subscribe(() => {
+          localStorage.removeItem('idUsuario');
+          location.href = '/login';
+        });
+      }
+    }
+  }
+
+  confirmDelete(): void {
+    const popup = document.getElementById('popup');
+    if (popup) popup.style.display = 'block';
   }
 }

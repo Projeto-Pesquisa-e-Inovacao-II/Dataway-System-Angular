@@ -94,10 +94,14 @@ $background-color-three: #c50c0c;
 
 .profile_sect .container_profile_sect .right {
   display: flex;
-  flex-direction: column;
   margin-left: 70px;
   margin-top: 20px;
   width: 100%;
+}
+
+.right_span {
+  display: flex;
+  flex-direction: column;
 }
 
 .right_span_text {
@@ -151,7 +155,7 @@ $background-color-three: #c50c0c;
   display: flex;
   justify-content: flex-end;
   flex-direction: column;
-  margin-bottom: 131px;
+  margin-bottom: 215px;
   margin-left: 20px;
 }
 

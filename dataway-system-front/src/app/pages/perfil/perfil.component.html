@@ -19,34 +19,91 @@
           />
         </div>
         <div class="right">
-          <span class="right_span_title"> Email: </span>
-          <span id="email" class="right_span_text">{{ userData.email }}</span>
-          <span class="right_span_title"> Telefone: </span>
-          <span id="telefone" class="right_span_text">{{
-            userData.telefone
-          }}</span>
-          <span class="right_span_title"> Representante Legal: </span>
-          <span id="representanteLegal" class="right_span_text">{{
-            userData.representanteLegal
-          }}</span>
-          <span class="right_span_title"> Nome Fantasia: </span>
-          <span id="nomeFantasia" class="right_span_text">{{
-            userData.nomeFantasia
-          }}</span>
+          <div class="right_span">
+            <span class="right_span_title"> Email: </span>
+            <ng-container *ngIf="!isEditing; else editEmail">
+              <span class="right_span_text">{{ userData.email }}</span>
+            </ng-container>
+            <span class="right_span_title"> Telefone: </span>
+            <ng-container *ngIf="!isEditing; else editTelefone">
+              <span class="right_span_text">{{ userData.telefone }}</span>
+            </ng-container>
+            <span class="right_span_title"> Representante legal: </span>
+            <ng-container *ngIf="!isEditing; else editRepresentanteLegal">
+              <span class="right_span_text">{{
+                userData.representanteLegal
+              }}</span>
+            </ng-container>
+            <span class="right_span_title"> Nome fantasia: </span>
+            <ng-container *ngIf="!isEditing; else editNomeFantasia">
+              <span class="right_span_text">{{ userData.nomeFantasia }}</span>
+            </ng-container>
 
-          <button onclick="changeTextToInput()" class="edit_profile_data">
-            Editar dados
-          </button>
-        </div>
-        <div class="buttons">
-          <div class="popup" id="popup">
-            <h2>Deseja excluir sua conta?</h2>
-            <p>Digite o código a seguir:</p>
-            <p>1654789</p>
-            <form action="" class="form_delete" onsubmit="deleteUser(event)">
-              <input type="text" name="" id="numberConfirm" />
-              <button type="submit" class="btn_delete">Excluir</button>
-            </form>
+            <ng-template #editEmail>
+              <input
+                type="text"
+                class="right_span_input"
+                [(ngModel)]="userData.email"
+                name="email"
+              />
+            </ng-template>
+
+            <ng-template #editTelefone>
+              <input
+                type="text"
+                class="right_span_input"
+                [(ngModel)]="userData.telefone"
+                name="telefone"
+              />
+            </ng-template>
+            <ng-template #editRepresentanteLegal>
+              <input
+                type="text"
+                class="right_span_input"
+                [(ngModel)]="userData.representanteLegal"
+                name="representanteLegal"
+              />
+            </ng-template>
+            <ng-template #editNomeFantasia>
+              <input
+                type="text"
+                class="right_span_input"
+                [(ngModel)]="userData.nomeFantasia"
+                name="nomeFantasia"
+              />
+            </ng-template>
+            <button
+              *ngIf="!isEditing"
+              (click)="isEditing = true"
+              class="edit_profile_data"
+            >
+              Editar dados
+            </button>
+          </div>
+          <div class="buttons">
+            <div class="popup" id="popup">
+              <h2>Deseja excluir sua conta?</h2>
+              <p>Digite o código a seguir:</p>
+              <p>1654789</p>
+              <form action="" class="form_delete" (ngSubmit)="deleteUser()">
+                <input [(ngModel)]="confirmationCode" name="confirmationCode" type="text"  />
+                <button type="submit" class="btn_delete">Excluir</button>
+              </form>
+            </div>
+            <button
+              *ngIf="isEditing"
+              (click)="updateUserData()"
+              class="save_profile_data"
+            >
+              Atualizar dados
+            </button>
+            <button
+              *ngIf="isEditing"
+              (click)="confirmDelete()"
+              class="delete_profile_data"
+            >
+              Excluir conta
+            </button>
           </div>
         </div>
       </div>
