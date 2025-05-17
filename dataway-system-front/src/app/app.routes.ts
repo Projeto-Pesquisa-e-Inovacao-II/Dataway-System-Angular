@@ -11,5 +11,6 @@ export const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent },
   { path: 'dashboard/perfil', component: PerfilComponent },
   { path: 'dashboard/suporte', component: SuporteComponent },
+  { path: '', component: DashboardComponent },
   { path: '**', redirectTo: '' },
 ];

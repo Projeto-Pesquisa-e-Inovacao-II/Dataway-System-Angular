@@ -1,7 +1,4 @@
-import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faCircleUser, faHeadset } from '@fortawesome/free-solid-svg-icons';
 import { Chart, registerables } from 'chart.js';
 import { MatrixController, MatrixElement } from 'chartjs-chart-matrix';
 Chart.register(...registerables);
@@ -9,14 +6,12 @@ Chart.register(MatrixController, MatrixElement);
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule, FontAwesomeModule],
-  // imports: [],
+  imports: [],
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
 })
-
 export class DashboardComponent implements OnInit {
-  // Dados do gráfico horizontal
+  //gráfico horizontal
   public data: any = {
     labels: ['MOTO', 'PASSEIO', 'COMERCIAL'],
     datasets: [
@@ -45,6 +40,7 @@ export class DashboardComponent implements OnInit {
     options: {
       indexAxis: 'y',
       responsive: true,
+      maintainAspectRatio: false,
       scales: {
         x: {
           beginAtZero: true,
@@ -53,7 +49,6 @@ export class DashboardComponent implements OnInit {
             display: false,
           },
           ticks: {
-            color: 'white',
             font: {
               size: 12,
             },
@@ -64,7 +59,6 @@ export class DashboardComponent implements OnInit {
             display: false,
           },
           ticks: {
-            color: 'white',
             font: {
               size: 12,
               weight: 'bold',
@@ -78,15 +72,13 @@ export class DashboardComponent implements OnInit {
         },
         tooltip: {
           backgroundColor: 'rgba(0, 0, 0, 0.7)',
-          titleColor: 'white',
-          bodyColor: 'white',
           displayColors: false,
         },
       },
     },
   };
 
-  // Dados do gráfico de linha
+  //gráfico de linha
   public labels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'];
 
   public backgroundPlugin: any = {
@@ -145,7 +137,6 @@ export class DashboardComponent implements OnInit {
               size: 12,
               weight: 'bold',
             },
-            color: '#fff',
             padding: 1,
           },
         },
@@ -159,7 +150,6 @@ export class DashboardComponent implements OnInit {
               size: 12,
               weight: 'bold',
             },
-            color: '#fff',
           },
         },
       },
@@ -271,7 +261,6 @@ export class DashboardComponent implements OnInit {
               size: 12,
               weight: 'bold',
             },
-            color: '#fff',
             padding: 1,
             callback: (value: any) => {
               return this.meses[value - 1].toUpperCase();
@@ -290,7 +279,6 @@ export class DashboardComponent implements OnInit {
               size: 12,
               weight: 'bold',
             },
-            color: '#fff',
             padding: 1,
             callback: (value: any) => {
               return this.dias[value - 1];
@@ -321,15 +309,15 @@ export class DashboardComponent implements OnInit {
     labels: this.barAndLine,
     datasets: [
       {
-        type: 'line',
         label: 'Evasões',
         data: [5, 7, 6, 8, 10, 9, 6, 7, 9, 10, 9, 20],
         borderColor: 'orange',
-        backgroundColor: 'orange',
+        backgroundColor: [
+          'rgb(191, 191, 191)',
+        ],
         fill: false,
       },
       {
-        type: 'bar',
         label: 'Tráfego',
         data: [10, 12, 15, 14, 20, 18, 10, 13, 16, 19, 22, 28],
         backgroundColor: [
@@ -351,12 +339,24 @@ export class DashboardComponent implements OnInit {
   };
 
   public configBarAndLine: any = {
+    type: 'bar',
+
     data: this.dataBarAndLine,
     options: {
       responsive: true,
+      maintainAspectRatio: false,
       scales: {
+        x: {
+          stacked: true,
+          grid: {
+          display: false
+        }
+        },
         y: {
-          beginAtZero: true,
+          stacked: true,
+          grid: {
+          display: false
+        }
         },
       },
     },
@@ -365,11 +365,9 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.generateDataPoints();
-    this.chart = new Chart('horizontalBarChart', this.config);
+    // this.chart = new Chart('horizontalBarChart', this.config);
     this.chart = new Chart('lineCanvas', this.configLine);
-    this.chart = new Chart('heatMapCanvas', this.configHeatMap);
+    // this.chart = new Chart('heatMapCanvas', this.configHeatMap);
     this.chart = new Chart('barCanvas', this.configBarAndLine);
   }
-  faCircleUser = faCircleUser;
-  faHeadset = faHeadset;
 }

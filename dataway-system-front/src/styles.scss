@@ -11,9 +11,11 @@
 
 $text-color: #fff;
 $background-color: #050d20;
+$background-color-dash: #f0f0f0;
 
 body {
-  background-color: $background-color;
+  background-color: $background-color-dash;
+
   color: $text-color;
 }
 
@@ -27,4 +29,11 @@ body {
   background-image: url("/images/DashBoard/Backgound_login.png") !important;
   background-size: cover !important;
   background-repeat: no-repeat !important;
+}
+@media (max-width: 1920px) {
+  app-dashboard {
+    display: block;
+    max-width: 1600px;
+    margin: 0 auto;
+  }
 }
