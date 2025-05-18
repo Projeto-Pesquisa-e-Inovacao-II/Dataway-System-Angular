@@ -21,6 +21,9 @@ var deleteUser = require("./dataway-system-back/routes/deleteUserData")
 var getUserData = require("./dataway-system-back/routes/getUserData");
 var updateUserData = require("./dataway-system-back/routes/updateUserData");
 
+//dashboard
+var graficoTrafegoEvasao = require("./dataway-system-back/routes/graficoTrafegoEvasao");
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));
@@ -32,6 +35,9 @@ app.use("/usuarios", usuariosRouter);
 app.use("/get_user_data", getUserData);
 app.use("/update_user_data", updateUserData);
 app.use("/delete_user_data", deleteUser);
+
+//dashboard
+app.use("/grafico_trafego_evasao", graficoTrafegoEvasao);
 
 app.listen(PORTA_APP, function () {
     console.log(`

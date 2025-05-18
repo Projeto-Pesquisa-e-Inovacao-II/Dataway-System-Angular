@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Chart, registerables } from 'chart.js';
 import { MatrixController, MatrixElement } from 'chartjs-chart-matrix';
-import { HeaderComponent } from "../../components/header/header/header.component";
+import { HeaderComponent } from '../../components/header/header/header.component';
+import { DashboardService } from '../../services/dashboard/dashboard.service';
+import { DashboardGraficoTrafegoEvasao } from '../../interfaces/dashboard/dashboard-data-structure';
 Chart.register(...registerables);
 Chart.register(MatrixController, MatrixElement);
 @Component({
@@ -12,6 +14,29 @@ Chart.register(MatrixController, MatrixElement);
   styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent implements OnInit {
+  constructor(private dashboardService: DashboardService) {}
+  public dadosTrafegoEvasao: DashboardGraficoTrafegoEvasao[] = [];
+
+  getTrafegoEvasaoData() {
+    const idUsuario: number = Number(localStorage.getItem('idUsuario') ?? 0);
+
+    this.dashboardService
+      .getTrafegoEvasaoData(idUsuario)
+      .subscribe((data: any) => {
+        console.log(data[2].dados);
+        this.dadosTrafegoEvasao = data.map((item: any) => ({
+          mes: item.mes,
+          dados: [
+            {
+              trafego: item.dados[0].trafego,
+              evasao: item.dados[0].evasoes,
+            },
+          ],
+        }));
+        console.log(this.dadosTrafegoEvasao);
+      });
+  }
+
   //gráfico horizontal
   public data: any = {
     labels: ['MOTO', 'PASSEIO', 'COMERCIAL'],
@@ -291,20 +316,19 @@ export class DashboardComponent implements OnInit {
   };
 
   // dados bar and line
-  public barAndLine: any[] = [
-    'Jan',
-    'Feb',
-    'Mar',
-    'Apr',
-    'May',
-    'Jun',
-    'Jul',
-    'Aug',
-    'Sep',
-    'Oct',
-    'Nov',
-    'Dec',
-  ];
+  private barAndLine: string[] = [];
+
+  // private barAndLineData: any[] = this.dadosTrafegoEvasao.map(
+  //   (item: DashboardDataStructure) => {
+  //     return item.dados[0].evasao;
+  //   }
+  // );
+
+  // private barAndLineData2: any[] = this.dadosTrafegoEvasao.map(
+  //   (item: DashboardDataStructure) => {
+  //     return item.dados[0].trafego;
+  //   }
+  // );
 
   public dataBarAndLine: any = {
     labels: this.barAndLine,
@@ -313,9 +337,7 @@ export class DashboardComponent implements OnInit {
         label: 'Evasões',
         data: [5, 7, 6, 8, 10, 9, 6, 7, 9, 10, 9, 20],
         borderColor: 'orange',
-        backgroundColor: [
-          'rgb(191, 191, 191)',
-        ],
+        backgroundColor: ['rgb(191, 191, 191)'],
         fill: false,
       },
       {
@@ -350,14 +372,14 @@ export class DashboardComponent implements OnInit {
         x: {
           stacked: true,
           grid: {
-          display: false
-        }
+            display: false,
+          },
         },
         y: {
           stacked: true,
           grid: {
-          display: false
-        }
+            display: false,
+          },
         },
       },
     },
@@ -365,10 +387,13 @@ export class DashboardComponent implements OnInit {
   public chart: any;
 
   ngOnInit(): void {
-    this.generateDataPoints();
+    // this.generateDataPoints();
     // this.chart = new Chart('horizontalBarChart', this.config);
-    this.chart = new Chart('lineCanvas', this.configLine);
     // this.chart = new Chart('heatMapCanvas', this.configHeatMap);
+
+    this.chart = new Chart('lineCanvas', this.configLine);
     this.chart = new Chart('barCanvas', this.configBarAndLine);
+
+    this.getTrafegoEvasaoData();
   }
 }
