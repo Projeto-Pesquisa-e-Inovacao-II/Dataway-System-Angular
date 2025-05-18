@@ -30,10 +30,12 @@ body {
   background-size: cover !important;
   background-repeat: no-repeat !important;
 }
+
 @media (max-width: 1920px) {
-  app-dashboard {
+  .container-dashboard {
     display: block;
     max-width: 1600px;
     margin: 0 auto;
+
   }
 }

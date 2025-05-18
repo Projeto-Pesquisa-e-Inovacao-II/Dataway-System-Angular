@@ -27,6 +27,26 @@ $background-color-aside: #171e31;
 
 $background-color-secondary: #ef6a47;
 
+$header-background-color: #cacaca;
+$header-text-color: #343a40;
+$header-height: 90px;
+$header-padding: 10px;
+
+
+app-header {
+  background-color: $header-background-color;
+  color: $header-text-color;
+  height: $header-height;
+  padding: $header-padding;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin: 0 auto;
+  font-family: "Montserrat", sans-serif !important;
+  font-weight: lighter;
+}
+
 /* dashboard */
 .container-dashboard {
   width: 100%;
@@ -121,7 +141,7 @@ div.cards div.card .card-details div.details-data i {
 .graph-above,
 .graph-below {
   width: 100%;
-  height: 40vh;
+  height: 50vh;
 }
 
 .graph-above canvas,

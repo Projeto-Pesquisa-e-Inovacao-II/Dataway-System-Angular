@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Chart, registerables } from 'chart.js';
 import { MatrixController, MatrixElement } from 'chartjs-chart-matrix';
+import { HeaderComponent } from "../../components/header/header/header.component";
 Chart.register(...registerables);
 Chart.register(MatrixController, MatrixElement);
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [],
+  imports: [HeaderComponent],
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
 })

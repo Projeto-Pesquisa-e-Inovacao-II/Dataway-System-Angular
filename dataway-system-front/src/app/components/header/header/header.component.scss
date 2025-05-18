@@ -1,0 +1,35 @@
+$header-background-color: #cacaca;
+$header-text-color: #343a40;
+$header-height: 60px;
+$header-padding: 10px;
+
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0 auto;
+    width: -moz-available;
+    width: -webkit-fill-available;
+    max-width: 1600px;
+  
+  .logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: $header-text-color;
+  }
+
+  ul {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+    li {
+      a {
+        text-decoration: none;
+        color: $header-text-color;
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+}
