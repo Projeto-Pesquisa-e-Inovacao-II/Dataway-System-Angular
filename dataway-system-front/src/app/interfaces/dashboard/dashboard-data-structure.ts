@@ -1,6 +1,6 @@
 export interface DashboardTrafegoEvasao {
-  evasao: string;
-  trafego: string;
+  evasao: number;
+  trafego: number;
 }
 
 export interface DashboardGraficoTrafegoEvasao {
