@@ -1,14 +1,7 @@
 <div class="container">
-  <app-aside></app-aside>
+  <app-header></app-header>
 
   <div class="wrapper_profile">
-    <div class="profile_banner">
-      <div class="text_banner">
-        <h1>Meu perfil</h1>
-      </div>
-      <div class="border_text"></div>
-    </div>
-
     <section class="profile_sect">
       <div class="container_profile_sect">
         <div class="left">
@@ -81,29 +74,35 @@
             </button>
           </div>
           <div class="buttons">
+            <div class="buttons_inside">
+              <button
+                *ngIf="isEditing"
+                (click)="updateUserData()"
+                class="save_profile_data"
+              >
+                Atualizar dados
+              </button>
+              <button
+                *ngIf="isEditing"
+                (click)="confirmDelete()"
+                class="delete_profile_data"
+              >
+                Excluir conta
+              </button>
+            </div>
             <div class="popup" id="popup">
               <h2>Deseja excluir sua conta?</h2>
               <p>Digite o código a seguir:</p>
               <p>1654789</p>
               <form action="" class="form_delete" (ngSubmit)="deleteUser()">
-                <input [(ngModel)]="confirmationCode" name="confirmationCode" type="text"  />
+                <input
+                  [(ngModel)]="confirmationCode"
+                  name="confirmationCode"
+                  type="text"
+                />
                 <button type="submit" class="btn_delete">Excluir</button>
               </form>
             </div>
-            <button
-              *ngIf="isEditing"
-              (click)="updateUserData()"
-              class="save_profile_data"
-            >
-              Atualizar dados
-            </button>
-            <button
-              *ngIf="isEditing"
-              (click)="confirmDelete()"
-              class="delete_profile_data"
-            >
-              Excluir conta
-            </button>
           </div>
         </div>
       </div>

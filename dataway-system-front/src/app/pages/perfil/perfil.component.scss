@@ -5,7 +5,7 @@ $secondary-color: #1becaa;
 $accent-color: #0bc47a;
 
 $logo-color: #003c64;
-$text-color: #fff;
+$text-color: #000;
 $cards-styling: #0098b1;
 $text-color-secondary: #000;
 
@@ -18,7 +18,6 @@ $background-color-three: #c50c0c;
 
 /* banner */
 .container {
-  display: flex;
   font-family: "Montserrat", sans-serif;
 }
 
@@ -92,11 +91,14 @@ $background-color-three: #c50c0c;
   }
 }
 
-.profile_sect .container_profile_sect .right {
-  display: flex;
-  margin-left: 70px;
-  margin-top: 20px;
-  width: 100%;
+.profile_sect {
+  .container_profile_sect {
+    .right {
+      margin-left: 70px;
+      margin-top: 20px;
+      width: 100%;
+    }
+  }
 }
 
 .right_span {
@@ -108,6 +110,7 @@ $background-color-three: #c50c0c;
   margin-bottom: 30px;
   margin-top: 4px;
   font-size: 1.4rem;
+  color: $text-color;
 }
 
 .right_span_title {
@@ -136,9 +139,16 @@ $background-color-three: #c50c0c;
   margin-top: 20px;
 }
 
+.save_profile_data {
+  background-color: #31383e;
+}
+
 .save_profile_data,
 .delete_profile_data {
+  width: 100%;
+
   height: min-content;
+  color: #fff;
 }
 
 .right_span_input {
@@ -149,21 +159,33 @@ $background-color-three: #c50c0c;
   font-size: 1.38rem;
   padding: 5px 10px;
   border: 1px solid $text-color;
+  width: 400px;
 }
 
 .buttons {
   display: flex;
   justify-content: flex-end;
-  flex-direction: column;
-  margin-bottom: 215px;
-  margin-left: 20px;
+  width: 100%;
+  position: relative;
+  .buttons_inside {
+    display: flex;
+    justify-content: flex-end;
+    flex-direction: column;
+    width: 100%;
+    height: fit-content;
+    margin-right: 280px;
+  }
 }
 
 .popup {
   display: none;
-  padding: 20px;
-  border: 1px solid $text-color;
-  margin-bottom: 20px;
+  padding: 12px;
+  border: 1px solid #000;
+  margin-bottom: -189px;
+  position: absolute;
+  left: 500px;
+  top: -69px;
+
   p {
     font-size: 1.2rem;
     color: $text-color;
@@ -176,6 +198,7 @@ $background-color-three: #c50c0c;
   h2 {
     font-weight: 600;
     text-wrap: nowrap;
+    color: $text-color;
   }
   input {
     background-color: transparent;

@@ -19,6 +19,7 @@ $background-color-three: #c50c0c;
 .container {
   display: flex;
   font-family: "Montserrat", sans-serif;
+  background-color: $background-color;
 }
 
 .wrapper_profile {
