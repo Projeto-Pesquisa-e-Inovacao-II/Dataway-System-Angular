@@ -4,26 +4,28 @@ $secondary-color: #1becaa;
 $accent-color: #0bc47a;
 
 $logo-color: #003c64;
-$text-color: #fff;
+$text-color: #000;
 $cards-styling: #0098b1;
 $text-color-secondary: #000;
+$text-color-button: #fff;
 
 $background-color: #050d20;
 $background-color-cards: #232a3c;
 $background-color-aside: #171e31;
+$background-color-button: #31383e;
 
 $background-color-secondary: #ef6a47;
 $background-color-three: #c50c0c;
 
 /* banner */
 .container {
-  display: flex;
   font-family: "Montserrat", sans-serif;
-  background-color: $background-color;
 }
 
 .wrapper_profile {
   width: 100%;
+  max-width: 1600px;
+  margin-left: auto;
 }
 
 .profile_banner {
@@ -59,11 +61,10 @@ $background-color-three: #c50c0c;
 /* suporte */
 
 .suport_sect {
-  margin-left: 50px;
-
   height: 75vh;
   justify-content: space-between;
   position: relative;
+  color: $text-color;
   h1 {
     font-size: 2.7rem;
     font-weight: bolder;
@@ -106,14 +107,15 @@ $background-color-three: #c50c0c;
   justify-content: space-between;
   align-items: flex-end;
   form {
-    background-color: $background-color-cards;
     padding: 30px;
+    border: solid 1px $background-color;
 
     width: 100%;
     .input-field {
       display: flex;
       flex-direction: column;
       width: 100%;
+
       label {
         font-size: 1.2rem;
         margin-bottom: 10px;
@@ -122,11 +124,13 @@ $background-color-three: #c50c0c;
       input {
         padding: 15px;
         margin-bottom: 20px;
+        border: solid 1px $background-color;
       }
 
       textarea {
         height: 20vh;
         resize: none;
+        border: solid 1px $background-color;
       }
 
       input,
@@ -140,8 +144,8 @@ $background-color-three: #c50c0c;
     padding: 10px 15px;
     border-radius: 10px;
     border: none;
-    background-color: $background-color-secondary;
-    color: $text-color;
+    background-color: $background-color-button;
+    color: $text-color-button;
     font-size: 1.2rem;
     font-weight: bolder;
   }

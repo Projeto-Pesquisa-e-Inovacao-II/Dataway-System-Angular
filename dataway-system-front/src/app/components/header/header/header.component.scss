@@ -15,7 +15,8 @@ header {
   margin-right: 0;
   width: -moz-available;
   width: -webkit-fill-available;
-  margin-left: 160px;
+  margin-left: auto;
+  max-width: 1600px;
 
   .logo {
     font-size: 24px;

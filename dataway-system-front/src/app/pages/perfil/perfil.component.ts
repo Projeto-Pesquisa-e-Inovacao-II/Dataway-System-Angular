@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { AsideComponent } from '../../aside/aside.component';
 import { PerfilService } from '../../services/perfil/perfil.service';
 import { UserData } from '../../interfaces/perfil/user-data';
 import { CommonModule } from '@angular/common';

@@ -6,12 +6,14 @@ $accent-color: #0bc47a;
 
 $logo-color: #003c64;
 $text-color: #000;
+$text-color-button: #fff;
 $cards-styling: #0098b1;
 $text-color-secondary: #000;
 
 $background-color: #050d20;
 $background-color-cards: #232a3c;
 $background-color-aside: #171e31;
+$background-color-button: #31383e;
 
 $background-color-secondary: #ef6a47;
 $background-color-three: #c50c0c;
@@ -23,6 +25,8 @@ $background-color-three: #c50c0c;
 
 .wrapper_profile {
   width: 100%;
+  max-width: 1600px;
+  margin-left: auto;
 }
 
 .profile_banner {
@@ -71,7 +75,6 @@ $background-color-three: #c50c0c;
 
 .profile_sect {
   display: flex;
-  margin-left: 50px;
   height: 75vh;
   justify-content: space-between;
   position: relative;
@@ -120,6 +123,10 @@ $background-color-three: #c50c0c;
   margin-bottom: 10px;
 }
 
+.edit_profile_data {
+  color: $text-color-button !important;
+}
+
 .edit_profile_data,
 .save_profile_data,
 .delete_profile_data {
@@ -127,7 +134,7 @@ $background-color-three: #c50c0c;
   border-radius: 10px;
   border: none;
   width: 16vw;
-  background-color: $background-color-secondary;
+  background-color: $background-color-button;
   color: $text-color;
   font-size: 1.2rem;
   font-weight: bolder;
@@ -140,7 +147,7 @@ $background-color-three: #c50c0c;
 }
 
 .save_profile_data {
-  background-color: #31383e;
+  background-color: $background-color-button;
 }
 
 .save_profile_data,
