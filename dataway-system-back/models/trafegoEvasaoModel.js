@@ -33,16 +33,11 @@ async function getGraphData(idUsuario) {
     for (let mes = 1; mes <= 12; mes++) {
       const mesFormatado = mes < 10 ? `0${mes}` : mes;
       const sql = `
-      SELECT 
-        sum(DadosPracaPedagio.quantidade) as 'trafego',
-        sum(case
-                when tpCampo = 2
-                    THEN quantidade
-                ELSE 0
-            END) as 'evasoes'
-      FROM DadosPracaPedagio
-      WHERE data LIKE '2024-${mesFormatado}-%'
-        AND Empresa_idEmpresa = ${idEmpresa};
+        select (COUNT(case when tpCampo = 2 then 2 end) / COUNT(*)) * 100 as evasoes 
+        from DadosPracaPedagio 
+        where lote = 20 
+        and data LIKE '2024-${mesFormatado}-%' 
+        and Empresa_idEmpresa = ${idEmpresa};
     `;
       console.log("SQL:", sql);
       const linhas = await database.executar(sql);
