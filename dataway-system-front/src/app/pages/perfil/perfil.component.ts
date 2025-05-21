@@ -1,15 +1,15 @@
 import { Component } from '@angular/core';
-import { AsideComponent } from '../../aside/aside.component';
 import { PerfilService } from '../../services/perfil/perfil.service';
 import { UserData } from '../../interfaces/perfil/user-data';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { log } from 'console';
+import { HeaderComponent } from "../../components/header/header/header.component";
 
 @Component({
   selector: 'app-perfil',
   standalone: true,
-  imports: [CommonModule, AsideComponent, FormsModule],
+  imports: [CommonModule, FormsModule, HeaderComponent],
   templateUrl: './perfil.component.html',
   styleUrls: ['./perfil.component.scss'],
 })

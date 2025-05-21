@@ -8,12 +8,21 @@
 
 /* Poppins font */
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400..700&display=swap");
+/* Montserrat font */
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
 
 $text-color: #fff;
 $background-color: #050d20;
+$background-color-dash: #f0f0f0;
+
+$header-background-color: #cacaca;
+$header-text-color: #343a40;
+$header-height: 90px;
+$header-padding: 10px;
 
 body {
-  background-color: $background-color;
+  background-color: $background-color-dash;
+
   color: $text-color;
 }
 
@@ -27,4 +36,25 @@ body {
   background-image: url("/images/DashBoard/Backgound_login.png") !important;
   background-size: cover !important;
   background-repeat: no-repeat !important;
+}
+
+app-header {
+  background-color: $header-background-color;
+  color: $header-text-color;
+  height: $header-height;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin: 0 auto;
+  font-family: "Montserrat", sans-serif !important;
+  font-weight: lighter;
+}
+
+@media (max-width: 1920px) {
+  .container-dashboard {
+    display: block;
+    max-width: 1600px;
+    margin: 0 auto;
+  }
 }

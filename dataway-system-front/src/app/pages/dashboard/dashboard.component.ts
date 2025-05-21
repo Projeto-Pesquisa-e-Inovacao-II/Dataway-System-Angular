@@ -1,22 +1,68 @@
-import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faCircleUser, faHeadset } from '@fortawesome/free-solid-svg-icons';
 import { Chart, registerables } from 'chart.js';
 import { MatrixController, MatrixElement } from 'chartjs-chart-matrix';
+import { HeaderComponent } from '../../components/header/header/header.component';
+import { DashboardService } from '../../services/dashboard/dashboard.service';
+import { DashboardGraficoTrafegoEvasao } from '../../interfaces/dashboard/dashboard-data-structure';
 Chart.register(...registerables);
 Chart.register(MatrixController, MatrixElement);
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule, FontAwesomeModule],
-  // imports: [],
+  imports: [HeaderComponent],
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
 })
-
 export class DashboardComponent implements OnInit {
-  // Dados do gráfico horizontal
+  constructor(private dashboardService: DashboardService) {}
+  public dadosTrafegoEvasao: DashboardGraficoTrafegoEvasao[] = [];
+
+  getTrafegoEvasaoData() {
+    const idUsuario: number = Number(localStorage.getItem('idUsuario') ?? 0);
+
+    this.dashboardService
+      .getTrafegoEvasaoData(idUsuario)
+      .subscribe((data: any) => {
+        console.log(data[2].dados);
+        this.dadosTrafegoEvasao = data.map((item: any) => ({
+          mes: item.mes,
+          dados: [
+            {
+              trafego: item.dados[0].trafego,
+              evasao: item.dados[0].evasoes,
+            },
+          ],
+        }));
+        console.log(this.dadosTrafegoEvasao);
+
+        // this.barAndLine = this.dadosTrafegoEvasao.map(
+        //   (item: DashboardGraficoTrafegoEvasao) => {
+        //     return item.mes;
+        //   }
+        // );
+        // console.log(this.barAndLine);
+
+        this.evasoesData = this.dadosTrafegoEvasao.map(
+          (item: DashboardGraficoTrafegoEvasao) => {
+            return Number(item.dados[0].evasao);
+          }
+        );
+
+        this.trafegoData = this.dadosTrafegoEvasao.map(
+          (item: DashboardGraficoTrafegoEvasao) => {
+            return Number(item.dados[0].trafego);
+          }
+        );
+
+        this.barChart.data.datasets[0].data = this.evasoesData;
+        this.barChart.data.datasets[1].data = this.trafegoData;
+        this.barChart.update();
+
+        console.log(this.barChart.data);
+      });
+  }
+
+  //gráfico horizontal
   public data: any = {
     labels: ['MOTO', 'PASSEIO', 'COMERCIAL'],
     datasets: [
@@ -45,6 +91,7 @@ export class DashboardComponent implements OnInit {
     options: {
       indexAxis: 'y',
       responsive: true,
+      maintainAspectRatio: false,
       scales: {
         x: {
           beginAtZero: true,
@@ -53,7 +100,6 @@ export class DashboardComponent implements OnInit {
             display: false,
           },
           ticks: {
-            color: 'white',
             font: {
               size: 12,
             },
@@ -64,7 +110,6 @@ export class DashboardComponent implements OnInit {
             display: false,
           },
           ticks: {
-            color: 'white',
             font: {
               size: 12,
               weight: 'bold',
@@ -78,15 +123,13 @@ export class DashboardComponent implements OnInit {
         },
         tooltip: {
           backgroundColor: 'rgba(0, 0, 0, 0.7)',
-          titleColor: 'white',
-          bodyColor: 'white',
           displayColors: false,
         },
       },
     },
   };
 
-  // Dados do gráfico de linha
+  //gráfico de linha
   public labels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'];
 
   public backgroundPlugin: any = {
@@ -145,7 +188,6 @@ export class DashboardComponent implements OnInit {
               size: 12,
               weight: 'bold',
             },
-            color: '#fff',
             padding: 1,
           },
         },
@@ -159,7 +201,6 @@ export class DashboardComponent implements OnInit {
               size: 12,
               weight: 'bold',
             },
-            color: '#fff',
           },
         },
       },
@@ -168,7 +209,7 @@ export class DashboardComponent implements OnInit {
   };
 
   // Dados heatmap
-  public meses: any = [
+  public meses: string[] = [
     'Jan',
     'Fev',
     'Mar',
@@ -182,7 +223,7 @@ export class DashboardComponent implements OnInit {
     'Nov',
     'Dez',
   ];
-  public dias: any = [
+  public dias: string[] = [
     'Segunda-feira',
     'Terça-feira',
     'Quarta-feira',
@@ -271,7 +312,6 @@ export class DashboardComponent implements OnInit {
               size: 12,
               weight: 'bold',
             },
-            color: '#fff',
             padding: 1,
             callback: (value: any) => {
               return this.meses[value - 1].toUpperCase();
@@ -290,7 +330,6 @@ export class DashboardComponent implements OnInit {
               size: 12,
               weight: 'bold',
             },
-            color: '#fff',
             padding: 1,
             callback: (value: any) => {
               return this.dias[value - 1];
@@ -302,48 +341,24 @@ export class DashboardComponent implements OnInit {
   };
 
   // dados bar and line
-  public barAndLine: any[] = [
-    'Jan',
-    'Feb',
-    'Mar',
-    'Apr',
-    'May',
-    'Jun',
-    'Jul',
-    'Aug',
-    'Sep',
-    'Oct',
-    'Nov',
-    'Dec',
-  ];
+  private trafegoData: number[] = [];
+  private evasoesData: number[] = [];
 
   public dataBarAndLine: any = {
-    labels: this.barAndLine,
+    labels: this.meses,
     datasets: [
       {
-        type: 'line',
         label: 'Evasões',
-        data: [5, 7, 6, 8, 10, 9, 6, 7, 9, 10, 9, 20],
-        borderColor: 'orange',
-        backgroundColor: 'orange',
+        data: this.evasoesData,
+        backgroundColor: ['rgb(0, 151, 178)'],
+        borderColor: ['rgb(0, 151, 178)'],
         fill: false,
       },
       {
-        type: 'bar',
         label: 'Tráfego',
-        data: [10, 12, 15, 14, 20, 18, 10, 13, 16, 19, 22, 28],
-        backgroundColor: [
-          'rgb(108, 229, 232)',
-          'rgb(65, 184, 213)',
-          'rgb(45, 139, 186)',
-          'rgb(47, 95, 152)',
-        ],
-        borderColor: [
-          'rgb(108, 229, 232)',
-          'rgb(65, 184, 213)',
-          'rgb(45, 139, 186)',
-          'rgb(47, 95, 152)',
-        ],
+        data: this.trafegoData,
+        borderColor: 'rgb(191, 191, 191)',
+        backgroundColor: ['rgb(191, 191, 191)'],
         borderWidth: 1,
         borderRadius: 4,
       },
@@ -351,25 +366,37 @@ export class DashboardComponent implements OnInit {
   };
 
   public configBarAndLine: any = {
+    type: 'bar',
+
     data: this.dataBarAndLine,
     options: {
       responsive: true,
+      maintainAspectRatio: false,
       scales: {
+        x: {
+          stacked: true,
+          grid: {
+            display: false,
+          },
+        },
         y: {
-          beginAtZero: true,
+          stacked: true,
+          grid: {
+            display: false,
+          },
         },
       },
     },
   };
-  public chart: any;
+  public lineChart!: Chart;
+  public barChart!: Chart;
 
   ngOnInit(): void {
-    this.generateDataPoints();
-    this.chart = new Chart('horizontalBarChart', this.config);
-    this.chart = new Chart('lineCanvas', this.configLine);
-    this.chart = new Chart('heatMapCanvas', this.configHeatMap);
-    this.chart = new Chart('barCanvas', this.configBarAndLine);
+    this.getTrafegoEvasaoData();
   }
-  faCircleUser = faCircleUser;
-  faHeadset = faHeadset;
+
+  ngAfterViewInit(): void {
+    this.lineChart = new Chart('lineCanvas', this.configLine);
+    this.barChart = new Chart('barCanvas', this.configBarAndLine);
+  }
 }

@@ -31,7 +31,9 @@ export class LoginComponent {
       (res: any) => {
         console.log('foi', res);
         const idUsuario = res.idUsuario;
+        const nomeUsuario = res.nome;
         localStorage.setItem('idUsuario', idUsuario);
+        localStorage.setItem('nomeUsuario', nomeUsuario);
         location.href = '/dashboard';
       },
       (error) => {
@@ -39,4 +41,5 @@ export class LoginComponent {
       }
     );
   }
+
 }

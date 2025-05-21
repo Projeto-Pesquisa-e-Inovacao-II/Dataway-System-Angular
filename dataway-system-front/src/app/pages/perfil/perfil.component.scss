@@ -5,25 +5,28 @@ $secondary-color: #1becaa;
 $accent-color: #0bc47a;
 
 $logo-color: #003c64;
-$text-color: #fff;
+$text-color: #000;
+$text-color-button: #fff;
 $cards-styling: #0098b1;
 $text-color-secondary: #000;
 
 $background-color: #050d20;
 $background-color-cards: #232a3c;
 $background-color-aside: #171e31;
+$background-color-button: #31383e;
 
 $background-color-secondary: #ef6a47;
 $background-color-three: #c50c0c;
 
 /* banner */
 .container {
-  display: flex;
   font-family: "Montserrat", sans-serif;
 }
 
 .wrapper_profile {
   width: 100%;
+  max-width: 1600px;
+  margin-left: auto;
 }
 
 .profile_banner {
@@ -72,7 +75,6 @@ $background-color-three: #c50c0c;
 
 .profile_sect {
   display: flex;
-  margin-left: 50px;
   height: 75vh;
   justify-content: space-between;
   position: relative;
@@ -92,11 +94,14 @@ $background-color-three: #c50c0c;
   }
 }
 
-.profile_sect .container_profile_sect .right {
-  display: flex;
-  margin-left: 70px;
-  margin-top: 20px;
-  width: 100%;
+.profile_sect {
+  .container_profile_sect {
+    .right {
+      margin-left: 70px;
+      margin-top: 20px;
+      width: 100%;
+    }
+  }
 }
 
 .right_span {
@@ -108,6 +113,7 @@ $background-color-three: #c50c0c;
   margin-bottom: 30px;
   margin-top: 4px;
   font-size: 1.4rem;
+  color: $text-color;
 }
 
 .right_span_title {
@@ -117,6 +123,10 @@ $background-color-three: #c50c0c;
   margin-bottom: 10px;
 }
 
+.edit_profile_data {
+  color: $text-color-button !important;
+}
+
 .edit_profile_data,
 .save_profile_data,
 .delete_profile_data {
@@ -124,7 +134,7 @@ $background-color-three: #c50c0c;
   border-radius: 10px;
   border: none;
   width: 16vw;
-  background-color: $background-color-secondary;
+  background-color: $background-color-button;
   color: $text-color;
   font-size: 1.2rem;
   font-weight: bolder;
@@ -136,9 +146,16 @@ $background-color-three: #c50c0c;
   margin-top: 20px;
 }
 
+.save_profile_data {
+  background-color: $background-color-button;
+}
+
 .save_profile_data,
 .delete_profile_data {
+  width: 100%;
+
   height: min-content;
+  color: #fff;
 }
 
 .right_span_input {
@@ -149,21 +166,33 @@ $background-color-three: #c50c0c;
   font-size: 1.38rem;
   padding: 5px 10px;
   border: 1px solid $text-color;
+  width: 400px;
 }
 
 .buttons {
   display: flex;
   justify-content: flex-end;
-  flex-direction: column;
-  margin-bottom: 215px;
-  margin-left: 20px;
+  width: 100%;
+  position: relative;
+  .buttons_inside {
+    display: flex;
+    justify-content: flex-end;
+    flex-direction: column;
+    width: 100%;
+    height: fit-content;
+    margin-right: 280px;
+  }
 }
 
 .popup {
   display: none;
-  padding: 20px;
-  border: 1px solid $text-color;
-  margin-bottom: 20px;
+  padding: 12px;
+  border: 1px solid #000;
+  margin-bottom: -189px;
+  position: absolute;
+  left: 500px;
+  top: -69px;
+
   p {
     font-size: 1.2rem;
     color: $text-color;
@@ -176,6 +205,7 @@ $background-color-three: #c50c0c;
   h2 {
     font-weight: 600;
     text-wrap: nowrap;
+    color: $text-color;
   }
   input {
     background-color: transparent;

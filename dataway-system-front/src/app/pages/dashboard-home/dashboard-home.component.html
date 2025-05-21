@@ -1,0 +1,43 @@
+<app-header></app-header>
+<div class="container">
+  <div class="row">
+    <h1>Seja bem-vindo, Victor Almeida</h1>
+  </div>
+
+  <div class="container-filtro">
+    <h1>Visão geral das concessões</h1>
+
+    <form action="">
+      <select class="select-period" name="mes" id="mes">
+        <option value="#">Selecione o mês desejado</option>
+        <option value="Janeiro">Janeiro</option>
+        <option value="Fevereiro">Fevereiro</option>
+        <option value="Março">Março</option>
+        <option value="Abril">Abril</option>
+        <option value="Maio">Maio</option>
+        <option value="Junho">Junho</option>
+        <option value="Julho">Julho</option>
+        <option value="Agosto">Agosto</option>
+        <option value="Setembro">Setembro</option>
+        <option value="Outubro">Outubro</option>
+        <option value="Novembro">Novembro</option>
+        <option value="Dezembro">Dezembro</option>
+      </select>
+      
+      <button type="submit">Filtrar</button>
+    </form>
+
+    <p>Selecione a concessão desejada para análise:</p>
+  </div>
+
+  <div class="container-cards">
+    <div *ngFor="let item of concessao">
+      <app-home-cards
+        [concessao]="item.title"
+        [periodo]="item.data"
+        [veiculos]="item.status"
+        [evasoes]="item.description"
+      ></app-home-cards>
+    </div>
+  </div>
+</div>

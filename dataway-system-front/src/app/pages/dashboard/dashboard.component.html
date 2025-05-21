@@ -1,5 +1,4 @@
-<div class="container">
-  <aside>
+<!-- <aside>
     <div class="logo">
       <h1 class="title-aside">
         <span>Data</span><span style="font-weight: bold">Way</span>
@@ -47,84 +46,93 @@
         <a href="/dashboard/suporte"><h2>Suporte</h2></a>
       </div>
     </div>
-  </aside>
+  </aside> -->
 
-  <section class="container-dashboard">
-    <header>
-      <h1>Dashboard</h1>
-      <i class="fa-solid fa-bell"></i>
-    </header>
+<app-header></app-header>
 
-    <div class="cards">
-      <div class="card">
-        <div class="card-details">
-          <h4>Horário Crítico</h4>
+<section class="container-dashboard">
+  <header>
+    <h1>Análise de trafego e evasões</h1>
+    <i class="fa-solid fa-bell"></i>
+  </header>
 
-          <div class="details-data">
-            <img src="../images/DashBoard/relogio.png" alt="" />
-            <h1>21:00</h1>
-          </div>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-details">
-          <h4>Impacto financeiro</h4>
+  <div class="cards">
+    <div class="card">
+      <div class="card-details">
+        <h4>Horário Crítico</h4>
 
-          <div class="details-data">
-            <img src="../images/DashBoard/dinheiro.png" alt="" />
-            <h1>150,1K</h1>
-          </div>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-details">
-          <h4>Praça mais crítica</h4>
-
-          <div class="details-data">
-            <img src="../images/DashBoard/cancela.png" alt="" />
-            <h1>Campo Limpo</h1>
-          </div>
+        <div class="details-data">
+          <h1>21:00</h1>
         </div>
       </div>
     </div>
+    <div class="card">
+      <div class="card-details">
+        <h4>Horário Crítico</h4>
 
-    <div class="graphs">
-      <div class="container-left-graphs">
-        <div class="graph-above">
-          <div class="horizontal-bar-chart" id="barHorizontalId">
-            <h4>EVASÕES POR CATEGORIA</h4>
-            <canvas id="horizontalBarChart"></canvas>
-          </div>
-          <!-- <div class="radar-chart" id="radarChartId">
-                <h4>EVASÕES POR REGIÃO</h4>
-                <canvas id="radarCanvas"></canvas>
-              </div> -->
-        </div>
-        <div class="graph-below">
-          <div class="heat-map-chart">
-            <h4>EVASÕES POR DIA X MÊS</h4>
-            <div class="teste" style="height: 30vh">
-              <canvas id="heatMapCanvas"></canvas>
-            </div>
-          </div>
+        <div class="details-data">
+          <h1>21:00</h1>
         </div>
       </div>
-      <div class="container-right-graphs">
-        <div class="graph-above">
-          <div class="line-chart" id="lineChartId">
-            <h4>AVANÇOS: MANUAL X AUTOMÁTICO</h4>
-            <div class="teste" style="height: 30vh">
-              <canvas id="lineCanvas"></canvas>
-            </div>
-          </div>
+    </div>
+    <div class="card">
+      <div class="card-details">
+        <h4>Impacto financeiro</h4>
+
+        <div class="details-data">
+          <h1>150,1K</h1>
         </div>
-        <div class="graph-below">
-          <div class="bar-chart" id="barChartId">
-            <h4>EVASÕES POR DIA DA SEMANA</h4>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-details">
+        <h4>Praça mais crítica</h4>
+
+        <div class="details-data">
+          <h1>Campo Limpo</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="graphs">
+    <div class="container-left-graphs">
+      <div class="graph-above">
+        <div class="bar-chart" id="barChartId">
+          <h4>Taxa de evasões ao longo do mês</h4>
+          <div class="teste" style="height: 100%">
             <canvas id="barCanvas"></canvas>
           </div>
         </div>
+        <!-- <div class="radar-chart" id="radarChartId">
+                <h4>EVASÕES POR REGIÃO</h4>
+                <canvas id="radarCanvas"></canvas>
+              </div> -->
       </div>
+      <!-- <div class="graph-below">
+        <div class="heat-map-chart">
+          <h4>EVASÕES POR DIA X MÊS</h4>
+          <div class="teste" style="height: 30vh">
+            <canvas id="heatMapCanvas"></canvas>
+          </div>
+        </div>
+      </div> -->
     </div>
-  </section>
-</div>
+    <div class="container-right-graphs">
+      <div class="graph-above">
+        <div class="line-chart" id="lineChartId">
+          <h4>AVANÇOS: MANUAL X AUTOMÁTICO</h4>
+          <div class="teste" style="height: 100%">
+            <canvas id="lineCanvas"></canvas>
+          </div>
+        </div>
+      </div>
+      <!-- <div class="graph-below">
+        <div class="bar-chart" id="barChartId">
+          <h4>EVASÕES POR DIA DA SEMANA</h4>
+          <canvas id="barCanvas"></canvas>
+        </div>
+      </div> -->
+    </div>
+  </div>
+</section>

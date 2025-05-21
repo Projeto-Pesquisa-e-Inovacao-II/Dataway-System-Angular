@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { AsideComponent } from "../../aside/aside.component";
+import { HeaderComponent } from "../../components/header/header/header.component";
 
 @Component({
   selector: 'app-suporte',
-  imports: [AsideComponent],
+  imports: [HeaderComponent],
   templateUrl: './suporte.component.html',
   styleUrl: './suporte.component.scss'
 })
