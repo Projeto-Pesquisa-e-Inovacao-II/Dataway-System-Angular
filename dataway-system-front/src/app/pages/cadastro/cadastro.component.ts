@@ -18,13 +18,13 @@ export class CadastroComponent implements OnInit {
   @ViewChild('empresaSelect') empresaSelect!: ElementRef<HTMLSelectElement>;
   @ViewChild('numeroInput') numeroVar!: ElementRef<HTMLInputElement>;
   @ViewChild('cepInput') cepVar!: ElementRef<HTMLInputElement>;
-  @ViewChild('emailInput') emailVar!: ElementRef<HTMLInputElement>;
-  @ViewChild('senhaInput') senhaVar!: ElementRef<HTMLInputElement>;
-  @ViewChild('confirmarSenhaInput') confirmacaoSenhaVar!: ElementRef<HTMLInputElement>;
+  @ViewChild('emailInput', { static: false }) emailVar!: ElementRef<HTMLInputElement>;
+  @ViewChild('senhaInput', { static: false }) senhaVar!: ElementRef<HTMLInputElement>;
+  @ViewChild('confirmarSenhaInput', { static: false }) confirmacaoSenhaVar!: ElementRef<HTMLInputElement>;
   @ViewChild('representanteLegalInput') representanteLegalInput!: ElementRef<HTMLInputElement>;
   @ViewChild('cnpjInput') cnpjInput!: ElementRef<HTMLInputElement>;
-  @ViewChild('telefoneInput') telefoneInput!: ElementRef<HTMLInputElement>;
-  @ViewChild('checkboxPrivacyPolicy') checkboxPrivacyPolicy!: ElementRef<HTMLInputElement>;
+  @ViewChild('telefoneInput', { static: false }) telefoneInput!: ElementRef<HTMLInputElement>;
+  @ViewChild('checkboxPrivacyPolicy', { static: false }) checkboxPrivacyPolicy!: ElementRef<HTMLInputElement>;
   @ViewChild('cardRuleSenha') cardRuleSenha!: ElementRef<HTMLDivElement>;
   @ViewChild('nomeFantasiaInput') nomeFantasiaVar!: ElementRef<HTMLInputElement>;
   @ViewChild('privacyPolicy') privacyPolicy!: ElementRef<HTMLDivElement>;
@@ -33,6 +33,10 @@ export class CadastroComponent implements OnInit {
   @ViewChild('btnCadastrar') btnCadastrar!: ElementRef<HTMLButtonElement>;
   @ViewChild('toast', { static: false }) toast!: ElementRef<HTMLDivElement>;
   @ViewChild('toastMessage', { static: false }) toastMessage!: ElementRef<HTMLParagraphElement>;
+  @ViewChild('tamanhoMinimoDiv', { static: false }) tamanhoMinimoDiv!: ElementRef<HTMLDivElement>;
+  @ViewChild('temNumeroDiv', { static: false }) temNumeroDiv!: ElementRef<HTMLDivElement>;
+  @ViewChild('temCaractereEspecialDiv', { static: false }) temCaractereEspecialDiv!: ElementRef<HTMLDivElement>;
+  @ViewChild('temLetraMaiusculaDiv', { static: false }) temLetraMaiusculaDiv!: ElementRef<HTMLDivElement>;
 
   passo: number = 1;
 
@@ -64,19 +68,7 @@ export class CadastroComponent implements OnInit {
     this.passo = 2;
   }
 
-  validarSenha(senha: string): boolean {
-    const temNumero = /\d/;
-    const temCaractereEspecial = /[@#]/;
-    const temLetraMaiuscula = /[A-Z]/;
-    const tamanhoMinimo = senha.length >= 6;
-    return (
-      tamanhoMinimo &&
-      temNumero.test(senha) &&
-      temCaractereEspecial.test(senha) &&
-      temLetraMaiuscula.test(senha)
-    );
-  }
-
+  
   validarPasso1() {
     if (!this.empresaSelect.nativeElement.value.trim()) {
       this.showToast('Por favor, selecione uma empresa.', '#ff6347');
@@ -105,6 +97,36 @@ export class CadastroComponent implements OnInit {
     this.passo2();
   }
 
+  validarPasso2() {
+    const telefone = this.telefoneInput.nativeElement.value.trim();
+    const email = this.emailVar.nativeElement.value.trim();
+    const senha = this.senhaVar.nativeElement.value;
+    const confirmarSenha = this.confirmacaoSenhaVar.nativeElement.value;
+    const checkbox = this.checkboxPrivacyPolicy.nativeElement.checked;
+
+    if (!telefone || telefone.replace(/\D/g, '').length < 10) {
+      this.showToast('Por favor, preencha um telefone válido.', '#ff6347');
+      return;
+    }
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      this.showToast('Por favor, preencha um email válido.', '#ff6347');
+      return;
+    }
+    if (!this.validarSenha(senha)) {
+      this.showToast('A senha não atende aos requisitos.', '#ff6347');
+      return;
+    }
+    if (senha !== confirmarSenha) {
+      this.showToast('As senhas não coincidem.', '#ff6347');
+      return;
+    }
+    if (!checkbox) {
+      this.showToast('Você deve aceitar os termos de uso e política de privacidade.', '#ff6347');
+      return;
+    }
+    this.cadastrar();
+  }
+  
   mascaraCNPJ(cnpj: HTMLInputElement) {
     cnpj.value = cnpj.value
       .replace(/\D/g, '')
@@ -114,7 +136,7 @@ export class CadastroComponent implements OnInit {
       .replace(/(\d{4})(\d)/, '$1-$2')
       .slice(0, 18);
   }
-
+  
   mascaraTelefone(telefone: HTMLInputElement) {
     telefone.value = telefone.value
       .replace(/\D/g, '')
@@ -122,17 +144,53 @@ export class CadastroComponent implements OnInit {
       .replace(/(\d{5})(\d)/, '$1-$2')
       .slice(0, 15);
   }
-
+  
   mascaraCEP(cep: HTMLInputElement) {
     cep.value = cep.value
-      .replace(/\D/g, '')
-      .replace(/^(\d{5})(\d)/, '$1-$2')
-      .slice(0, 9);
+    .replace(/\D/g, '')
+    .replace(/^(\d{5})(\d)/, '$1-$2')
+    .slice(0, 9);
+  }
+  
+
+  validarSenha(senha: string): boolean {
+    const temNumero = /\d/;
+    const temCaractereEspecial = /[@!?.$&#*,]/;
+    const temLetraMaiuscula = /[A-Z]/;
+    const tamanhoMinimo = senha.length >= 6;
+    return (
+      tamanhoMinimo &&
+      temNumero.test(senha) &&
+      temCaractereEspecial.test(senha) &&
+      temLetraMaiuscula.test(senha)
+    );
+  }
+  
+  atualizarRegrasSenha(senha: string) {
+    if (senha.length >= 6) {
+      this.tamanhoMinimoDiv.nativeElement.className = 'valido';
+    } else {
+      this.tamanhoMinimoDiv.nativeElement.className = 'invalido';
+    }
+    if (/\d/.test(senha)) {
+      this.temNumeroDiv.nativeElement.className = 'valido';
+    } else {
+      this.temNumeroDiv.nativeElement.className = 'invalido';
+    }
+    if (/['"!@#$%¨&*_?,.]/.test(senha)) {
+      this.temCaractereEspecialDiv.nativeElement.className = 'valido';
+    } else {
+      this.temCaractereEspecialDiv.nativeElement.className = 'invalido';
+    }
+    if (/[A-Z]/.test(senha)) {
+      this.temLetraMaiusculaDiv.nativeElement.className = 'valido';
+    } else {
+      this.temLetraMaiusculaDiv.nativeElement.className = 'invalido';
+    }
   }
 
   async cadastrar() {
-    // Pegue os valores dos inputs usando this.empresaSelect.nativeElement.value etc.
-    // Faça a requisição HTTP usando HttpClient do Angular
+    console.log('Cadastrando...');
   }
 
   showToast(message: string, color: string) {
