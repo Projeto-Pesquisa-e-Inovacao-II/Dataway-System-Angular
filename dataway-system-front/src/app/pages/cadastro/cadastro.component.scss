@@ -264,7 +264,7 @@ select {
   pointer-events: none;
   width: 1rem;
   height: auto;
-  transition: transform 0.3s ease; /* Adiciona a transição suave */
+  transition: transform 0.3s ease;
 }
 .custom-select:focus {
   outline: none;
@@ -425,14 +425,15 @@ input[type="number"]::-webkit-outer-spin-button {
   z-index: 1000;
   opacity: 0;
   transition: opacity 0.3s ease, transform 0.3s ease;
+  font-family: "Montserrat", sans-serif;
 }
-
 .toast.visible {
   opacity: 1;
+  pointer-events: auto;
 }
-
 .toast.hidden {
   opacity: 0;
+  pointer-events: none;
 }
 
 .neutral {
@@ -453,4 +454,11 @@ input[type="number"]::-webkit-outer-spin-button {
     color: $text-color;
     font-size: 0.8rem;
   }
+}
+
+.valido {
+  color: #7cb15f;
+}
+.invalido {
+  color: #ff6347;
 }
