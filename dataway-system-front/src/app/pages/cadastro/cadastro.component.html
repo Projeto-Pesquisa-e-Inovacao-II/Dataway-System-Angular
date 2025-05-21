@@ -1,7 +1,6 @@
 <div class="container">
   <div class="wrapper-logo">
     <div class="logo">
-      <!-- <img src="../images/logo1.svg" alt="logo" /> -->
       <span>Data</span><span style="font-weight: bolder">Way</span>
     </div>
   </div>
@@ -24,152 +23,213 @@
     <section class="container-form-login">
       <h1>Criar conta</h1>
       <div class="container-inputs">
-        <!-- <form onsubmit="return cadastrar()"> -->
-        <!-- <form> -->
 
-        <!-- empresa -->
-        <div class="input-field">
-          <label for="empresaSelect" class="custom-select-label">
-            <select id="empresaSelect" class="custom-select">
-              <option value="">Selecione uma empresa</option>
-              <option value="ecorodovias">Ecorodovias</option>
-              <option value="ccr">CCR</option>
-            </select>
-            <img src="../images/Icon/arrow.svg" alt="Seta" class="arrow-icon" />
-          </label>
-        </div>
-
-        <div class="input-field">
-          <input class="input" id="representanteLegalInput" placeholder="" />
-          <label class="user-label">Representante legal</label>
-        </div>
-
-        <div class="input-field">
-          <input class="input" id="nomeFantasiaInput" placeholder="" />
-          <label class="user-label">Nome Fantasia</label>
-        </div>
-
-        <div class="input-field" style="display: none">
-          <input type="text" class="input" id="telefoneInput" placeholder="" />
-          <label class="user-label">Telefone</label>
-        </div>
-
-        <div class="input-field">
-          <input type="text" class="input" id="cnpjInput" placeholder="" />
-          <label class="user-label">CNPJ</label>
-        </div>
-
-        <div class="input-field">
-          <input name="text" class="input" id="numeroInput" placeholder="" />
-          <label class="user-label">Número</label>
-        </div>
-
-        <div class="input-field">
-          <input
-            type="text"
-            name="text"
-            class="input"
-            id="cepInput"
-            placeholder=""
-          />
-          <label class="user-label">CEP</label>
-        </div>
-
-        <div class="input-field" style="display: none">
-          <input name="text" class="input" id="emailInput" placeholder=" " />
-          <label class="user-label">Email</label>
-        </div>
-
-        <div class="input-field" style="display: none">
-          <input
-            type="password"
-            name="text"
-            class="input"
-            id="senhaInput"
-            placeholder=" "
-          />
-          <label class="user-label">Senha</label>
-          <span class="toggle-password">
-            <img
-              id="senhaIcon"
-              src="../images/Icon/eye.svg"
-              alt="Mostrar senha"
-            />
-          </span>
-        </div>
-
-        <div
-          class="container-card-erro"
-          id="cardRuleSenha"
-          style="display: none"
-        >
-          <div id="tamanhoMinimoDiv" class="neutral">
-            • Mínimo de 6 caracteres
-          </div>
-          <div id="temNumeroDiv" class="neutral">• Pelo menos 1 número</div>
-          <div id="temCaractereEspecialDiv" class="neutral">
-            • Pelo menos 1 caractere especial (&#64; ou #)
-          </div>
-          <div id="temLetraMaiusculaDiv" class="neutral">
-            • Pelo menos 1 letra maiúscula
-          </div>
-        </div>
-
-        <div class="input-field" style="display: none">
-          <input
-            name="text"
-            type="password"
-            class="input"
-            id="confirmarSenhaInput"
-            placeholder=" "
-          />
-          <label class="user-label">Confirmar Senha</label>
-          <span class="toggle-password">
-            <img
-              id="confirmarSenhaIcon"
-              src="../images/Icon/eye.svg"
-              alt="Mostrar senha"
-            />
-          </span>
-        </div>
-
-        <div class="privacy-policy" style="display: none" id="privacyPolicy">
-          <p><b>Termos de Uso e Política de Privacidade</b></p>
-          <div class="privacy-policy-text">
-            ao clicar em "Concordo e Finalizar Cadastro", você concorda com os
-            Termos de Uso e a Política de Privacidade da emap. Leia atentamente
-            as condiçõe
-            <a
-              target="_blanck"
-              href="../components/documento/politic-de-privacidade-DataWay.pdf"
-              >aqui</a
-            >
-          </div>
-          <div class="checkbox-container">
-            <label class="checkbox-label">
-              <input id="checkboxPrivacyPolicy" type="checkbox" />
-              <svg viewBox="0 0 64 64" height="2em" width="2em">
-                <path
-                  d="M 0 16 V 56 A 8 8 90 0 0 8 64 H 56 A 8 8 90 0 0 64 56 V 8 A 8 8 90 0 0 56 0 H 8 A 8 8 90 0 0 0 8 V 16 L 32 48 L 64 16 V 8 A 8 8 90 0 0 56 0 H 8 A 8 8 90 0 0 0 8 V 56 A 8 8 90 0 0 8 64 H 56 A 8 8 90 0 0 64 56 V 16"
-                  pathLength="575.0541381835938"
-                  class="path"
-                ></path>
-              </svg>
+        
+        <ng-container *ngIf="passo === 1">
+          <div class="input-field">
+            <label for="empresaSelect" class="custom-select-label">
+              <select id="empresaSelect" class="custom-select" #empresaSelect>
+                <option value="">Selecione uma empresa</option>
+                <option value="ecorodovias">Ecorodovias</option>
+                <option value="ccr">CCR</option>
+              </select>
+              <img src="../images/Icon/arrow.svg" alt="Seta" class="arrow-icon" />
             </label>
-            <p>
-              Eu li e aceito os termos e condições e a política de privacidade
-            </p>
           </div>
-        </div>
+
+          <div class="input-field">
+            <input
+              class="input"
+              #representanteLegalInput
+              id="representanteLegalInput"
+              placeholder="" />
+            <label class="user-label">Representante legal</label>
+          </div>
+
+          <div class="input-field">
+            <input
+              class="input"
+              #nomeFantasiaInput
+              id="nomeFantasiaInput"
+              placeholder="" />
+            <label class="user-label">Nome Fantasia</label>
+          </div>
+
+          <div class="input-field">
+            <input
+              type="text"
+              class="input"
+              #cnpjInput
+              id="cnpjInput"
+              placeholder=""
+              (input)="mascaraCNPJ(cnpjInput)"
+            />
+            <label class="user-label">CNPJ</label>
+          </div>
+
+          <div class="input-field">
+            <input 
+              name="text"
+              class="input"
+              #numeroInput
+              id="numeroInput"
+              placeholder="" />
+            <label class="user-label">Número</label>
+          </div>
+
+          <div class="input-field">
+            <input
+              type="text"
+              name="text"
+              class="input"
+              #cepInput
+              id="cepInput"
+              placeholder=""
+              (input)="mascaraCEP(cepInput)"
+            />
+            <label class="user-label">CEP</label>
+          </div>
+        </ng-container>
+
+        <ng-container *ngIf="passo === 2">
+          <div class="input-field">
+            <input
+              type="text"
+              class="input"
+              id="telefoneInput"
+              placeholder=""
+              #telefoneInput
+              (input)="mascaraTelefone(telefoneInput)"
+            />
+            <label class="user-label">Telefone</label>
+          </div>
+
+          <div class="input-field">
+            <input 
+              name="text"
+              class="input"
+              id="emailInput"
+              placeholder=" "
+              #emailInput
+            />
+            <label class="user-label">Email</label>
+          </div>
+
+          <div class="input-field">
+            <input
+              type="password"
+              name="text"
+              class="input"
+              id="senhaInput"
+              placeholder=" "
+              #senhaInput
+              (input)="atualizarRegrasSenha(senhaInput.value)"
+            />
+            <label class="user-label">Senha</label>
+            <span class="toggle-password" (click)="togglePasswordVisibility(senhaInput, senhaIcon)">
+              <img
+                id="senhaIcon"
+                #senhaIcon
+                src="../images/Icon/eye.svg"
+                alt="Mostrar senha"
+              />
+            </span>
+          </div>
+
+          <div class="container-card-erro" id="cardRuleSenha">
+            <div id="tamanhoMinimoDiv" #tamanhoMinimoDiv class="neutral">
+              • Mínimo de 6 caracteres
+            </div>
+            <div id="temNumeroDiv" #temNumeroDiv class="neutral">
+              • Pelo menos 1 número
+            </div>
+            <div id="temCaractereEspecialDiv" #temCaractereEspecialDiv class="neutral">
+              • Pelo menos 1 caractere especial (&#64; ou #)
+            </div>
+            <div id="temLetraMaiusculaDiv" #temLetraMaiusculaDiv class="neutral">
+              • Pelo menos 1 letra maiúscula
+            </div>
+          </div>
+
+          <div class="input-field">
+            <input
+              type="password"
+              name="text"
+              class="input"
+              id="confirmarSenhaInput"
+              placeholder=" "
+              #confirmarSenhaInput
+              (input)="validarSenha(confirmarSenhaInput.value)"
+            />
+            <label class="user-label">Confirmar Senha</label>
+            <span class="toggle-password" (click)="togglePasswordVisibility(confirmarSenhaInput, confirmarSenhaIcon)">
+              <img
+                id="confirmarSenhaIcon"
+                #confirmarSenhaIcon
+                src="../images/Icon/eye.svg"
+                alt="Mostrar senha"
+              />
+            </span>
+          </div>
+
+
+          <div class="privacy-policy" id="privacyPolicy">
+            <p><b>Termos de Uso e Política de Privacidade</b></p>
+            <div class="privacy-policy-text">
+              ao clicar em "Concordo e Finalizar Cadastro", você concorda com os
+              Termos de Uso e a Política de Privacidade da emap. Leia atentamente
+              as condiçõe
+              <a
+                target="_blanck"
+                href="/dataway-system-front/public/documentos/politic-de-privacidade-DataWay.pdf"
+                >aqui</a
+              >
+            </div>
+            <div class="checkbox-container">
+              <label class="checkbox-label">
+                <input id="checkboxPrivacyPolicy" type="checkbox" #checkboxPrivacyPolicy />
+                <svg viewBox="0 0 64 64" height="2em" width="2em">
+                  <path
+                    d="M 0 16 V 56 A 8 8 90 0 0 8 64 H 56 A 8 8 90 0 0 64 56 V 8 A 8 8 90 0 0 56 0 H 8 A 8 8 90 0 0 0 8 V 16 L 32 48 L 64 16 V 8 A 8 8 90 0 0 56 0 H 8 A 8 8 90 0 0 0 8 V 56 A 8 8 90 0 0 8 64 H 56 A 8 8 90 0 0 64 56 V 16"
+                    pathLength="575.0541381835938"
+                    class="path"
+                  ></path>
+                </svg>
+              </label>
+              <p>
+                Eu li e aceito os termos e condições e a política de privacidade
+              </p>
+            </div>
+          </div>
+        </ng-container>
 
         <div class="container-btn">
-          <button class="btn continuar1" id="btnContinuar1">
+          <button
+            class="btn continuar1"
+            id="btnContinuar1"
+            *ngIf="passo === 1"
+            (click)="validarPasso1()"
+            type="button"
+          >
             <span>Continuar</span>
           </button>
-          <button style="display: none" class="btn-voltar" id="btnVoltar">
+          <button
+            class="btn-voltar"
+            id="btnVoltar"
+            *ngIf="passo === 2"
+            (click)="passo1()"
+            type="button"
+          >
             <span>voltar</span>
           </button>
-          <button style="display: none" class="btn cadastrar" id="btnCadastrar">
+          <button
+            class="btn cadastrar"
+            id="btnCadastrar"
+            *ngIf="passo === 2"
+            (click)="validarPasso2()"
+            type="submit"
+            #btnCadastrar
+          >
             <span>cadastrar</span>
           </button>
         </div>
@@ -177,12 +237,11 @@
         <div class="caminho-login">
           <a href="/login">Fazer login</a>
         </div>
-        <!-- </form> -->
       </div>
     </section>
   </main>
 </div>
 
-<div id="toast" class="toast hidden">
-  <p id="toastMessage"></p>
+<div id="toast" #toast class="toast hidden">
+  <p id="toastMessage" #toastMessage></p>
 </div>
