@@ -51,13 +51,52 @@ $background-color-secondary: #ef6a47;
 }
 
 .cards {
+  margin: 0 10px 0 10px;
   display: grid;
   grid-template-columns: repeat(4, 2fr);
   gap: 20px;
 }
 
 .cards .card {
+  width: 100%;
+  height: 20vh;
   background-color: $background-color-cards;
+  .card-details-components{
+    display: flex;
+    justify-content: space-between;
+  }
+  .card-details{
+    display: flex;
+    flex-direction: column;
+    align-items: space-between;
+    .card-details-img{
+      margin: 0.5rem 1rem 0 0;
+      width: 6vw;
+      height: 6vh;
+      background-color: $text-color;
+    }
+    .details-data-percentage{
+      display: flex;
+      align-items: center;
+      .percentage{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 1rem;
+        width: 35px;
+        height: 20px;
+        border-radius: 5px;
+        color: white;
+        font-size: 13px;
+        font-weight: 600;
+      }
+      .details-data-percentage-text{
+        color: #abb1cc;
+        font-weight: 600;
+
+      }
+    }
+  }
 }
 
 .cards .card h4 {
@@ -68,7 +107,15 @@ $background-color-secondary: #ef6a47;
 }
 
 div.cards div.card .card-details div.details-data {
+  height: 100%;
+  width: 100%;
   display: flex;
+  justify-content: space-between;
+  margin-top: 0.5rem;
+  h1{
+    font-size: 2rem;
+    color: #495057;
+  } 
 }
 
 div.cards div.card .card-details div.details-data img {
