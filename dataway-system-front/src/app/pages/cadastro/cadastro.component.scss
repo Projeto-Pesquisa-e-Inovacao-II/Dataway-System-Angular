@@ -426,13 +426,13 @@ input[type="number"]::-webkit-outer-spin-button {
   opacity: 0;
   transition: opacity 0.3s ease, transform 0.3s ease;
 }
-
 .toast.visible {
   opacity: 1;
+  pointer-events: auto;
 }
-
 .toast.hidden {
   opacity: 0;
+  pointer-events: none;
 }
 
 .neutral {
