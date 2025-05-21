@@ -1,6 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
-import { Component, OnInit, ElementRef, ViewChild, Inject } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ElementRef,
+  ViewChild,
+  Inject,
+} from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { Router } from '@angular/router';
 import { CadastroForm } from '../../interfaces/cadastro-form';
@@ -15,33 +21,49 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./cadastro.component.scss'],
 })
 export class CadastroComponent implements OnInit {
-  @ViewChild('empresaSelect') empresaSelect!: ElementRef<HTMLSelectElement>;
+  empresaSelecionada: string = '';
+
+  @ViewChild('empresaSelect', { static: false })
+  empresaSelect!: ElementRef<HTMLSelectElement>;
   @ViewChild('numeroInput') numeroVar!: ElementRef<HTMLInputElement>;
   @ViewChild('cepInput') cepVar!: ElementRef<HTMLInputElement>;
-  @ViewChild('emailInput', { static: false }) emailVar!: ElementRef<HTMLInputElement>;
-  @ViewChild('senhaInput', { static: false }) senhaVar!: ElementRef<HTMLInputElement>;
-  @ViewChild('confirmarSenhaInput', { static: false }) confirmacaoSenhaVar!: ElementRef<HTMLInputElement>;
-  @ViewChild('representanteLegalInput') representanteLegalInput!: ElementRef<HTMLInputElement>;
+  @ViewChild('emailInput', { static: false })
+  emailVar!: ElementRef<HTMLInputElement>;
+  @ViewChild('senhaInput', { static: false })
+  senhaVar!: ElementRef<HTMLInputElement>;
+  @ViewChild('confirmarSenhaInput', { static: false })
+  confirmacaoSenhaVar!: ElementRef<HTMLInputElement>;
+  @ViewChild('representanteLegalInput')
+  representanteLegalInput!: ElementRef<HTMLInputElement>;
   @ViewChild('cnpjInput') cnpjInput!: ElementRef<HTMLInputElement>;
-  @ViewChild('telefoneInput', { static: false }) telefoneInput!: ElementRef<HTMLInputElement>;
-  @ViewChild('checkboxPrivacyPolicy', { static: false }) checkboxPrivacyPolicy!: ElementRef<HTMLInputElement>;
+  @ViewChild('telefoneInput', { static: false })
+  telefoneInput!: ElementRef<HTMLInputElement>;
+  @ViewChild('checkboxPrivacyPolicy', { static: false })
+  checkboxPrivacyPolicy!: ElementRef<HTMLInputElement>;
   @ViewChild('cardRuleSenha') cardRuleSenha!: ElementRef<HTMLDivElement>;
-  @ViewChild('nomeFantasiaInput') nomeFantasiaVar!: ElementRef<HTMLInputElement>;
+  @ViewChild('nomeFantasiaInput')
+  nomeFantasiaVar!: ElementRef<HTMLInputElement>;
   @ViewChild('privacyPolicy') privacyPolicy!: ElementRef<HTMLDivElement>;
   @ViewChild('btnContinuar1') btnContinuar1!: ElementRef<HTMLButtonElement>;
   @ViewChild('btnVoltar') btnVoltar!: ElementRef<HTMLButtonElement>;
   @ViewChild('btnCadastrar') btnCadastrar!: ElementRef<HTMLButtonElement>;
   @ViewChild('toast', { static: false }) toast!: ElementRef<HTMLDivElement>;
-  @ViewChild('toastMessage', { static: false }) toastMessage!: ElementRef<HTMLParagraphElement>;
-  @ViewChild('tamanhoMinimoDiv', { static: false }) tamanhoMinimoDiv!: ElementRef<HTMLDivElement>;
-  @ViewChild('temNumeroDiv', { static: false }) temNumeroDiv!: ElementRef<HTMLDivElement>;
-  @ViewChild('temCaractereEspecialDiv', { static: false }) temCaractereEspecialDiv!: ElementRef<HTMLDivElement>;
-  @ViewChild('temLetraMaiusculaDiv', { static: false }) temLetraMaiusculaDiv!: ElementRef<HTMLDivElement>;
+  @ViewChild('toastMessage', { static: false })
+  toastMessage!: ElementRef<HTMLParagraphElement>;
+  @ViewChild('tamanhoMinimoDiv', { static: false })
+  tamanhoMinimoDiv!: ElementRef<HTMLDivElement>;
+  @ViewChild('temNumeroDiv', { static: false })
+  temNumeroDiv!: ElementRef<HTMLDivElement>;
+  @ViewChild('temCaractereEspecialDiv', { static: false })
+  temCaractereEspecialDiv!: ElementRef<HTMLDivElement>;
+  @ViewChild('temLetraMaiusculaDiv', { static: false })
+  temLetraMaiusculaDiv!: ElementRef<HTMLDivElement>;
 
   passo: number = 1;
 
   constructor(
-    @Inject(DOCUMENT) private document: Document
+    @Inject(DOCUMENT) private document: Document,
+    private cadastroService: CadastroService
   ) {}
 
   ngOnInit(): void {
@@ -68,14 +90,16 @@ export class CadastroComponent implements OnInit {
     this.passo = 2;
   }
 
-  
   validarPasso1() {
     if (!this.empresaSelect.nativeElement.value.trim()) {
       this.showToast('Por favor, selecione uma empresa.', '#ff6347');
       return;
     }
     if (!this.representanteLegalInput.nativeElement.value.trim()) {
-      this.showToast('Por favor, preencha o campo Representante Legal.', '#ff6347');
+      this.showToast(
+        'Por favor, preencha o campo Representante Legal.',
+        '#ff6347'
+      );
       return;
     }
     if (!this.nomeFantasiaVar.nativeElement.value.trim()) {
@@ -121,12 +145,15 @@ export class CadastroComponent implements OnInit {
       return;
     }
     if (!checkbox) {
-      this.showToast('Você deve aceitar os termos de uso e política de privacidade.', '#ff6347');
+      this.showToast(
+        'Você deve aceitar os termos de uso e política de privacidade.',
+        '#ff6347'
+      );
       return;
     }
-    this.cadastrar();
+    this.cadastrar(new Event('submit'));
   }
-  
+
   mascaraCNPJ(cnpj: HTMLInputElement) {
     cnpj.value = cnpj.value
       .replace(/\D/g, '')
@@ -136,7 +163,7 @@ export class CadastroComponent implements OnInit {
       .replace(/(\d{4})(\d)/, '$1-$2')
       .slice(0, 18);
   }
-  
+
   mascaraTelefone(telefone: HTMLInputElement) {
     telefone.value = telefone.value
       .replace(/\D/g, '')
@@ -144,14 +171,13 @@ export class CadastroComponent implements OnInit {
       .replace(/(\d{5})(\d)/, '$1-$2')
       .slice(0, 15);
   }
-  
+
   mascaraCEP(cep: HTMLInputElement) {
     cep.value = cep.value
-    .replace(/\D/g, '')
-    .replace(/^(\d{5})(\d)/, '$1-$2')
-    .slice(0, 9);
+      .replace(/\D/g, '')
+      .replace(/^(\d{5})(\d)/, '$1-$2')
+      .slice(0, 9);
   }
-  
 
   validarSenha(senha: string): boolean {
     const temNumero = /\d/;
@@ -165,7 +191,7 @@ export class CadastroComponent implements OnInit {
       temLetraMaiuscula.test(senha)
     );
   }
-  
+
   atualizarRegrasSenha(senha: string) {
     if (senha.length >= 6) {
       this.tamanhoMinimoDiv.nativeElement.className = 'valido';
@@ -189,8 +215,35 @@ export class CadastroComponent implements OnInit {
     }
   }
 
-  async cadastrar() {
-    console.log('Cadastrando...');
+  async cadastrar(event: Event) {
+    event.preventDefault();
+    const userData = {
+      empresaServer: this.empresaSelect.nativeElement.value,
+      nomeFantasiaServer: this.nomeFantasiaVar.nativeElement.value,
+      numeroServer: this.numeroVar.nativeElement.value,
+      representanteLegalServer:
+        this.representanteLegalInput.nativeElement.value,
+      cnpjServer: this.cnpjInput.nativeElement.value,
+      telefoneServer: this.telefoneInput.nativeElement.value,
+      emailServer: this.emailVar.nativeElement.value,
+      senhaServer: this.senhaVar.nativeElement.value,
+      cepServer: this.cepVar.nativeElement.value,
+    };
+
+    this.cadastroService.cadastrarUsuario({ userData }).subscribe({
+      next: (response: any) => {
+        this.showToast('Cadastro realizado com sucesso!', '#28a745');
+        console.log(response);
+        setTimeout(() => {
+          window.location.href = '/login';
+        }, 3000);
+      },
+      error: (error) => {
+        console.error('Erro ao cadastrar:', error);
+        this.showToast('Erro ao cadastrar. Tente novamente.', '#dc3545');
+      },
+    });
+    return;
   }
 
   showToast(message: string, color: string) {

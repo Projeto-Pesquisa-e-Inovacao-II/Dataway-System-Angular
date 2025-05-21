@@ -23,17 +23,19 @@
     <section class="container-form-login">
       <h1>Criar conta</h1>
       <div class="container-inputs">
-
-        
-        <ng-container *ngIf="passo === 1">
+        <div [hidden]="passo !== 1">
           <div class="input-field">
             <label for="empresaSelect" class="custom-select-label">
-              <select id="empresaSelect" class="custom-select" #empresaSelect>
+              <select class="custom-select" #empresaSelect>
                 <option value="">Selecione uma empresa</option>
                 <option value="ecorodovias">Ecorodovias</option>
                 <option value="ccr">CCR</option>
               </select>
-              <img src="../images/Icon/arrow.svg" alt="Seta" class="arrow-icon" />
+              <img
+                src="../images/Icon/arrow.svg"
+                alt="Seta"
+                class="arrow-icon"
+              />
             </label>
           </div>
 
@@ -42,7 +44,8 @@
               class="input"
               #representanteLegalInput
               id="representanteLegalInput"
-              placeholder="" />
+              placeholder=""
+            />
             <label class="user-label">Representante legal</label>
           </div>
 
@@ -51,7 +54,8 @@
               class="input"
               #nomeFantasiaInput
               id="nomeFantasiaInput"
-              placeholder="" />
+              placeholder=""
+            />
             <label class="user-label">Nome Fantasia</label>
           </div>
 
@@ -68,12 +72,13 @@
           </div>
 
           <div class="input-field">
-            <input 
+            <input
               name="text"
               class="input"
               #numeroInput
               id="numeroInput"
-              placeholder="" />
+              placeholder=""
+            />
             <label class="user-label">Número</label>
           </div>
 
@@ -89,9 +94,9 @@
             />
             <label class="user-label">CEP</label>
           </div>
-        </ng-container>
+        </div>
 
-        <ng-container *ngIf="passo === 2">
+        <div [hidden]="passo !== 2">
           <div class="input-field">
             <input
               type="text"
@@ -105,7 +110,7 @@
           </div>
 
           <div class="input-field">
-            <input 
+            <input
               name="text"
               class="input"
               id="emailInput"
@@ -126,7 +131,10 @@
               (input)="atualizarRegrasSenha(senhaInput.value)"
             />
             <label class="user-label">Senha</label>
-            <span class="toggle-password" (click)="togglePasswordVisibility(senhaInput, senhaIcon)">
+            <span
+              class="toggle-password"
+              (click)="togglePasswordVisibility(senhaInput, senhaIcon)"
+            >
               <img
                 id="senhaIcon"
                 #senhaIcon
@@ -143,10 +151,18 @@
             <div id="temNumeroDiv" #temNumeroDiv class="neutral">
               • Pelo menos 1 número
             </div>
-            <div id="temCaractereEspecialDiv" #temCaractereEspecialDiv class="neutral">
+            <div
+              id="temCaractereEspecialDiv"
+              #temCaractereEspecialDiv
+              class="neutral"
+            >
               • Pelo menos 1 caractere especial (&#64; ou #)
             </div>
-            <div id="temLetraMaiusculaDiv" #temLetraMaiusculaDiv class="neutral">
+            <div
+              id="temLetraMaiusculaDiv"
+              #temLetraMaiusculaDiv
+              class="neutral"
+            >
               • Pelo menos 1 letra maiúscula
             </div>
           </div>
@@ -162,7 +178,15 @@
               (input)="validarSenha(confirmarSenhaInput.value)"
             />
             <label class="user-label">Confirmar Senha</label>
-            <span class="toggle-password" (click)="togglePasswordVisibility(confirmarSenhaInput, confirmarSenhaIcon)">
+            <span
+              class="toggle-password"
+              (click)="
+                togglePasswordVisibility(
+                  confirmarSenhaInput,
+                  confirmarSenhaIcon
+                )
+              "
+            >
               <img
                 id="confirmarSenhaIcon"
                 #confirmarSenhaIcon
@@ -172,13 +196,12 @@
             </span>
           </div>
 
-
           <div class="privacy-policy" id="privacyPolicy">
             <p><b>Termos de Uso e Política de Privacidade</b></p>
             <div class="privacy-policy-text">
               ao clicar em "Concordo e Finalizar Cadastro", você concorda com os
-              Termos de Uso e a Política de Privacidade da emap. Leia atentamente
-              as condiçõe
+              Termos de Uso e a Política de Privacidade da emap. Leia
+              atentamente as condiçõe
               <a
                 target="_blanck"
                 href="/dataway-system-front/public/documentos/politic-de-privacidade-DataWay.pdf"
@@ -187,7 +210,11 @@
             </div>
             <div class="checkbox-container">
               <label class="checkbox-label">
-                <input id="checkboxPrivacyPolicy" type="checkbox" #checkboxPrivacyPolicy />
+                <input
+                  id="checkboxPrivacyPolicy"
+                  type="checkbox"
+                  #checkboxPrivacyPolicy
+                />
                 <svg viewBox="0 0 64 64" height="2em" width="2em">
                   <path
                     d="M 0 16 V 56 A 8 8 90 0 0 8 64 H 56 A 8 8 90 0 0 64 56 V 8 A 8 8 90 0 0 56 0 H 8 A 8 8 90 0 0 0 8 V 16 L 32 48 L 64 16 V 8 A 8 8 90 0 0 56 0 H 8 A 8 8 90 0 0 0 8 V 56 A 8 8 90 0 0 8 64 H 56 A 8 8 90 0 0 64 56 V 16"
@@ -201,7 +228,7 @@
               </p>
             </div>
           </div>
-        </ng-container>
+        </div>
 
         <div class="container-btn">
           <button
