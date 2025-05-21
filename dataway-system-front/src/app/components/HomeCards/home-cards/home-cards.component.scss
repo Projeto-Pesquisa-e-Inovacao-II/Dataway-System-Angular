@@ -1,7 +1,26 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background-color: #c3c3c3;
+  width: 350px;
+  height: 200px;
+  border-radius: 8px;
 
-  .card {
-    padding: 20px;
-    background-color: #c3c3c3;
-    width: 350px;
-    height: 200px;
+  .card-title {
+    font-weight: bold;
+    font-size: 20px;
+    text-align: center;
   }
+
+  .periodo {
+    color: #0000009c;
+    font-weight: bold;
+  }
+
+  .evasoes {
+    font-weight: bold;
+  }
+}
