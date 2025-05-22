@@ -1,0 +1,43 @@
+$color-text: #000;
+
+.inputs-create-employee {
+  max-width: 1600px;
+  margin: 0 auto;
+  .inputs-create-employee__content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-top: 20px;
+    color: $color-text; 
+    form {
+      display: flex;
+      flex-direction: row;
+      align-items: flex-end;
+      width: 500px;
+
+      .wrapper_inputs {
+        width: 100%;
+        margin-right: 50px;
+      }
+
+      .inputs-create-employee__content__input {
+        display: flex;
+        flex-direction: column;
+
+        input {
+          width: 100%;
+          padding: 8px;
+          font-size: 20px;
+        }
+      }
+      .buttons-create-employee__content__input {
+        display: flex;
+        height: 100%;
+        button {
+          padding: 10px;
+          text-align: center;
+        }
+      }
+    }
+  }
+}

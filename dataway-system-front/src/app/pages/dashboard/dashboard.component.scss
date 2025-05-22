@@ -188,7 +188,7 @@ div.cards div.card .card-details div.details-data i {
   .graph-above {
     padding: 20px;
   }
-  width: 500px;
+  width: 50%;
 }
 
 .graphs {
@@ -238,8 +238,6 @@ div.cards div.card .card-details div.details-data i {
 .line-chart h4,
 .bar-chart h4,
 .heat-map-chart h4 {
-  margin: 15px;
-  margin-bottom: 30px;
   color: $text-color;
   font-weight: 700;
 }

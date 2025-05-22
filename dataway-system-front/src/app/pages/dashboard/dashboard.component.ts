@@ -92,7 +92,7 @@ export class DashboardComponent implements OnInit {
       cutout: '70%',
       indexAxis: 'y',
       responsive: true,
-      maintainAspectRatio: true,
+      maintainAspectRatio: false,
       scales: {
         x: {
           display: false,
@@ -111,7 +111,7 @@ export class DashboardComponent implements OnInit {
       plugins: {
         legend: {
           display: true,
-          position: 'bottom',
+          position: 'top',
         },
         tooltip: {
           backgroundColor: 'rgba(0, 0, 0, 0.7)',
