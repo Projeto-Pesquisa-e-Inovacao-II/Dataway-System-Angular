@@ -37,7 +37,7 @@ async function getGraphData(idUsuario) {
         from DadosPracaPedagio 
         where lote = 20 
         and data LIKE '2024-${mesFormatado}-%' 
-        and Empresa_idEmpresa = ${idEmpresa};
+        and Empresa_idEmpresa = 1;
     `;
       console.log("SQL:", sql);
       const linhas = await database.executar(sql);
