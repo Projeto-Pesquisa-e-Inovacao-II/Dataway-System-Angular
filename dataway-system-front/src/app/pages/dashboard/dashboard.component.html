@@ -51,10 +51,33 @@
 <app-header></app-header>
 
 <section class="container-dashboard">
-  <header>
-    <h1>Análise de trafego e evasões</h1>
-    <i class="fa-solid fa-bell"></i>
-    <div></div>>
+<header>
+  <h1>Análise de tráfego e evasões</h1>
+  <i class="fa-solid fa-bell"></i>
+  <div class="ocorrencia" style="cursor:pointer" (click)="openModal()">
+    <img src="assets/20.png" alt="ícone"
+     style="width:20px; height:20px; vertical-align:middle; margin-right:8px;">
+    Criar Ocorrência
+  </div>
+
+
+<!-- Modal de ocorrência -->
+<div class="modal" [ngStyle]="{'display': showModal ? 'block' : 'none'}">
+  <div class="modal-content">
+    <span class="close" (click)="closeModal()">&times;</span>
+    <label for="descricao">Descrição</label>
+    <input id="descricao" class="modal-input" placeholder="XXXXXXX">
+    <label for="mes">Mês referente</label>
+    <input id="mes" class="modal-input" placeholder="XXXXXXX">
+    <label for="praca">Praça</label>
+    <input id="praca" class="modal-input" placeholder="XXXXXXX">
+    <label for="concessao">Concessão</label>
+    <input id="concessao" class="modal-input" placeholder="XXXXXXX">
+    <label for="status">Status</label>
+    <input id="status" class="modal-input" placeholder="XXXXXXX">
+    <button class="modal-btn" (click)="closeModal()">Salvar</button>
+  </div>
+</div>
   </header>
 
   <div class="cards">
@@ -99,7 +122,7 @@
         </div>
         <div class="details-data-percentage">
         <div class="percentage" style="background-color: #ff5d48;">-11%</div>
-        <div class="details-data-percentage-text">Comparado ao mes anterior</div>
+        <div class="details-data-percentage-text">Comparado ao mês anterior</div>
         </div>
       </div>
     </div>
@@ -114,7 +137,7 @@
         </div>
         <div class="details-data-percentage">
         <div class="percentage" style="background-color: #f1b53d;">-25%</div>
-        <div class="details-data-percentage-text">Comparado ao mes anterior</div>
+        <div class="details-data-percentage-text">Comparado ao mês anterior</div>
         </div>
       </div>
     </div>
@@ -124,7 +147,7 @@
     <div class="container-left-graphs">
       <div class="graph-above">
         <div class="bar-chart" id="barChartId">
-          <h4>Taxa de evasões ao longo do mês</h4>
+          <h4>TAXA DE EVASÕES AO LONGO DO MÊS</h4>
           <div class="teste" style="height: 100%">
             <canvas id="barCanvas"></canvas>
           </div>

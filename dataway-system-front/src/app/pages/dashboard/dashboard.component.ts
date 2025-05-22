@@ -4,18 +4,32 @@ import { MatrixController, MatrixElement } from 'chartjs-chart-matrix';
 import { HeaderComponent } from '../../components/header/header/header.component';
 import { DashboardService } from '../../services/dashboard/dashboard.service';
 import { DashboardGraficoTrafegoEvasao } from '../../interfaces/dashboard/dashboard-data-structure';
+import { CommonModule } from '@angular/common';
 Chart.register(...registerables);
 Chart.register(MatrixController, MatrixElement);
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [HeaderComponent],
+  imports: [HeaderComponent, CommonModule],
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent implements OnInit {
   constructor(private dashboardService: DashboardService) {}
+
+  showModal = false;
+
+openModal() {
+  this.showModal = true;
+}
+
+closeModal() {
+  this.showModal = false;
+} // TYPESCRIPT DO MODAL DA OCORRENCIA
+
   public dadosTrafegoEvasao: DashboardGraficoTrafegoEvasao[] = [];
+
+  
 
   getTrafegoEvasaoData() {
     const idUsuario: number = Number(localStorage.getItem('idUsuario') ?? 0);
