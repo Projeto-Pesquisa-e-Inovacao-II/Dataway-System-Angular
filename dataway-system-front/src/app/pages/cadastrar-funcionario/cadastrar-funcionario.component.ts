@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { HeaderComponent } from "../../components/header/header/header.component";
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { Employee } from '../../interfaces/employee/employee';
+import { CreateEmployeeService } from '../../service/create-employee.service';
 
 @Component({
   selector: 'app-cadastrar-funcionario',
@@ -10,7 +12,9 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './cadastrar-funcionario.component.scss'
 })
 export class CadastrarFuncionarioComponent {
-  employee: any = {
+  constructor(private createEmployeeService: CreateEmployeeService) {}
+
+  employee: Employee = {
     name: '',
     birthDate: '',
     email: '',
@@ -20,6 +24,6 @@ export class CadastrarFuncionarioComponent {
   }
   
   createEmployee() {
-  
+    this.createEmployeeService.createEmployee(this.employee);
   }
 }
