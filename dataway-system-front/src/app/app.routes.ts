@@ -5,6 +5,7 @@ import { SuporteComponent } from './pages/suporte/suporte.component';
 import { CadastroComponent } from './pages/cadastro/cadastro.component';
 import { LoginComponent } from './pages/login/login.component';
 import { DashboardHomeComponent } from './pages/dashboard-home/dashboard-home.component';
+import { CadastrarFuncionarioComponent } from './pages/cadastrar-funcionario/cadastrar-funcionario.component';
 
 export const routes: Routes = [
   { path: 'cadastro', component: CadastroComponent },
@@ -13,6 +14,7 @@ export const routes: Routes = [
   { path: 'app', component: DashboardHomeComponent },
   { path: 'app/perfil', component: PerfilComponent },
   { path: 'app/suporte', component: SuporteComponent },
+  { path: 'app/cadastrar-funcionario', component: CadastrarFuncionarioComponent },
   { path: '', component: DashboardComponent },
   { path: '**', redirectTo: '' },
 ];

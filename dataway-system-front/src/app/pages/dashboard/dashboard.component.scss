@@ -6,7 +6,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@400..700&display=swap");
 
 /* Poppins font */
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400..700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap");
 
 /* Montserrat font */
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
@@ -26,10 +26,6 @@ $background-color-cards: #ffffff;
 $background-color-aside: #171e31;
 
 $background-color-secondary: #ef6a47;
-
-
-
-
 
 /* dashboard */
 .container-dashboard {
@@ -129,7 +125,6 @@ $background-color-secondary: #ef6a47;
 }
 
 .cards {
-  margin: 0 10px 0 10px;
   display: grid;
   grid-template-columns: repeat(4, 2fr);
   gap: 20px;
@@ -139,24 +134,24 @@ $background-color-secondary: #ef6a47;
   width: 100%;
   height: 20vh;
   background-color: $background-color-cards;
-  .card-details-components{
+  .card-details-components {
     display: flex;
     justify-content: space-between;
   }
-  .card-details{
+  .card-details {
     display: flex;
     flex-direction: column;
     align-items: space-between;
-    .card-details-img{
+    .card-details-img {
       margin: 0.5rem 1rem 0 0;
       width: 6vw;
       height: 6vh;
       background-color: $text-color;
     }
-    .details-data-percentage{
+    .details-data-percentage {
       display: flex;
       align-items: center;
-      .percentage{
+      .percentage {
         display: flex;
         align-items: center;
         justify-content: center;
@@ -168,10 +163,9 @@ $background-color-secondary: #ef6a47;
         font-size: 13px;
         font-weight: 600;
       }
-      .details-data-percentage-text{
+      .details-data-percentage-text {
         color: #abb1cc;
         font-weight: 600;
-
       }
     }
   }
@@ -190,10 +184,10 @@ div.cards div.card .card-details div.details-data {
   display: flex;
   justify-content: space-between;
   margin-top: 0.5rem;
-  h1{
+  h1 {
     font-size: 2rem;
     color: #495057;
-  } 
+  }
 }
 
 div.cards div.card .card-details div.details-data img {
@@ -259,16 +253,25 @@ div.cards div.card .card-details div.details-data i {
   height: 100% !important;
 }
 
+
+.teste2 {
+  width: 100%;
+}
+
 .graphs .container-right-graphs .graph-below {
   height: 46vh !important;
 }
 
-.graphs .container-left-graphs {
+.graphs .container-right-graphs {
+  .graph-above {
+    padding: 20px;
+  }
+  width: 50%;
 }
 
 .graphs {
   .container-left-graphs {
-    width: 66% !important;
+    width: 100% !important;
     .graph-above {
       display: flex;
       margin: 0;
@@ -287,6 +290,11 @@ div.cards div.card .card-details div.details-data i {
   display: flex;
   flex-direction: column;
   background-color: $background-color-cards;
+  align-items: center;
+  justify-content: center;
+  h4 {
+    width: 100%;
+  }
 }
 
 .bar-chart,
@@ -308,8 +316,6 @@ div.cards div.card .card-details div.details-data i {
 .line-chart h4,
 .bar-chart h4,
 .heat-map-chart h4 {
-  margin: 15px;
-  margin-bottom: 30px;
   color: $text-color;
   font-weight: 700;
 }

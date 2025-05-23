@@ -11,6 +11,7 @@ function getGraphData(req, res, idEmpresa) {
       .getGraphData(idEmpresa)
       .then(function (resultado) {
         res.json(resultado);
+        console.log(resultado)
       })
       .catch(function (erro) {
         console.log(erro);
