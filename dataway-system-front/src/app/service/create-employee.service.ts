@@ -11,6 +11,6 @@ export class CreateEmployeeService {
   http = inject(HttpClient);
 
   createEmployee(employeeData: Employee) {
-    return this.http.post(`${BASE_URL}usuarios/cadastrar`, employeeData);
+    return this.http.post(`${BASE_URL}create_employee`, employeeData);
   }
 }

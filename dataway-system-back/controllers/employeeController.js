@@ -1,42 +1,27 @@
-var empresaModel = require("../models/empresaModel");
+var employeeModel = require("../models/employeeModel");
 
 function createEmployee(req, res) {
+  console.log(req);
   // Crie uma variável que vá recuperar os valores do arquivo cadastro.html
-  var empresaServer = req.body.userData.empresaServer;
-  var nomeFantasia = req.body.userData.nomeFantasiaServer;
-  var numero = req.body.userData.numeroServer;
-  var representanteLegal = req.body.userData.representanteLegalServer;
-  var CPNJ = req.body.userData.cnpjServer;
-  var telefone = req.body.userData.telefoneServer;
-  var email = req.body.userData.emailServer;
-  var senha = req.body.userData.senhaServer;
-  var cep = req.body.userData.cepServer;
-
-  console.log(req.body)
-  console.log("email: ", email);
+  var name = req.body.name;
+  var role = req.body.role;
+  var cpf = req.body.cpf;
+  var birthDate = req.body.birthDate;
+  var email = req.body.email;
+  var password = req.body.password;
 
 
-  console.log("OI");  
+  console.log("OI");
   // Faça as validações dos valores
   if (email == undefined) {
     res.status(400).send("Seu email está undefined!");
-  } else if (senha == undefined) {
+  } else if (password == undefined) {
     res.status(400).send("Sua senha está undefined!");
   } else {
-    // Passe os valores como parâmetro e vá para o arquivo empresaModel.js
+    // Passe os valores como parâmetro e vá para o arquivo employeeModel.js
     // console.log(nomeFantasia);
-    empresaModel
-      .cadastrar(
-        empresaServer,
-        nomeFantasia,
-        numero,
-        cep,
-        email,
-        senha,
-        representanteLegal,
-        CPNJ,
-        telefone
-      )
+    employeeModel
+      .createCompanyEmployee(name, birthDate, email, password, role, cpf)
       .then(function (resultado) {
         res.json(resultado);
       })
