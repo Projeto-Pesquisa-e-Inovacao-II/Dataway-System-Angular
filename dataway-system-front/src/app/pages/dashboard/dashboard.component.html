@@ -64,7 +64,7 @@
           <div class="card-details-img" style="display: none">imagem aqui</div>
         </div>
         <div class="details-data">
-          <h1>Rio Minas</h1>
+          <h1>{{ nomeConcessao }}</h1>
         </div>
         <div class="details-data-percentage">
           <div class="percentage" style="background-color: #1bb99a">11%</div>
@@ -129,7 +129,14 @@
     <div class="container-left-graphs">
       <div class="graph-above">
         <div class="bar-chart" id="barChartId">
-          <h4>Percentual de Evasões com Base no Tráfego Mensal</h4>
+          <div class="bar-chart-above">
+            <h4>Percentual de Evasões com Base no Tráfego Mensal</h4>
+            <div class="buttons">
+              <button (click)="handleFilterChange(01)">1M</button>
+              <button (click)="handleFilterChange(06)">6M</button>
+              <button (click)="handleFilterChange(12)">1A</button>
+            </div>
+          </div>
           <div class="teste" style="height: 100%">
             <canvas id="barCanvas"></canvas>
           </div>

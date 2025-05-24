@@ -131,6 +131,29 @@ div.cards div.card .card-details div.details-data i {
 
 .graph-above {
   display: flex;
+
+  .bar-chart {
+    &-above {
+      display: flex;
+      justify-content: space-between;
+      position: relative;
+      .buttons {
+        position: absolute;
+        right: 0;
+        button {
+          margin: 0 10px;
+          padding: 8px;
+          border: none;
+          transition: all 0.3s ease;
+          &:hover {
+            cursor: pointer;
+            background-color: $cards-styling;
+            color: white;
+          }
+        }
+      }
+    }
+  }
 }
 
 .graphs .container-left-graphs,
@@ -161,7 +184,6 @@ div.cards div.card .card-details div.details-data i {
   width: 100% !important;
   height: 100% !important;
 }
-
 
 .teste2 {
   width: 100%;

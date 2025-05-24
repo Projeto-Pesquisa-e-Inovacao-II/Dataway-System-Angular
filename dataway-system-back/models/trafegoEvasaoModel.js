@@ -1,6 +1,6 @@
 var database = require("../database/config");
 
-async function getGraphData(idUsuario) {
+async function getGraphData(idUsuario, concessao) {
   try {
     console.log(
       "ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function entrar(): ",
@@ -8,14 +8,13 @@ async function getGraphData(idUsuario) {
     );
     console.log(idUsuario);
     const empresa = `
-      SELECT Empresa.idEmpresa FROM Usuario
-      JOIN Empresa ON Empresa.Usuario_idUsuario = Usuario.idUsuario
-      WHERE Usuario.idUsuario = ${idUsuario};
+      SELECT fkEmpresa FROM Usuario
+      WHERE Usuario.cpf = ${idUsuario};
     `;
 
     const resultadoEmpresa = await database.executar(empresa);
 
-    const idEmpresa = resultadoEmpresa[0].idEmpresa;
+    const idEmpresa = resultadoEmpresa[0].fkEmpresa;
 
     // const dadosTrafegoEvasao = `
     //   select
@@ -35,9 +34,9 @@ async function getGraphData(idUsuario) {
       const sql = `
         select (COUNT(case when tpCampo = 2 then 2 end) / COUNT(*)) * 100 as evasoes 
         from DadosPracaPedagio 
-        where lote = 20 
+        where lote = '${concessao}'
         and data LIKE '2024-${mesFormatado}-%' 
-        and Empresa_idEmpresa = 1;
+        and fkEmpresa = ${idEmpresa};
     `;
       console.log("SQL:", sql);
       const linhas = await database.executar(sql);

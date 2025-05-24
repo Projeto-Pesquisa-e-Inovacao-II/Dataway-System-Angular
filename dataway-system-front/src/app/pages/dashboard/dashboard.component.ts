@@ -4,6 +4,7 @@ import { MatrixController, MatrixElement } from 'chartjs-chart-matrix';
 import { HeaderComponent } from '../../components/header/header/header.component';
 import { DashboardService } from '../../services/dashboard/dashboard.service';
 import { DashboardGraficoTrafegoEvasao } from '../../interfaces/dashboard/dashboard-data-structure';
+import { ActivatedRoute, Router } from '@angular/router';
 Chart.register(...registerables);
 Chart.register(MatrixController, MatrixElement);
 @Component({
@@ -14,14 +15,91 @@ Chart.register(MatrixController, MatrixElement);
   styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent implements OnInit {
-  constructor(private dashboardService: DashboardService) {}
-  public dadosTrafegoEvasao: DashboardGraficoTrafegoEvasao[] = [];
+  constructor(
+    private dashboardService: DashboardService,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {}
 
-  getTrafegoEvasaoData() {
+
+  public dadosTrafegoEvasao: DashboardGraficoTrafegoEvasao[] = [];
+  public monthFilter: number = 2024;
+  nomeConcessao: string = '';
+
+  ngOnInit(): void {
+    this.nomeConcessao =
+      this.route.snapshot.paramMap.get('nomeConcessao') || '';
+
+      if(this.nomeConcessao === '') {
+        this.router.navigate(['/app']);
+      }
+      
+    this.getTrafegoEvasaoData(this.nomeConcessao);
+  }
+
+  ngAfterViewInit(): void {
+    // this.lineChart = new Chart('lineCanvas', this.configLine);
+    this.barChart = new Chart('barCanvas', this.configBarAndLine);
+    this.lineChart = new Chart('horizontalBarChart', this.config);
+  }
+
+  public meses: string[] = [
+    'Jan',
+    'Fev',
+    'Mar',
+    'Abr',
+    'Mai',
+    'Jun',
+    'Jul',
+    'Ago',
+    'Set',
+    'Out',
+    'Nov',
+    'Dez',
+  ];
+
+  handleFilterChange(period: number) {
+    this.monthFilter = period;
+    console.log(this.monthFilter);
+    if (this.monthFilter === 1) {
+      this.meses = ['Jan'];
+    }
+
+    if (this.monthFilter === 6) {
+      this.meses = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun'];
+    }
+
+    if (this.monthFilter === 12) {
+      this.meses = [
+        'Jan',
+        'Fev',
+        'Mar',
+        'Abr',
+        'Mai',
+        'Jun',
+        'Jul',
+        'Ago',
+        'Set',
+        'Out',
+        'Nov',
+        'Dez',
+      ];
+    }
+    this.barChart.data.labels = this.meses;
+    this.barChart.update();
+
+    // Filtering logic can be added here if needed
+    // Example:
+    // const filtered = this.dadosTrafegoEvasao.filter(item => item.mes === this.monthFilter);
+    // this.barChart.data.datasets[0].data = filtered.map(item => Number(item.dados[0].evasao));
+    // this.barChart.update();
+  }
+
+  getTrafegoEvasaoData(concessao: string) {
     const idUsuario: number = Number(localStorage.getItem('idUsuario') ?? 0);
 
     this.dashboardService
-      .getTrafegoEvasaoData(idUsuario)
+      .getTrafegoEvasaoData(idUsuario, concessao)
       .subscribe((data: any) => {
         console.log(data[2].dados);
         this.dadosTrafegoEvasao = data.map((item: any) => ({
@@ -201,20 +279,7 @@ export class DashboardComponent implements OnInit {
   };
 
   // Dados heatmap
-  public meses: string[] = [
-    'Jan',
-    'Fev',
-    'Mar',
-    'Abr',
-    'Mai',
-    'Jun',
-    'Jul',
-    'Ago',
-    'Set',
-    'Out',
-    'Nov',
-    'Dez',
-  ];
+
   public dias: string[] = [
     'Segunda-feira',
     'Terça-feira',
@@ -362,6 +427,11 @@ export class DashboardComponent implements OnInit {
 
     data: this.dataBarAndLine,
     options: {
+      plugins: {
+        legend: {
+          display: false,
+        },
+      },
       responsive: true,
       maintainAspectRatio: false,
       scales: {
@@ -382,14 +452,4 @@ export class DashboardComponent implements OnInit {
   };
   public lineChart!: Chart;
   public barChart!: Chart;
-
-  ngOnInit(): void {
-    this.getTrafegoEvasaoData();
-  }
-
-  ngAfterViewInit(): void {
-    // this.lineChart = new Chart('lineCanvas', this.configLine);
-    this.barChart = new Chart('barCanvas', this.configBarAndLine);
-    this.lineChart = new Chart('horizontalBarChart', this.config);
-  }
 }

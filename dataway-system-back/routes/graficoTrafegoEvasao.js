@@ -5,8 +5,9 @@ var trafegoEvasaoController = require("../controllers/trafegoEvasaoController");
 
 router.get("/", function (req, res) {
   const idUsuario = req.query.idUsuario;
+  const concessao = req.query.concessao;
 
-  trafegoEvasaoController.getGraphData(req, res, idUsuario);
+  trafegoEvasaoController.getGraphData(req, res, idUsuario, concessao);
 });
 
 module.exports = router;
