@@ -8,5 +8,11 @@ router.get("/", function (req, res) {
   concessoesUsuarioController.getUserConcessoesReq(req, res, idUsuario);
 });
 
+router.get("/evasoes", function (req, res) {
+  const idUsuario = req.query.idUsuario;
+  const mes = req.query.mes;
+  const concessao = req.query.concessao;
+  concessoesUsuarioController.getEvasaoReq(req, res, idUsuario, mes, concessao);
+});
 
 module.exports = router;

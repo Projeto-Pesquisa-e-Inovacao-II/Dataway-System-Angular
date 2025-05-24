@@ -20,7 +20,7 @@ export class DashboardHomeComponent {
   ) {}
 
   ngOnInit() {
-    this.geDistinctConcessoes();
+    this.getDistinctConcessoes();
   }
 
   handleFilterDashboard(item: string) {
@@ -29,23 +29,49 @@ export class DashboardHomeComponent {
 
   lotes: HomeDashboard[] = [];
 
-  geDistinctConcessoes() {
+  async getDistinctConcessoes() {
     const idUsuario = Number(localStorage.getItem('idUsuario'));
 
-    this.homeDashboardService.geDistinctConcessoes(idUsuario).subscribe({
+    this.homeDashboardService.getDistinctConcessoes(idUsuario).subscribe({
       next: (res: any) => {
-        console.log('Distinct concessions:', res);
         res.forEach((element: any) => {
-          console.log('Element:', element);
-          this.lotes.push({
+          const lote: HomeDashboard = {
             nomeConcessao: element.concessao,
             trafego: element.trafego,
+            evasoes: 0
+          };
+          this.homeDashboardService.getEvasao(
+            idUsuario,
+            element.concessao,
+            6
+          ).subscribe({
+            next: (evasaoRes: any) => {
+              lote.evasoes = evasaoRes[0]?.evasoes ?? 0;
+            },
+            error: (err) => {
+              console.error('Error fetching evasao:', err);
+            },
           });
+          this.lotes.push(lote);
         });
+        console.log('Distinct concessions:', res);
         console.log(this.lotes);
       },
       error: (err) => {
         console.error('Error fetching distinct concessions:', err);
+      },
+    });
+  }
+
+  getEvasao(mes: number, concessao: string) {
+    var evasoesPorcentagem: number = 0;
+    const idUsuario = Number(localStorage.getItem('idUsuario'));
+    this.homeDashboardService.getEvasao(idUsuario, concessao, mes).subscribe({
+      next: (res: any) => {
+        return res[0].evasoes;
+      },
+      error: (err) => {
+        console.error('Error fetching evasao:', err);
       },
     });
   }

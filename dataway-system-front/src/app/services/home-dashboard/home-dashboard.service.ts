@@ -10,9 +10,17 @@ export class HomeDashboardService {
 
   constructor() {}
 
-  geDistinctConcessoes(idUsuario: number) {
+  getDistinctConcessoes(idUsuario: number) {
     const params = new HttpParams().set('idUsuario', idUsuario);
     console.log(params);
     return this.http.get(`${BASE_URL}/concessoes_usuario`, { params });
+  }
+
+  getEvasao(idUsuario: number, concessao: string, mes: number) {
+    const params = new HttpParams()
+      .set('idUsuario', idUsuario)
+      .set('concessao', concessao)
+      .set('mes', mes);
+    return this.http.get(`${BASE_URL}/concessoes_usuario/evasoes`, { params });
   }
 }

@@ -21,7 +21,6 @@ export class DashboardComponent implements OnInit {
     private router: Router
   ) {}
 
-
   public dadosTrafegoEvasao: DashboardGraficoTrafegoEvasao[] = [];
   public monthFilter: number = 2024;
   nomeConcessao: string = '';
@@ -30,10 +29,10 @@ export class DashboardComponent implements OnInit {
     this.nomeConcessao =
       this.route.snapshot.paramMap.get('nomeConcessao') || '';
 
-      if(this.nomeConcessao === '') {
-        this.router.navigate(['/app']);
-      }
-      
+    if (this.nomeConcessao === '') {
+      this.router.navigate(['/app']);
+    }
+
     this.getTrafegoEvasaoData(this.nomeConcessao);
   }
 

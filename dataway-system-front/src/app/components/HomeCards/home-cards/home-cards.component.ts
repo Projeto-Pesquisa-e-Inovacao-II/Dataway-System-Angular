@@ -14,8 +14,8 @@ export class HomeCardsComponent {
   @Input()
   public veiculos!: number;
   @Input()
-  public evasoes!: string;
+  public evasoes!: number;
   ngOnInit() {
-    console.log(this.concessao);
+    console.log(this.evasoes);
   }
 }

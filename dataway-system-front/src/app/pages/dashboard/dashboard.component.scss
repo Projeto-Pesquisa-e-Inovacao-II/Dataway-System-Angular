@@ -151,6 +151,10 @@ div.cards div.card .card-details div.details-data i {
             color: white;
           }
         }
+        .active {
+          background-color: $cards-styling;
+          color: white;
+        }
       }
     }
   }
