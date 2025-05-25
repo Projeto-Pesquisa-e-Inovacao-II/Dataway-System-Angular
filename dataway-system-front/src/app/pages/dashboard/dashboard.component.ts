@@ -97,7 +97,7 @@ export class DashboardComponent implements OnInit {
         'Nov',
         'Dez',
       ];
-      this.meses = this.meses.slice(Number(mesNumero) - 1, this.meses.length);
+      this.meses = this.meses.slice(Number(mesNumero) - 1, Number(mesNumero) + 5);
     }
 
     if (this.monthFilter === 12) {
