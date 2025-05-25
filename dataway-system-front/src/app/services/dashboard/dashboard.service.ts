@@ -26,4 +26,12 @@ export class DashboardService {
 
     return this.http.get(`${BASE_URL}/grafico_trafego_evasao/praca_alerta`, { params });
   }
+
+  getEvasaoData(idUsuario: number, mes: number, concessao: string) {
+    const params = new HttpParams()
+      .set('idUsuario', idUsuario)
+      .set('mes', mes)
+      .set('concessao', concessao);
+    return this.http.get(`${BASE_URL}/grafico_trafego_evasao/total_evasao`, { params });
+  }
 }

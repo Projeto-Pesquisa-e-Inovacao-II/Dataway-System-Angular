@@ -25,6 +25,7 @@ export class DashboardComponent implements OnInit {
   public monthFilter: number = 0;
   public nomeConcessao: string = '';
   public praca: string = '';
+  public evasoes: string = '';
   public actualMonth: string = localStorage.getItem('mes') || '';
 
   ngOnInit(): void {
@@ -40,6 +41,10 @@ export class DashboardComponent implements OnInit {
       Number(localStorage.getItem('idUsuario')),
       this.nomeConcessao,
       Number(localStorage.getItem('mesNumber'))
+    );
+    this.getEvasaoData(
+      Number(localStorage.getItem('mesNumber')),
+      this.nomeConcessao
     );
   }
 
@@ -72,7 +77,7 @@ export class DashboardComponent implements OnInit {
     }
 
     if (this.monthFilter === 6) {
-      var mesNumero = localStorage.getItem('mesNumber')
+      var mesNumero = localStorage.getItem('mesNumber');
       this.meses = [
         'Jan',
         'Fev',
@@ -163,6 +168,16 @@ export class DashboardComponent implements OnInit {
         this.barChart.update();
 
         console.log(this.barChart.data);
+      });
+  }
+
+  getEvasaoData(mes: number, concessao: string) {
+    const idUsuario: number = Number(localStorage.getItem('idUsuario') ?? 0);
+    this.dashboardService
+      .getEvasaoData(idUsuario, mes, concessao)
+      .subscribe((data: any) => {
+        console.log(data[0].evasoes);
+        this.evasoes = data[0].evasoes;
       });
   }
 
