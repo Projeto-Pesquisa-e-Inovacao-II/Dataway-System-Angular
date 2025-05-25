@@ -30,4 +30,12 @@ router.get("/impacto_financeiro", function (req, res) {
   const concessao = req.query.concessao;
   trafegoEvasaoController.getImpactoFinancerio(req, res, idUsuario, mes, concessao);
 });
+
+router.get("/comparacao_evasao_impacto", function (req, res) {
+  const idUsuario = req.query.idUsuario;
+  const mes = req.query.mes;
+  const concessao = req.query.concessao;
+  trafegoEvasaoController.getComparacaoEvasaoImpacto(req, res, idUsuario, mes, concessao);
+});
+
 module.exports = router;

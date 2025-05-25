@@ -67,8 +67,8 @@
           <h1>{{ nomeConcessao }}</h1>
         </div>
         <div class="details-data-percentage">
-          <div class="percentage" style="background-color: #1bb99a">11%</div>
-          <div class="details-data-percentage-text">
+          <!-- <div class="percentage" style="background-color: #1bb99a">11%</div> -->
+          <div class="details-data-percentage-text" style="margin: 1em;">
             {{ actualMonth }} de 2024
           </div>
         </div>
@@ -81,7 +81,7 @@
           <div class="card-details-img" style="display: none">imagem aqui</div>
         </div>
         <div class="details-data">
-          <h1>{{praca}}</h1>
+          <h1>{{ praca }}</h1>
         </div>
         <div class="details-data-percentage">
           <div class="percentage" style="background-color: #ff5d48">55%</div>
@@ -98,10 +98,25 @@
           <div class="card-details-img" style="display: none">imagem aqui</div>
         </div>
         <div class="details-data">
-          <h1>R$-{{impactoFinanceiro}}</h1>
+          <h1>R$-{{ impactoFinanceiro }}</h1>
         </div>
         <div class="details-data-percentage">
-          <div class="percentage" style="background-color: #ff5d48">-11%</div>
+          <div
+            #percentageBlock
+            *ngIf="!valoresParaComparacao.impactoAumentando"
+            class="percentage"
+            style="background-color: #ff5d48"
+          >
+            + {{ valoresParaComparacao.percentualImpacto }}%
+          </div>
+          <div
+            #percentageBlock
+            *ngIf="valoresParaComparacao.impactoAumentando"
+            class="percentage"
+            style="background-color: #43a700dd"
+          >
+            - {{ valoresParaComparacao.percentualImpacto }}%
+          </div>
           <div class="details-data-percentage-text">
             Comparado ao mes anterior
           </div>
@@ -115,10 +130,25 @@
           <div class="card-details-img" style="display: none">imagem aqui</div>
         </div>
         <div class="details-data">
-          <h1>{{evasoes}}</h1>
+          <h1>{{ evasoes }}</h1>
         </div>
         <div class="details-data-percentage">
-          <div class="percentage" style="background-color: #f1b53d">-25%</div>
+          <div
+            #percentageBlock
+            *ngIf="!valoresParaComparacao.evasaoAumentando"
+            class="percentage"
+            style="background-color: #ff5d48"
+          >
+            + {{ valoresParaComparacao.percentualEvasao }}%
+          </div>
+          <div
+            #percentageBlock
+            *ngIf="valoresParaComparacao.evasaoAumentando"
+            class="percentage"
+            style="background-color: #43a700dd"
+          >
+            - {{ valoresParaComparacao.percentualEvasao }}%
+          </div>
           <div class="details-data-percentage-text">
             Comparado ao mes anterior
           </div>

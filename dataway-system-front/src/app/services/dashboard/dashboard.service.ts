@@ -42,4 +42,12 @@ export class DashboardService {
       .set('concessao', concessao);
     return this.http.get(`${BASE_URL}/grafico_trafego_evasao/impacto_financeiro`, { params });
   }
+
+  getPercentualEvasaoImpacto(idUsuario: number, mes: number, concessao: string) {
+    const params = new HttpParams()
+      .set('idUsuario', idUsuario)
+      .set('mes', mes)
+      .set('concessao', concessao);
+    return this.http.get(`${BASE_URL}/grafico_trafego_evasao/comparacao_evasao_impacto`, { params });
+  }
 }
