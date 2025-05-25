@@ -73,12 +73,13 @@ async function pracaAlerta(idUsuario, mes, concessao) {
 
     const mesFormatado = mes < 10 ? `0${mes}` : mes;
     const sql = `
-        select praca, sum(quantidade) from DadosPracaPedagio 
+        select praca from DadosPracaPedagio 
         where tpCampo = 2 
         and fkEmpresa = ${idEmpresa}
         and data LIKE '2024-${mesFormatado}-%' 
         and lote = '${concessao}'
-        group by praca LIMIT 1;
+        group by praca 
+        ORDER BY praca ASC limit 1;
     `;
     console.log("SQL:", sql);
 

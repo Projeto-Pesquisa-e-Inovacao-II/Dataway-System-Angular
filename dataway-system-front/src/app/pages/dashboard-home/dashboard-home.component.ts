@@ -111,8 +111,8 @@ export class DashboardHomeComponent {
     ];
     
     const monthNumber = Number(month);
-    month = monthNumber - 1;
-    this.monthInCard = monthNames[month];
+    month = monthNumber;
+    this.monthInCard = monthNames[month - 1];
 
     localStorage.setItem('mes', this.monthInCard);
     localStorage.setItem('mesNumber', month.toString());
