@@ -26,6 +26,7 @@ export class DashboardComponent implements OnInit {
   public nomeConcessao: string = '';
   public praca: string = '';
   public evasoes: string = '';
+  public impactoFinanceiro: string = '';
   public actualMonth: string = localStorage.getItem('mes') || '';
 
   ngOnInit(): void {
@@ -43,6 +44,10 @@ export class DashboardComponent implements OnInit {
       Number(localStorage.getItem('mesNumber'))
     );
     this.getEvasaoData(
+      Number(localStorage.getItem('mesNumber')),
+      this.nomeConcessao
+    );
+    this.getImpactoFinanceiroData(
       Number(localStorage.getItem('mesNumber')),
       this.nomeConcessao
     );
@@ -178,6 +183,19 @@ export class DashboardComponent implements OnInit {
       .subscribe((data: any) => {
         console.log(data[0].evasoes);
         this.evasoes = data[0].evasoes;
+      });
+  }
+
+  getImpactoFinanceiroData(
+    mes: number,
+    concessao: string,
+  ) {
+    const idUsuario: number = Number(localStorage.getItem('idUsuario') ?? 0);
+    this.dashboardService
+      .getImpactoFinanceiro(idUsuario, mes, concessao)
+      .subscribe((data: any) => {
+        console.log(data[0].impacto);
+        this.impactoFinanceiro = data[0].impactoFinanceiro;
       });
   }
 

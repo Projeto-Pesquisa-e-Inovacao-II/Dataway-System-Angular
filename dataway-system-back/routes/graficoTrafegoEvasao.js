@@ -24,4 +24,10 @@ router.get("/total_evasao", function (req, res) {
   trafegoEvasaoController.getEvasao(req, res, idUsuario, mes, concessao);
 });
 
+router.get("/impacto_financeiro", function (req, res) {
+  const idUsuario = req.query.idUsuario;
+  const mes = req.query.mes;
+  const concessao = req.query.concessao;
+  trafegoEvasaoController.getImpactoFinancerio(req, res, idUsuario, mes, concessao);
+});
 module.exports = router;

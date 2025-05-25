@@ -125,8 +125,44 @@ async function getEvasao(idUsuario, mes, concessao) {
   }
 }
 
+async function getImpactoFinancerio(idUsuario, mes, concessao) {
+  try {
+    console.log(
+      "ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function entrar(): ",
+      idUsuario
+    );
+    console.log(idUsuario);
+    const empresa = `
+      SELECT fkEmpresa FROM Usuario
+      WHERE Usuario.cpf = ${idUsuario};
+    `;
+
+    const resultadoEmpresa = await database.executar(empresa);
+
+    const idEmpresa = resultadoEmpresa[0].fkEmpresa;
+
+    const resultadoPorMes = [];
+
+    const mesFormatado = mes < 10 ? `0${mes}` : mes;
+    const sql = `
+      select sum(valor) as impactoFinanceiro from DadosPracaPedagio 
+		    where fkEmpresa = ${idEmpresa}
+        and tpCampo = 2
+        and data LIKE '2024-${mesFormatado}-%'
+        and lote = '${concessao}';
+    `;
+    console.log("SQL:", sql);
+
+    return await database.executar(sql);
+  } catch (erro) {
+    console.log("Erro ao executar as queries:", erro);
+    return [];
+  }
+}
+
 module.exports = {
   getGraphData,
   pracaAlerta,
   getEvasao,
+  getImpactoFinancerio,
 };
