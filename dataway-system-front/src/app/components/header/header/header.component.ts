@@ -28,6 +28,6 @@ export class HeaderComponent {
   }
 
   handlePerfil() {
-    window.location.href = '/app/perfil';
+    window.location.href = '/perfil';
   }
 }

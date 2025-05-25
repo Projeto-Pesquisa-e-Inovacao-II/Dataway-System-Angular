@@ -7,8 +7,8 @@
   <div class="container-filtro">
     <h1>Visão geral das concessões</h1>
 
-    <form action="" ngSubmit="filterDashboard()">
-      <select class="select-period" name="mes" id="mes">
+    <form action="" (submit)="handleFilterCards(periodSelect.value)">
+      <select #periodSelect class="select-period">
         <option value="#">Selecione o mês desejado</option>
         <option value="1">Janeiro</option>
         <option value="2">Fevereiro</option>
@@ -31,11 +31,16 @@
   </div>
 
   <div class="container-cards">
-    <div class="card-concessoes" *ngFor="let item of lotes" (click)="handleFilterDashboard(item.nomeConcessao)">
+    <div
+      class="card-concessoes"
+      *ngFor="let item of lotes"
+      (click)="handleFilterDashboard(item.nomeConcessao)"
+    >
       <app-home-cards
         [concessao]="item.nomeConcessao"
         [veiculos]="item.trafego"
         [evasoes]="item.evasoes"
+        [periodo]="monthInCard"
       ></app-home-cards>
     </div>
   </div>

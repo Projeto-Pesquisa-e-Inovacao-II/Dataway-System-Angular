@@ -14,7 +14,16 @@ export class DashboardService {
     const params = new HttpParams()
       .set('idUsuario', idUsuario)
       .set('concessao', concessao);
-      console.log(params);
+    console.log(params);
     return this.http.get(`${BASE_URL}/grafico_trafego_evasao`, { params });
+  }
+
+  getPracaAlerta(idUsuario: number, concessao: string, mes: number) {
+    const params = new HttpParams()
+      .set('idUsuario', idUsuario)
+      .set('mes', mes)
+      .set('concessao', concessao);
+
+    return this.http.get(`${BASE_URL}/grafico_trafego_evasao/praca_alerta`, { params });
   }
 }

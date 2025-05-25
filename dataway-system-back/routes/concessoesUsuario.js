@@ -5,7 +5,8 @@ var concessoesUsuarioController = require("../controllers/concessoesUsuarioContr
 
 router.get("/", function (req, res) {
   const idUsuario = req.query.idUsuario;
-  concessoesUsuarioController.getUserConcessoesReq(req, res, idUsuario);
+  const mes = req.query.mes;
+  concessoesUsuarioController.getUserConcessoesReq(req, res, idUsuario, mes);
 });
 
 router.get("/evasoes", function (req, res) {

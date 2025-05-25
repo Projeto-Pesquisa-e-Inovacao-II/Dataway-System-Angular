@@ -13,9 +13,10 @@ export const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent },
   { path: 'dashboard/:nomeConcessao', component: DashboardComponent },
   { path: 'app', component: DashboardHomeComponent },
-  { path: 'app/perfil', component: PerfilComponent },
-  { path: 'app/suporte', component: SuporteComponent },
-  { path: 'app/cadastrar-funcionario', component: CadastrarFuncionarioComponent },
+  { path: 'app/:mes', component: DashboardHomeComponent },
+  { path: 'perfil', component: PerfilComponent },
+  { path: 'suporte', component: SuporteComponent },
+  { path: 'cadastrar-funcionario', component: CadastrarFuncionarioComponent },
   { path: '', component: DashboardHomeComponent },
   { path: '**', redirectTo: '' },
 ];

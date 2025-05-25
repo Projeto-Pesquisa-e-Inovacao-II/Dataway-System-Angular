@@ -22,8 +22,10 @@ export class DashboardComponent implements OnInit {
   ) {}
 
   public dadosTrafegoEvasao: DashboardGraficoTrafegoEvasao[] = [];
-  public monthFilter: number = 2024;
-  nomeConcessao: string = '';
+  public monthFilter: number = 0;
+  public nomeConcessao: string = '';
+  public praca: string = '';
+  public actualMonth: string = localStorage.getItem('mes') || '';
 
   ngOnInit(): void {
     this.nomeConcessao =
@@ -34,6 +36,11 @@ export class DashboardComponent implements OnInit {
     }
 
     this.getTrafegoEvasaoData(this.nomeConcessao);
+    this.getPracaAlerta(
+      Number(localStorage.getItem('idUsuario')),
+      this.nomeConcessao,
+      Number(localStorage.getItem('mesNumber'))
+    );
   }
 
   ngAfterViewInit(): void {
@@ -61,11 +68,26 @@ export class DashboardComponent implements OnInit {
     this.monthFilter = period;
     console.log(this.monthFilter);
     if (this.monthFilter === 1) {
-      this.meses = ['Jan'];
+      this.meses = [localStorage.getItem('mes') || ''];
     }
 
     if (this.monthFilter === 6) {
-      this.meses = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun'];
+      var mesNumero = localStorage.getItem('mesNumber')
+      this.meses = [
+        'Jan',
+        'Fev',
+        'Mar',
+        'Abr',
+        'Mai',
+        'Jun',
+        'Jul',
+        'Ago',
+        'Set',
+        'Out',
+        'Nov',
+        'Dez',
+      ];
+      this.meses = this.meses.slice(Number(mesNumero) - 1, this.meses.length);
     }
 
     if (this.monthFilter === 12) {
@@ -86,12 +108,17 @@ export class DashboardComponent implements OnInit {
     }
     this.barChart.data.labels = this.meses;
     this.barChart.update();
+  }
 
-    // Filtering logic can be added here if needed
-    // Example:
-    // const filtered = this.dadosTrafegoEvasao.filter(item => item.mes === this.monthFilter);
-    // this.barChart.data.datasets[0].data = filtered.map(item => Number(item.dados[0].evasao));
-    // this.barChart.update();
+  getPracaAlerta(idUsuario: number, concessao: string, mes: number) {
+    this.dashboardService
+      .getPracaAlerta(idUsuario, concessao, mes)
+      .subscribe((data: any) => {
+        this.praca = data[0]?.praca;
+        console.log(data[0]?.praca);
+      });
+
+    console.log(this.praca);
   }
 
   getTrafegoEvasaoData(concessao: string) {

@@ -16,6 +16,6 @@ export class HomeCardsComponent {
   @Input()
   public evasoes!: number;
   ngOnInit() {
-    console.log(this.evasoes);
+    console.log(this.periodo);
   }
 }

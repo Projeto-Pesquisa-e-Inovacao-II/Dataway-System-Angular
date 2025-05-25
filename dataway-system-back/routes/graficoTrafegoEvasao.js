@@ -10,4 +10,11 @@ router.get("/", function (req, res) {
   trafegoEvasaoController.getGraphData(req, res, idUsuario, concessao);
 });
 
+router.get("/praca_alerta", function (req, res) {
+  const idUsuario = req.query.idUsuario;
+  const mes = req.query.mes;
+  const concessao = req.query.concessao;
+  trafegoEvasaoController.pracaAlerta(req, res, idUsuario, mes, concessao);
+});
+
 module.exports = router;

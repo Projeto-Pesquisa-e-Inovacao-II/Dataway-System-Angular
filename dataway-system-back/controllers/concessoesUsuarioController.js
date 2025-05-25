@@ -1,6 +1,6 @@
 var getUserConcessoes = require("../models/concessoesUsuarioModel");
 
-function getUserConcessoesReq(req, res, idUsuario) {
+function getUserConcessoesReq(req, res, idUsuario, mes) {
   // Crie uma variável que vá recuperar os valores do arquivo cadastro.html
   // Faça as validações dos valores
   if (idUsuario == null || idUsuario == undefined) {
@@ -8,7 +8,7 @@ function getUserConcessoesReq(req, res, idUsuario) {
   } else {
     // Passe os valores como parâmetro e vá para o arquivo updateUserDataModel.js
     getUserConcessoes
-      .getUserConcessoes(idUsuario)
+      .getUserConcessoes(idUsuario, mes)
       .then(function (resultado) {
         res.json(resultado);
       })

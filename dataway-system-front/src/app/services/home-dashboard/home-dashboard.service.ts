@@ -10,8 +10,8 @@ export class HomeDashboardService {
 
   constructor() {}
 
-  getDistinctConcessoes(idUsuario: number) {
-    const params = new HttpParams().set('idUsuario', idUsuario);
+  getDistinctConcessoes(idUsuario: number, monthFilter?: number) {
+    const params = new HttpParams().set('idUsuario', idUsuario).set('mes', monthFilter || 0);
     console.log(params);
     return this.http.get(`${BASE_URL}/concessoes_usuario`, { params });
   }
