@@ -10,6 +10,12 @@
   "author": "Feito pelos desenvolvedores @ São Paulo Tech School / Bandtec Digital School",
   "license": "MIT",
   "dependencies": {
+    "@angular/animations": "^19.2.13",
+    "@angular/common": "^19.2.13",
+    "@angular/core": "^19.2.13",
+    "@angular/forms": "^19.2.13",
+    "@angular/platform-browser": "^19.2.13",
+    "@angular/router": "^19.2.13",
     "chart.js": "^4.4.9",
     "chartjs-chart-matrix": "^3.0.0",
     "chartjs-plugin-datalabels": "^2.2.0",
