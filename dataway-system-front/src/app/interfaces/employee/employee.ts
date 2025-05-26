@@ -1,8 +1,8 @@
 export interface Employee {
-  name: '';
-  birthDate: '';
-  email: '';
-  password: '';
-  role: '';
-  cpf: '';
+  name: string;
+  birthDate: string;
+  email: string;
+  password: string;
+  role: string;
+  cpf: string;
 }
