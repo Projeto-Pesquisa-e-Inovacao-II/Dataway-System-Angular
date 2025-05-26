@@ -13,6 +13,10 @@
         </div>
         <div class="right">
           <div class="right_span">
+            <span class="right_span_title"> Nome: </span>
+            <ng-container *ngIf="!isEditing; else editNome">
+              <span class="right_span_text">{{ userData.nome }}</span>
+            </ng-container>
             <span class="right_span_title"> Email: </span>
             <ng-container *ngIf="!isEditing; else editEmail">
               <span class="right_span_text">{{ userData.email }}</span>
@@ -21,16 +25,20 @@
             <ng-container *ngIf="!isEditing; else editTelefone">
               <span class="right_span_text">{{ userData.telefone }}</span>
             </ng-container>
-            <span class="right_span_title"> Representante legal: </span>
-            <ng-container *ngIf="!isEditing; else editRepresentanteLegal">
-              <span class="right_span_text">{{
-                userData.representanteLegal
-              }}</span>
+
+            <span class="right_span_title"> Senha: </span>
+            <ng-container *ngIf="!isEditing; else senha">
+              <span class="right_span_text">{{ userData.senha }}</span>
             </ng-container>
-            <span class="right_span_title"> Nome fantasia: </span>
-            <ng-container *ngIf="!isEditing; else editNomeFantasia">
-              <span class="right_span_text">{{ userData.nomeFantasia }}</span>
-            </ng-container>
+
+            <ng-template #editNome>
+              <input
+                type="text"
+                class="right_span_input"
+                [(ngModel)]="userData.nome"
+                name="email"
+              />
+            </ng-template>
 
             <ng-template #editEmail>
               <input
@@ -49,22 +57,15 @@
                 name="telefone"
               />
             </ng-template>
-            <ng-template #editRepresentanteLegal>
+            <ng-template #senha>
               <input
                 type="text"
                 class="right_span_input"
-                [(ngModel)]="userData.representanteLegal"
-                name="representanteLegal"
+                [(ngModel)]="userData.senha"
+                name="senha"
               />
             </ng-template>
-            <ng-template #editNomeFantasia>
-              <input
-                type="text"
-                class="right_span_input"
-                [(ngModel)]="userData.nomeFantasia"
-                name="nomeFantasia"
-              />
-            </ng-template>
+
             <button
               *ngIf="!isEditing"
               (click)="isEditing = true"
