@@ -1,0 +1,43 @@
+<!-- html -->
+<app-header></app-header>
+
+<div class="container">
+
+  <div class="row">
+    <h1>Funcionários Cadastrados</h1>
+  </div>
+
+  <div class="container-center">
+
+    <div class="container-left">
+      <div>
+        <div class="header">
+          <span><strong>Nome:</strong></span>
+          <span><strong>Email:</strong></span>
+          <span><strong>Tipo Conta:</strong></span>
+        </div>
+
+        <div class="linha" *ngFor="let emp of employees; let i = index">
+<span>{{ emp.nome }}</span>
+  <span>{{ emp.email }}</span>
+  <span>
+    {{ emp.tipoConta }}
+    <img *ngIf="showManageIcons" 
+         src=""; 
+         alt="Remover" 
+         (click)="deleteEmployee(i)" 
+         style="width: 16px; height: 16px; cursor: pointer; margin-left: 8px;" />
+  </span>
+        </div>
+      </div>
+
+      <div class="botoes">
+        <button (click)="toggleManageIcons()">gerenciar contas</button>
+      </div>
+    </div>
+
+    <div class="container-right">
+      <img src="/images/Icon/21.png">
+    </div>
+  </div>
+</div>

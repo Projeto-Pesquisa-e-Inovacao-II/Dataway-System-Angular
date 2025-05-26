@@ -6,6 +6,7 @@ import { CadastroComponent } from './pages/cadastro/cadastro.component';
 import { LoginComponent } from './pages/login/login.component';
 import { DashboardHomeComponent } from './pages/dashboard-home/dashboard-home.component';
 import { CadastrarFuncionarioComponent } from './pages/cadastrar-funcionario/cadastrar-funcionario.component';
+import { ListEmployeesComponent } from './pages/list-employees/list-employees.component';
 
 export const routes: Routes = [
   { path: 'cadastro', component: CadastroComponent },
@@ -15,6 +16,7 @@ export const routes: Routes = [
   { path: 'app/perfil', component: PerfilComponent },
   { path: 'app/suporte', component: SuporteComponent },
   { path: 'app/cadastrar-funcionario', component: CadastrarFuncionarioComponent },
+  { path: 'list-employees', component: ListEmployeesComponent },
   { path: '', component: DashboardComponent },
   { path: '**', redirectTo: '' },
 ];
