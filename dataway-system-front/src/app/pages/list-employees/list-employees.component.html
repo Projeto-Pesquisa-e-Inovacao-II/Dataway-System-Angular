@@ -18,10 +18,10 @@
         </div>
 
         <div class="linha" *ngFor="let emp of employees; let i = index">
-<span>{{ emp.nome }}</span>
+<span>{{ emp.name }}</span>
   <span>{{ emp.email }}</span>
   <span>
-    {{ emp.tipoConta }}
+    {{ emp.role }}
     <img *ngIf="showManageIcons" 
          src=""; 
          alt="Remover" 

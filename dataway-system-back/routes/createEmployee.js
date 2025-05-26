@@ -8,4 +8,9 @@ router.post("/", function (req, res) {
   employeeController.createEmployee(req, res);
 });
 
+router.get("/list", function (req, res) {
+  idUsuario = req.query.idUsuario;
+  employeeController.listEmployee(req, res, idUsuario);
+});
+
 module.exports = router;

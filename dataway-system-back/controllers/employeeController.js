@@ -35,6 +35,24 @@ function createEmployee(req, res) {
       });
   }
 }
+
+function listEmployee(req, res, idUsuario) {
+
+  employeeModel
+    .listEmployee(idUsuario)
+    .then(function (resultado) {
+      res.json(resultado);
+    })
+    .catch(function (erro) {
+      console.log(erro);
+      console.log(
+        "\nHouve um erro ao listar os funcionários! Erro: ",
+        erro.sqlMessage
+      );
+      res.status(500).json(erro.sqlMessage);
+    });
+}
 module.exports = {
   createEmployee,
+  listEmployee
 };
