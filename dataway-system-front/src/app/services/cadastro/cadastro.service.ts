@@ -10,6 +10,6 @@ export class CadastroService {
   http = inject(HttpClient);
 
   cadastrarUsuario(dados: any) {
-    return this.http.post(`${BASE_URL}usuarios/cadastrar`, dados);
+    return this.http.post(`${BASE_URL}/usuarios/cadastrar`, dados);
   }
 }
