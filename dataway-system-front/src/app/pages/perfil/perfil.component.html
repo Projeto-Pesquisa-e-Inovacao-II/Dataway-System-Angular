@@ -28,7 +28,7 @@
 
             <span class="right_span_title"> Senha: </span>
             <ng-container *ngIf="!isEditing; else senha">
-              <span class="right_span_text">{{ userData.senha }}</span>
+              <span class="right_span_text">xxxxxxxxxx</span>
             </ng-container>
 
             <ng-template #editNome>
@@ -59,7 +59,7 @@
             </ng-template>
             <ng-template #senha>
               <input
-                type="text"
+                type="password"
                 class="right_span_input"
                 [(ngModel)]="userData.senha"
                 name="senha"
