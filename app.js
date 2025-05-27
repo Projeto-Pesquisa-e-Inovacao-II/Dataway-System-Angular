@@ -45,7 +45,7 @@ app.use("/grafico_trafego_evasao", graficoTrafegoEvasao);
 
 app.use("/concessoes_usuario", getUserConcessoes);
 
-app.listen(PORTA_APP, function () {
+app.listen(PORTA_APP, HOST_APP, function () {
     console.log(`
 
                                     ####      ##   ######   ##    ##   ##    ##  ###    ###
