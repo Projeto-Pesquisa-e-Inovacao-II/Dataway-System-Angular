@@ -66,14 +66,14 @@ onModalBackgroundClick(event: MouseEvent) {
           }
         );
 
-        this.trafegoData = this.dadosTrafegoEvasao.map(
-          (item: DashboardGraficoTrafegoEvasao) => {
-            return Number(item.dados[0].trafego);
-          }
-        );
+        // this.trafegoData = this.dadosTrafegoEvasao.map(
+        //   (item: DashboardGraficoTrafegoEvasao) => {
+        //     return Number(item.dados[0].trafego);
+        //   }
+        // );
 
         this.barChart.data.datasets[0].data = this.evasoesData;
-        this.barChart.data.datasets[1].data = this.trafegoData;
+        // this.barChart.data.datasets[1].data = this.trafegoData;
         this.barChart.update();
 
         console.log(this.barChart.data);
@@ -104,40 +104,32 @@ onModalBackgroundClick(event: MouseEvent) {
   };
 
   public config: any = {
-    type: 'bar',
+    type: 'doughnut',
     data: this.data,
     options: {
+      cutout: '70%',
       indexAxis: 'y',
       responsive: true,
       maintainAspectRatio: false,
       scales: {
         x: {
+          display: false,
           beginAtZero: true,
-          max: 20,
           grid: {
             display: false,
-          },
-          ticks: {
-            font: {
-              size: 12,
-            },
           },
         },
         y: {
+          display: false,
           grid: {
             display: false,
-          },
-          ticks: {
-            font: {
-              size: 12,
-              weight: 'bold',
-            },
           },
         },
       },
       plugins: {
         legend: {
-          display: false,
+          display: true,
+          position: 'top',
         },
         tooltip: {
           backgroundColor: 'rgba(0, 0, 0, 0.7)',
@@ -359,7 +351,7 @@ onModalBackgroundClick(event: MouseEvent) {
   };
 
   // dados bar and line
-  private trafegoData: number[] = [];
+  // private trafegoData: number[] = [];
   private evasoesData: number[] = [];
 
   public dataBarAndLine: any = {
@@ -372,14 +364,14 @@ onModalBackgroundClick(event: MouseEvent) {
         borderColor: ['rgb(0, 151, 178)'],
         fill: false,
       },
-      {
-        label: 'Tráfego',
-        data: this.trafegoData,
-        borderColor: 'rgb(191, 191, 191)',
-        backgroundColor: ['rgb(191, 191, 191)'],
-        borderWidth: 1,
-        borderRadius: 4,
-      },
+      // {
+      //   label: 'Tráfego',
+      //   data: this.trafegoData,
+      //   borderColor: 'rgb(191, 191, 191)',
+      //   backgroundColor: ['rgb(191, 191, 191)'],
+      //   borderWidth: 1,
+      //   borderRadius: 4,
+      // },
     ],
   };
 
@@ -414,7 +406,8 @@ onModalBackgroundClick(event: MouseEvent) {
   }
 
   ngAfterViewInit(): void {
-    this.lineChart = new Chart('lineCanvas', this.configLine);
+    // this.lineChart = new Chart('lineCanvas', this.configLine);
     this.barChart = new Chart('barCanvas', this.configBarAndLine);
+    this.lineChart = new Chart('horizontalBarChart', this.config);
   }
 }
