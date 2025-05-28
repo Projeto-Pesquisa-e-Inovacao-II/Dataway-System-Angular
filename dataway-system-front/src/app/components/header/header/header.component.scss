@@ -1,7 +1,10 @@
+
+
+
 $header-background-color: #cacaca;
 $header-background-color-profile: #0b768b;
-$header-text-color: #343a40;
-$header-text-color-profile: #fff;
+$header-text-color: #050d21;
+$header-text-color-profile: #050d21;
 $header-height: 90px;
 $header-padding: 10px;
 
@@ -113,6 +116,17 @@ header {
       }
     }
   }
+
+  .header-logo {
+    font-family: "Red Hat Display", sans-serif !important;
+    font-size: 50px;
+    color: #050d21;
+  }
+
+  .header-logo b {
+  font-weight: bold !important;
+}
+
 }
 
 @media (max-width: 1600px) {

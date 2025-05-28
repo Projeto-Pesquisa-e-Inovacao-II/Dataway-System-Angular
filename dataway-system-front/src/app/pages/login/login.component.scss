@@ -1,3 +1,7 @@
+
+/* Red Hat Display font */
+@import url("https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@400..700&display=swap");
+
 $primary-color: #1ef0a6;
 $secondary-color: #1becaa;
 $accent-color: #0bc47a;
@@ -24,9 +28,10 @@ $color-button: #20f3a5;
   font-family: "Montserrat", sans-serif;
 }
 .wrapper-logo .logo {
+  font-family: "Red Hat Display";
   display: flex;
   align-items: center;
-  font-size: 3rem;
+  font-size: 4.5rem;
   color: $text-color;
   margin-top: 60px;
 }
