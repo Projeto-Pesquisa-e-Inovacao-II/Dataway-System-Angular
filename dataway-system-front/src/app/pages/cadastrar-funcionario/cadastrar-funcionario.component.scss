@@ -1,0 +1,59 @@
+$color-text: #000;
+$background-color-button: #000;
+$color-text-button: #fff;
+@mixin button {
+  background-color: $background-color-button;
+  color: $color-text-button;
+}
+
+
+.inputs-create-employee {
+  max-width: 1600px;
+  margin: 0 auto;
+  font-family: "Montserrat", sans-serif !important;
+  .inputs-create-employee__content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-top: 20px;
+    color: $color-text; 
+    form {
+      display: flex;
+      flex-direction: row;
+      align-items: flex-end;
+      width: 40%;
+
+      .wrapper_inputs {
+        width: 100%;
+        margin-right: 50px;
+      }
+
+      .inputs-create-employee__content__input {
+        display: flex;
+        flex-direction: column;
+        margin-top: 20px;
+        input {
+          width: 100%;
+          padding: 8px;
+          font-size: 20px;
+        }
+        label {
+        margin-bottom: 8px;
+        font-weight: bold
+        }
+      }
+      .buttons-create-employee__content__input {
+        display: flex;
+        height: 100%;
+        button {
+          width: 200px;
+          border: none;
+          border-radius: 8px;
+          padding: 10px;
+          text-align: center;
+          @include button;
+        }
+      }
+    }
+  }
+}

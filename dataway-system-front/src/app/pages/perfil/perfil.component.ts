@@ -17,10 +17,10 @@ export class PerfilComponent {
   constructor(private perfilService: PerfilService) {}
   isEditing = false;
   userData: UserData = {
+    nome: '',
     email: '',
     telefone: '',
-    representanteLegal: '',
-    nomeFantasia: '',
+    senha: '',
   };
   ngOnInit() {
     const idUsuario = localStorage.getItem('idUsuario');
@@ -33,10 +33,10 @@ export class PerfilComponent {
   getUserData(idUsuario: string) {
     this.perfilService.getUserData(idUsuario).subscribe((res: any) => {
       console.log(res[0]);
+      this.userData.nome = res[0].nome;
       this.userData.email = res[0].email;
       this.userData.telefone = res[0].telefone;
-      this.userData.representanteLegal = res[0].representanteLegal;
-      this.userData.nomeFantasia = res[0].nomeFantasia;
+      this.userData.senha = res[0].senha;
     });
   }
 

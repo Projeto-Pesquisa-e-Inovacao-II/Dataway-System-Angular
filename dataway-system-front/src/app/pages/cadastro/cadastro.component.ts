@@ -61,6 +61,13 @@ export class CadastroComponent implements OnInit {
 
   passo: number = 1;
 
+  user = {
+  nome: '',
+  email: '',
+  senha: '',
+  dataNascimento: ''
+};
+
   constructor(
     @Inject(DOCUMENT) private document: Document,
     private cadastroService: CadastroService

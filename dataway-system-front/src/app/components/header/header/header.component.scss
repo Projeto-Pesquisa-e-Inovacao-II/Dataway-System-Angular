@@ -21,6 +21,15 @@ header {
   margin-left: auto;
   max-width: 1600px;
 
+  .header-logo {
+    a {
+      font-size: 24px;
+      font-weight: bold;
+      color: $header-text-color;
+      text-decoration: none;
+    }
+  }
+
   ul {
     font-weight: normal !important;
     list-style: none;
@@ -118,4 +127,10 @@ header {
   font-weight: bold !important;
 }
 
+}
+
+@media (max-width: 1600px) {
+  header {
+    max-width: 1300px;
+  }
 }
