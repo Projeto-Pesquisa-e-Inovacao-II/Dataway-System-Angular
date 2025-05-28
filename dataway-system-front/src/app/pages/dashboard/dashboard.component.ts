@@ -17,11 +17,25 @@ Chart.register(MatrixController, MatrixElement);
 })
 export class DashboardComponent implements OnInit {
   constructor(
-    private dashboardService: DashboardService,
-    private route: ActivatedRoute,
-    private router: Router
+  private dashboardService: DashboardService,
+  private route: ActivatedRoute,
+  private router: Router
   ) {}
 
+  showModal = false;
+
+openModal() {
+  this.showModal = true;
+}
+
+closeModal() {
+  this.showModal = false;
+} // TYPESCRIPT DO MODAL DA OCORRENCIA
+onModalBackgroundClick(event: MouseEvent) {
+  if ((event.target as HTMLElement).classList.contains('modal')) {
+    this.closeModal();
+  }
+}
   public dadosTrafegoEvasao: DashboardGraficoTrafegoEvasao[] = [];
   public monthFilter: number = 0;
   public nomeConcessao: string = '';
@@ -62,7 +76,25 @@ export class DashboardComponent implements OnInit {
     this.lineChart = new Chart('horizontalBarChart', this.config);
   }
 
-  public meses: string[] = [
+public meses: string[] = [
+  'Jan',
+  'Fev',
+  'Mar',
+  'Abr',
+  'Mai',
+  'Jun',
+  'Jul',
+  'Ago',
+  'Set',
+  'Out',
+  'Nov',
+  'Dez',
+];
+
+handleFilterChange(period: number) {
+  this.monthFilter = period;
+  console.log(this.monthFilter);
+  this.meses = [
     'Jan',
     'Fev',
     'Mar',
@@ -77,9 +109,20 @@ export class DashboardComponent implements OnInit {
     'Dez',
   ];
 
-  handleFilterChange(period: number) {
-    this.monthFilter = period;
-    console.log(this.monthFilter);
+  if (this.monthFilter === 1) {
+    this.meses = [localStorage.getItem('mes') || ''];
+  }
+
+  if (this.monthFilter === 6) {
+    var mesNumero = localStorage.getItem('mesNumber');
+
+    this.meses = this.meses.slice(
+      Number(mesNumero) - 1,
+      Number(mesNumero) + 5
+    );
+  }
+
+  if (this.monthFilter === 12) {
     this.meses = [
       'Jan',
       'Fev',
@@ -94,52 +137,25 @@ export class DashboardComponent implements OnInit {
       'Nov',
       'Dez',
     ];
-
-    if (this.monthFilter === 1) {
-      this.meses = [localStorage.getItem('mes') || ''];
-    }
-
-    if (this.monthFilter === 6) {
-      var mesNumero = localStorage.getItem('mesNumber');
-
-      this.meses = this.meses.slice(
-        Number(mesNumero) - 1,
-        Number(mesNumero) + 5
-      );
-    }
-
-    if (this.monthFilter === 12) {
-      this.meses = [
-        'Jan',
-        'Fev',
-        'Mar',
-        'Abr',
-        'Mai',
-        'Jun',
-        'Jul',
-        'Ago',
-        'Set',
-        'Out',
-        'Nov',
-        'Dez',
-      ];
-    }
-    this.barChart.data.labels = this.meses;
-    this.barChart.update();
   }
 
-  getPracaAlerta(idUsuario: number, concessao: string, mes: number) {
-    this.dashboardService
-      .getPracaAlerta(idUsuario, concessao, mes)
-      .subscribe((data: any) => {
-        this.praca = data[0]?.praca;
-        console.log(data[0]?.praca);
-      });
+  this.barChart.data.labels = this.meses;
+  this.barChart.update();
+}
 
-    console.log(this.praca);
-  }
+getPracaAlerta(idUsuario: number, concessao: string, mes: number) {
+  this.dashboardService
+    .getPracaAlerta(idUsuario, concessao, mes)
+    .subscribe((data: any) => {
+      this.praca = data[0]?.praca;
+      console.log(data[0]?.praca);
+    });
 
-  getTrafegoEvasaoData(concessao: string) {
+  console.log(this.praca);
+}
+
+getTrafegoEvasaoData(concessao: string) {
+
     const idUsuario: number = Number(localStorage.getItem('idUsuario') ?? 0);
 
     this.dashboardService

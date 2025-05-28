@@ -9,58 +9,52 @@
     <section class="container-text-login">
       <div class="login-text">
         <h1>Login</h1>
-        <h2>Entre com seu e-mail e senha para acessar sua conta.</h2>
+        <h2>Faça login para continuar!</h2>
       </div>
       <div class="generic-text">
-        <div class="generic-text-border"></div>
-        <p>
-          TRANFORMAMOS INFORMAÇÕES EM DECISÕES ESTRATÉGICAS PARA UM TRÁFEGO MAIS
-          SEGURO E RENTÁVEL.
-        </p>
-      </div>
+  <span class="generic-text-border"></span>
+  <p>Transformamos dados em atitudes estratégicas.</p>
+</div>
     </section>
     <form (ngSubmit)="postLogin()">
       <section class="container-form-login">
         <h1>Login</h1>
 
         <div class="container-inputs">
-          <div class="input-field">
-            <input
-              [(ngModel)]="user.email"
-              type="email"
-              name="text"
-              class="input"
-              id="emailInput"
-              placeholder=" "
-              autocomplete="current-password"
-            />
-            <label class="user-label">Email</label>
-          </div>
+       <div class="input-field">
+  <input
+    [(ngModel)]="user.email"
+    type="email"
+    name="email"
+    class="input"
+    id="emailInput"
+    autocomplete="current-password"
+  />
+  <label class="user-label right-label" for="emailInput">Email</label>
+</div>
 
-          <div class="input-field">
-            <input
-              [(ngModel)]="user.senha"
-              type="password"
-              name="text"
-              class="input"
-              id="senhaInput"
-              placeholder=" "
-              autocomplete="current-password"
-            />
-            <label class="user-label">Senha</label>
-            <span class="toggle-password">
-              <img
-                id="senhaIcon"
-                src="../images/Icon/eye.svg"
-                alt="Mostrar senha"
-                onclick="togglePasswordVisibility('senhaInput', 'senhaIcon') "
-              />
-            </span>
-          </div>
-
+<div class="input-field">
+  <input
+    [(ngModel)]="user.senha"
+    type="password"
+    name="senha"
+    class="input"
+    id="senhaInput"
+    autocomplete="current-password"
+  />
+  <label class="user-label right-label" for="senhaInput">Senha</label>
+  <span class="toggle-password">
+    <img
+      id="senhaIcon"
+      src="../images/Icon/eye.svg"
+      alt="Mostrar senha"
+      onclick="togglePasswordVisibility('senhaInput', 'senhaIcon')"
+    />
+  </span>
+</div>
           <div class="container-btn">
             <button type="submit" class="btn-entrar" id="btnLogin">
-              <span>Entrar</span>
+              <span>Login</span>
             </button>
           </div>
           <div class="caminho-cadastro">
