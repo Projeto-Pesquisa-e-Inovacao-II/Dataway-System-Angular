@@ -1,0 +1,120 @@
+// css
+
+$text-color: #000;
+$background-color-row: #bed7db;
+$default-margin: 25px;
+
+.container {
+  font-family: "Montserrat", sans-serif !important;
+  color: $text-color;
+
+  .row {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+    padding: 20px;
+    background-color: $background-color-row;
+  }
+
+  &-filtro {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: $default-margin;
+    form {
+      .select-period {
+        padding: 8px;
+        width: 350px;
+        font-size: 15px;
+      }
+
+      button {
+        padding: 8px;
+        margin-left: 15px;
+        margin-top: $default-margin;
+        background-color: #31383e;
+        color: #fff;
+        width: 100px;
+        border-radius: 8px;
+        font-size: 18px;
+        border: none;
+      }
+    }
+
+    p {
+      margin-top: $default-margin;
+      font-size: 1.5rem;
+    }
+  }
+}
+
+  .container-right{
+    margin: 0;
+    img{
+      height: 76vh;
+    }
+    
+  }
+
+  .container-left{
+  background-color: #b4b4bb;
+  border: solid 1px;
+  border-color: #333;
+  width: 50%;
+  height: 60vh;
+  border-radius: 5px;
+  box-sizing: border-box;
+  border-color: #000;
+  margin-left: 7rem; 
+}
+
+.container-center {
+gap: 11.7rem;
+  display: flex;
+  align-items: center;
+}
+
+
+.header {
+  margin:1rem 1rem 0 1rem;
+  display: flex;
+  justify-content: space-between;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.linha {
+  margin:1rem 1rem 0 1rem;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 4px solid #333;
+  padding: 10px 0;
+  font-style: italic;
+  color: #333;
+}
+
+.botoes {
+  display: flex;
+  justify-content: flex-end;
+  margin:1rem;
+  
+
+}
+
+button {
+  background-color: #2b2b2b;
+  color: white;
+  padding: 10px 20px;
+  font-weight: bold;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+button:hover {
+  background-color: #1e1e1e;
+}

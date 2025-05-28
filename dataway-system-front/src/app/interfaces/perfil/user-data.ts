@@ -1,6 +1,6 @@
 export interface UserData {
+  nome: '';
   email: '';
   telefone: '';
-  representanteLegal: '';
-  nomeFantasia: '';
+  senha: '';
 }

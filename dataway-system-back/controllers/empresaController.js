@@ -24,7 +24,7 @@ function autenticar(req, res) {
           res.status(403).send("Mais de um usuário com o mesmo login e senha!");
         }
       })
-      .catch(function (erro) {resposta
+      .catch(function (erro) {
         console.log(erro);
         console.log(
           "\nHouve um erro ao realizar o login! Erro: ",

@@ -30,7 +30,7 @@ export class LoginComponent {
     this.loginService.postLogin(dados).subscribe(
       (res: any) => {
         console.log('foi', res);
-        const idUsuario = res.idUsuario;
+        const idUsuario = res.cpf;
         const nomeUsuario = res.nome;
         localStorage.setItem('idUsuario', idUsuario);
         localStorage.setItem('nomeUsuario', nomeUsuario);

@@ -23,6 +23,7 @@ var deleteUser = require("./dataway-system-back/routes/deleteUserData")
 var getUserData = require("./dataway-system-back/routes/getUserData");
 var updateUserData = require("./dataway-system-back/routes/updateUserData");
 
+var getUserConcessoes = require("./dataway-system-back/routes/concessoesUsuario");
 //dashboard
 var graficoTrafegoEvasao = require("./dataway-system-back/routes/graficoTrafegoEvasao");
 
@@ -42,7 +43,9 @@ app.use("/create_employee", createEmployee);
 //dashboard
 app.use("/grafico_trafego_evasao", graficoTrafegoEvasao);
 
-app.listen(PORTA_APP, function () {
+app.use("/concessoes_usuario", getUserConcessoes);
+
+app.listen(PORTA_APP, HOST_APP, function () {
     console.log(`
 
                                     ####      ##   ######   ##    ##   ##    ##  ###    ###

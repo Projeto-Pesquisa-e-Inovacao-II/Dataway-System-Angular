@@ -12,10 +12,10 @@ export class HomeCardsComponent {
   @Input()
   public periodo!: string;
   @Input()
-  public veiculos!: string;
+  public veiculos!: number;
   @Input()
-  public evasoes!: string;
+  public evasoes!: number;
   ngOnInit() {
-    console.log(this.concessao);
+    console.log(this.periodo);
   }
 }
