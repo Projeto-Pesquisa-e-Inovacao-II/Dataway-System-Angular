@@ -45,7 +45,7 @@ $background-color-secondary: #ef6a47;
     font-weight: 600;
   }
 
-.ocorrencia {
+.nota {
   background-color: #232b30;
   padding: 8px;
 }
@@ -99,13 +99,13 @@ $background-color-secondary: #ef6a47;
   font-size: 16px;
   cursor: pointer;
   margin-top: 10px;
-  align-self: flex-end; // alinha à direita dentro do flex container
+  align-self: center; 
   transition: background 0.2s;
   font-weight: 600;
 }
 
 .modal-btn:hover {
-  background-color: #0056b3; // azul mais escuro no hover
+  background-color: #0056b3; 
 }
 .close {
   color: #aaa;

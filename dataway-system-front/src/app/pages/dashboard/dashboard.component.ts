@@ -26,7 +26,11 @@ openModal() {
 closeModal() {
   this.showModal = false;
 } // TYPESCRIPT DO MODAL DA OCORRENCIA
-
+onModalBackgroundClick(event: MouseEvent) {
+  if ((event.target as HTMLElement).classList.contains('modal')) {
+    this.closeModal();
+  }
+}
   public dadosTrafegoEvasao: DashboardGraficoTrafegoEvasao[] = [];
 
   
