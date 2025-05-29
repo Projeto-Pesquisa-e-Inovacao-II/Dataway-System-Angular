@@ -1,0 +1,70 @@
+<div class="container">
+  <div class="wrapper-logo">
+    <div class="logo">
+      <span>Data</span><span style="font-weight: bolder">Way</span>
+    </div>
+  </div>
+
+  <main>
+    <section class="container-text-login">
+      <div class="login-text">
+        <h1>Olá, de volta!</h1>
+        <h2>Faça o seu login para continuar!</h2>
+      </div>
+      <div class="generic-text">
+  <span class="generic-text-border"></span>
+  <p>Transformamos dados em atitudes estratégicas.</p>
+</div>
+    </section>
+    <form (ngSubmit)="postLogin()">
+      <section class="container-form-login">
+        <h1>Login</h1>
+
+        <div class="container-inputs">
+       <div class="input-field">
+  <input
+    [(ngModel)]="user.email"
+    type="email"
+    name="email"
+    class="input"
+    id="emailInput"
+    autocomplete="current-password"
+  />
+  <label class="user-label right-label" for="emailInput">Email</label>
+</div>
+
+<div class="input-field">
+  <input
+    [(ngModel)]="user.senha"
+    type="password"
+    name="senha"
+    class="input"
+    id="senhaInput"
+    autocomplete="current-password"
+  />
+  <label class="user-label right-label" for="senhaInput">Senha</label>
+  <span class="toggle-password">
+    <img
+      id="senhaIcon"
+      src="../images/Icon/eye.svg"
+      alt="Mostrar senha"
+      onclick="togglePasswordVisibility('senhaInput', 'senhaIcon')"
+    />
+  </span>
+</div>
+          <div class="container-btn">
+            <button type="submit" class="btn-entrar" id="btnLogin">
+              <span>Login</span>
+            </button>
+          </div>
+          <div class="caminho-cadastro">
+            <a href="/cadastro">Realizar cadastro</a>
+          </div>
+        </div>
+        <div id="toast" class="toast hidden">
+          <p id="toastMessage"></p>
+        </div>
+      </section>
+    </form>
+  </main>
+</div>

@@ -1,8 +1,8 @@
 var empresaModel = require("../models/empresaModel");
 
 function autenticar(req, res) {
-  var email = req.body.emailServer;
-  var senha = req.body.senhaServer;
+  var email = req.body.email;
+  var senha = req.body.senha;
 
   if (email == undefined) {
     res.status(400).send("Seu email está undefined!");
@@ -24,7 +24,7 @@ function autenticar(req, res) {
           res.status(403).send("Mais de um usuário com o mesmo login e senha!");
         }
       })
-      .catch(function (erro) {resposta
+      .catch(function (erro) {
         console.log(erro);
         console.log(
           "\nHouve um erro ao realizar o login! Erro: ",
@@ -37,19 +37,21 @@ function autenticar(req, res) {
 
 function cadastrar(req, res) {
   // Crie uma variável que vá recuperar os valores do arquivo cadastro.html
-  var empresaServer = req.body.empresaServer;
-  var nomeFantasia = req.body.nomeFantasiaServer;
-  var numero = req.body.numeroServer;
-  var representanteLegal = req.body.representanteLegalServer;
-  var CPNJ = req.body.cnpjServer;
-  var telefone = req.body.telefoneServer;
-  var email = req.body.emailServer;
-  var senha = req.body.senhaServer;
-  var cep = req.body.cepServer;
+  var empresaServer = req.body.userData.empresaServer;
+  var nomeFantasia = req.body.userData.nomeFantasiaServer;
+  var numero = req.body.userData.numeroServer;
+  var representanteLegal = req.body.userData.representanteLegalServer;
+  var CPNJ = req.body.userData.cnpjServer;
+  var telefone = req.body.userData.telefoneServer;
+  var email = req.body.userData.emailServer;
+  var senha = req.body.userData.senhaServer;
+  var cep = req.body.userData.cepServer;
 
   console.log(req.body)
+  console.log("email: ", email);
 
-  console.log("OI");
+
+  console.log("OI");  
   // Faça as validações dos valores
   if (email == undefined) {
     res.status(400).send("Seu email está undefined!");
@@ -84,14 +86,13 @@ function cadastrar(req, res) {
   }
 }
 
-function deletar(req, res) {
-  const idEmpresa = req.params.idEmpresa;
-  if (idEmpresa == undefined) {
+function deletar(req, res, idUsuario) {
+  if (idUsuario == undefined) {
     res.status(400).send("Seu id está undefined!");
   } else {
     // Passe os valores como parâmetro e vá para o arquivo empresaModel.js
     empresaModel
-      .deletar(idEmpresa)
+      .deletar(idUsuario)
       .then((resultado) => {
         res.status(200).json({ sucesso: true, resultado });
       })

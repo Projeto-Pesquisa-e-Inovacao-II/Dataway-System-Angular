@@ -1,0 +1,118 @@
+<div class="container">
+  <app-header></app-header>
+
+  <div class="wrapper_profile">
+    <section class="profile_sect">
+      <div class="container_profile_sect">
+        <div class="left">
+          <img
+            src="../images/DashBoard/eco.png"
+            alt="Imagem de perfil"
+            alt=""
+          />
+        </div>
+        <div class="right">
+          <div class="right_span">
+            <span class="right_span_title"> Nome: </span>
+            <ng-container *ngIf="!isEditing; else editNome">
+              <span class="right_span_text">{{ userData.nome }}</span>
+            </ng-container>
+            <span class="right_span_title"> Email: </span>
+            <ng-container *ngIf="!isEditing; else editEmail">
+              <span class="right_span_text">{{ userData.email }}</span>
+            </ng-container>
+            <span class="right_span_title"> Telefone: </span>
+            <ng-container *ngIf="!isEditing; else editTelefone">
+              <span class="right_span_text">{{ userData.telefone }}</span>
+            </ng-container>
+
+            <span class="right_span_title"> Senha: </span>
+            <ng-container *ngIf="!isEditing; else senha">
+              <span class="right_span_text">xxxxxxxxxx</span>
+            </ng-container>
+
+            <ng-template #editNome>
+              <input
+                type="text"
+                class="right_span_input"
+                [(ngModel)]="userData.nome"
+                name="email"
+              />
+            </ng-template>
+
+            <ng-template #editEmail>
+              <input
+                type="text"
+                class="right_span_input"
+                [(ngModel)]="userData.email"
+                name="email"
+              />
+            </ng-template>
+
+            <ng-template #editTelefone>
+              <input
+                type="text"
+                class="right_span_input"
+                [(ngModel)]="userData.telefone"
+                name="telefone"
+              />
+            </ng-template>
+            <ng-template #senha>
+              <input
+                type="password"
+                class="right_span_input"
+                [(ngModel)]="userData.senha"
+                name="senha"
+              />
+            </ng-template>
+
+            <button
+              *ngIf="!isEditing"
+              (click)="isEditing = true"
+              class="edit_profile_data"
+            >
+              Editar dados
+            </button>
+          </div>
+          <div class="buttons">
+            <div class="buttons_inside">
+              <button
+                *ngIf="isEditing"
+                (click)="updateUserData()"
+                class="save_profile_data"
+              >
+                Atualizar dados
+              </button>
+              <button
+                *ngIf="isEditing"
+                (click)="confirmDelete()"
+                class="delete_profile_data"
+              >
+                Excluir conta
+              </button>
+            </div>
+            <div class="popup" id="popup">
+              <h2>Deseja excluir sua conta?</h2>
+              <p>Digite o código a seguir:</p>
+              <p>1654789</p>
+              <form action="" class="form_delete" (ngSubmit)="deleteUser()">
+                <input
+                  [(ngModel)]="confirmationCode"
+                  name="confirmationCode"
+                  type="text"
+                />
+                <button type="submit" class="btn_delete">Excluir</button>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class="create-employee">
+          <button>
+            <a href="/cadastrar-funcionario">Cadastrar funcionário</a>
+          </button>
+        </div>
+      </div>
+      <div class="triangle"></div>
+    </section>
+  </div>
+</div>

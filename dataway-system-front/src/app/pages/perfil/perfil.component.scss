@@ -1,0 +1,229 @@
+$primary-color: #1ef0a6;
+$secondary-color: #1becaa;
+$accent-color: #0bc47a;
+
+$logo-color: #003c64;
+$text-color: #000;
+$text-color-button: #fff;
+$cards-styling: #0098b1;
+$text-color-secondary: #000;
+
+$background-color: #050d20;
+$background-color-cards: #232a3c;
+$background-color-aside: #171e31;
+$background-color-button: #31383e;
+
+$background-color-secondary: #ef6a47;
+$background-color-three: #c50c0c;
+
+/* banner */
+.container {
+  font-family: "Montserrat", sans-serif;
+}
+
+.wrapper_profile {
+  width: 100%;
+  max-width: 1600px;
+  margin-left: auto;
+}
+
+.profile_banner {
+  background-image: url("/images/DashBoard/UTF-8backgound_dash.png");
+  background-size: cover;
+  height: 25vh;
+  width: 100%;
+  display: flex;
+  align-items: flex-end;
+  padding: 30px;
+  padding-right: 0;
+}
+
+.text_banner {
+  color: $text-color;
+  display: flex;
+  width: fit-content;
+  text-wrap: nowrap;
+}
+
+.text_banner h1 {
+  font-size: 3rem;
+  font-weight: bolder;
+}
+
+.border_text {
+  border-bottom: 5px solid $text-color;
+  margin-bottom: 13px;
+  width: 100%;
+  margin-left: 20px;
+}
+
+/* profile */
+
+.triangle {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+  aspect-ratio: 552 / 1080;
+  background-image: url("/images/DashBoard/21.png");
+  background-repeat: no-repeat;
+  background-position: right center;
+  background-size: auto 100%;
+}
+
+.profile_sect {
+  display: flex;
+  height: 75vh;
+  justify-content: space-between;
+  position: relative;
+}
+
+.profile_sect .container_profile_sect {
+  display: flex;
+  margin-top: 50px;
+}
+
+.profile_sect .container_profile_sect .left {
+  img {
+    object-fit: cover;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+  }
+}
+
+.profile_sect {
+  .container_profile_sect {
+    .right {
+      margin-left: 70px;
+      margin-top: 20px;
+      width: 100%;
+    }
+  }
+}
+
+.right_span {
+  display: flex;
+  flex-direction: column;
+}
+
+.right_span_text {
+  margin-bottom: 30px;
+  margin-top: 4px;
+  font-size: 1.4rem;
+  color: $text-color;
+}
+
+.right_span_title {
+  font-size: 1.3rem;
+  font-weight: bolder;
+  color: $text-color;
+  margin-bottom: 10px;
+}
+
+.edit_profile_data {
+  color: $text-color-button !important;
+}
+
+.edit_profile_data,
+.save_profile_data,
+.delete_profile_data {
+  padding: 10px 15px;
+  border-radius: 10px;
+  border: none;
+  width: 16vw;
+  background-color: $background-color-button;
+  color: $text-color;
+  font-size: 1.2rem;
+  font-weight: bolder;
+  cursor: pointer;
+}
+
+.delete_profile_data {
+  background-color: $background-color-three;
+  margin-top: 20px;
+}
+
+.save_profile_data {
+  background-color: $background-color-button;
+}
+
+.save_profile_data,
+.delete_profile_data {
+  width: 100%;
+
+  height: min-content;
+  color: #fff;
+}
+
+.right_span_input {
+  background-color: transparent;
+  color: $text-color;
+  margin-top: 4px;
+  margin-bottom: 30px;
+  font-size: 1.38rem;
+  padding: 5px 10px;
+  border: 1px solid $text-color;
+  width: 400px;
+}
+
+.buttons {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  position: relative;
+  .buttons_inside {
+    display: flex;
+    justify-content: flex-end;
+    flex-direction: column;
+    width: 100%;
+    height: fit-content;
+    margin-right: 280px;
+  }
+}
+
+.popup {
+  display: none;
+  padding: 12px;
+  border: 1px solid #000;
+  margin-bottom: -189px;
+  position: absolute;
+  left: 500px;
+  top: -69px;
+
+  p {
+    font-size: 1.2rem;
+    color: $text-color;
+    margin-top: 10px;
+  }
+
+  p:last-of-type {
+    margin-bottom: 10px;
+  }
+  h2 {
+    font-weight: 600;
+    text-wrap: nowrap;
+    color: $text-color;
+  }
+  input {
+    background-color: transparent;
+    font-size: 1.3rem;
+    color: $text-color;
+    width: 10vw;
+  }
+}
+
+.form_delete {
+  display: flex;
+  .btn_delete {
+    background-color: $background-color-three;
+    color: $text-color;
+    padding: 10px 15px;
+    border-radius: 10px;
+    border: none;
+    font-size: 1.2rem;
+    font-weight: bolder;
+    margin-left: 20px;
+    cursor: pointer;
+  }
+}

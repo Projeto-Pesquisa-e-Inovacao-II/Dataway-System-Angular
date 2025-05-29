@@ -1,0 +1,47 @@
+<app-header></app-header>
+<div class="container">
+  <div class="row">
+    <h1>Seja bem-vindo, Victor Almeida</h1>
+  </div>
+
+  <div class="container-filtro">
+    <h1>Visão geral das concessões</h1>
+
+    <form action="" (submit)="handleFilterCards(periodSelect.value)">
+      <select #periodSelect class="select-period">
+        <option value="#">Selecione o mês desejado</option>
+        <option value="1">Janeiro</option>
+        <option value="2">Fevereiro</option>
+        <option value="3">Março</option>
+        <option value="4">Abril</option>
+        <option value="5">Maio</option>
+        <option value="6">Junho</option>
+        <option value="7">Julho</option>
+        <option value="8">Agosto</option>
+        <option value="9">Setembro</option>
+        <option value="10">Outubro</option>
+        <option value="10">Novembro</option>
+        <option value="12">Dezembro</option>
+      </select>
+
+      <button type="submit">Filtrar</button>
+    </form>
+
+    <p>Selecione a concessão desejada para análise:</p>
+  </div>
+
+  <div class="container-cards">
+    <div
+      class="card-concessoes"
+      *ngFor="let item of lotes"
+      (click)="handleFilterDashboard(item.nomeConcessao)"
+    >
+      <app-home-cards
+        [concessao]="item.nomeConcessao"
+        [veiculos]="item.trafego"
+        [evasoes]="item.evasoes"
+        [periodo]="monthInCard"
+      ></app-home-cards>
+    </div>
+  </div>
+</div>

@@ -1,5 +1,4 @@
-<div class="container">
-  <aside>
+<!-- <aside>
     <div class="logo">
       <h1 class="title-aside">
         <span>Data</span><span style="font-weight: bold">Way</span>
@@ -39,92 +38,207 @@
 
     <div class="other-pages">
       <div class="route_page">
-        <i class="fa-solid fa-circle-user"></i>
+        <fa-icon [icon]="faCircleUser"></fa-icon>
         <a href="/dashboard/perfil"><h2>Perfil</h2></a>
       </div>
       <div class="route_page">
-        <i class="fa-solid fa-headset"></i>
+        <fa-icon [icon]="faHeadset"></fa-icon>
         <a href="/dashboard/suporte"><h2>Suporte</h2></a>
       </div>
     </div>
-  </aside>
+  </aside> -->
 
-  <section class="container-dashboard">
-    <header>
-      <h1>Dashboard</h1>
-      <i class="fa-solid fa-bell"></i>
-    </header>
+<app-header></app-header>
 
-    <div class="cards">
-      <div class="card">
-        <div class="card-details">
-          <h4>Horário Crítico</h4>
+<section class="container-dashboard">
+<header>
+  <h1>Análise de tráfego e evasões</h1>
+  <i class="fa-solid fa-bell"></i>
+  <div class="nota" style="cursor:pointer" (click)="openModal()">
+    <img src="assets/20.png" alt="ícone"
+     style="width:20px; height:20px; vertical-align:middle; margin-right:8px;">
+    Criar Nota
+  </div>
 
-          <div class="details-data">
-            <img src="../images/DashBoard/relogio.png" alt="" />
-            <h1>21:00</h1>
-          </div>
+
+<!-- Modal de ocorrência -->
+<div
+  class="modal"
+  [ngStyle]="{'display': showModal ? 'block' : 'none'}"
+  (click)="onModalBackgroundClick($event)"
+>
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <span class="close" (click)="closeModal()">&times;</span>
+    <label for="descricao">Descrição</label>
+    <input id="descricao" class="modal-input" placeholder="XXXXXXX">
+    <label for="mes">Mês referente</label>
+    <input id="mes" class="modal-input" placeholder="XXXXXXX">
+    <label for="concessao">Concessão</label>
+    <input id="concessao" class="modal-input" placeholder="XXXXXXX">
+    <label for="status">Status</label>
+    <select id="status" class="modal-input">
+      <option value="">XXXXXXX</option>
+      <option value="Critico">Crítico</option>
+      <option value="Alerta">Alerta</option>
+      <option value="Estavel">Estável</option>
+    </select>
+    <button class="modal-btn" (click)="closeModal()">Salvar</button>
+  </div>
+</div>
+  </header>
+
+  <div class="cards">
+    <div class="card">
+      <div class="card-details">
+        <div class="card-details-components">
+        <h4>Concessão</h4>
+        <div class="card-details-img" style="display: none;">imagem aqui</div>
         </div>
-      </div>
-      <div class="card">
-        <div class="card-details">
-          <h4>Impacto financeiro</h4>
-
-          <div class="details-data">
-            <img src="../images/DashBoard/dinheiro.png" alt="" />
-            <h1>150,1K</h1>
-          </div>
+        <div class="details-data">
+          <h1>{{ nomeConcessao }}</h1>
         </div>
-      </div>
-      <div class="card">
-        <div class="card-details">
-          <h4>Praça mais crítica</h4>
-
-          <div class="details-data">
-            <img src="../images/DashBoard/cancela.png" alt="" />
-            <h1>Campo Limpo</h1>
+        <div class="details-data-percentage">
+          <!-- <div class="percentage" style="background-color: #1bb99a">11%</div> -->
+          <div class="details-data-percentage-text" style="margin: 1em;">
+            {{ actualMonth }} de 2024
           </div>
         </div>
       </div>
     </div>
-
-    <div class="graphs">
-      <div class="container-left-graphs">
-        <div class="graph-above">
-          <div class="horizontal-bar-chart" id="barHorizontalId">
-            <h4>EVASÕES POR CATEGORIA</h4>
-            <canvas id="horizontalBarChart"></canvas>
-          </div>
-          <!-- <div class="radar-chart" id="radarChartId">
-                <h4>EVASÕES POR REGIÃO</h4>
-                <canvas id="radarCanvas"></canvas>
-              </div> -->
+    <div class="card">
+      <div class="card-details">
+        <div class="card-details-components">
+          <h4>Praça em alerta</h4>
+          <div class="card-details-img" style="display: none">imagem aqui</div>
         </div>
-        <div class="graph-below">
-          <div class="heat-map-chart">
-            <h4>EVASÕES POR DIA X MÊS</h4>
-            <div class="teste" style="height: 30vh">
-              <canvas id="heatMapCanvas"></canvas>
-            </div>
+        <div class="details-data">
+          <h1>{{ praca }}</h1>
+        </div>
+        <div class="details-data-percentage">
+          <div class="percentage" style="background-color: #ff5d48">55%</div>
+          <div class="details-data-percentage-text">
+            Responsável pelas evasões
           </div>
         </div>
       </div>
-      <div class="container-right-graphs">
-        <div class="graph-above">
-          <div class="line-chart" id="lineChartId">
-            <h4>AVANÇOS: MANUAL X AUTOMÁTICO</h4>
-            <div class="teste" style="height: 30vh">
-              <canvas id="lineCanvas"></canvas>
-            </div>
+    </div>
+    <div class="card">
+      <div class="card-details">
+        <div class="card-details-components">
+          <h4>Impacto financeiro</h4>
+          <div class="card-details-img" style="display: none">imagem aqui</div>
+        </div>
+        <div class="details-data">
+          <h1>R$-{{ impactoFinanceiro }}</h1>
+        </div>
+        <div class="details-data-percentage">
+          <div
+            #percentageBlock
+            *ngIf="!valoresParaComparacao.impactoAumentando"
+            class="percentage"
+            style="background-color: #ff5d48"
+          >
+            + {{ valoresParaComparacao.percentualImpacto }}%
+          </div>
+          <div
+            #percentageBlock
+            *ngIf="valoresParaComparacao.impactoAumentando"
+            class="percentage"
+            style="background-color: #43a700dd"
+          >
+            - {{ valoresParaComparacao.percentualImpacto }}%
+          </div>
+          <div class="details-data-percentage-text">
+            Comparado ao mes anterior
           </div>
         </div>
-        <div class="graph-below">
-          <div class="bar-chart" id="barChartId">
-            <h4>EVASÕES POR DIA DA SEMANA</h4>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-details">
+        <div class="card-details-components">
+          <h4>Total de evasões</h4>
+          <div class="card-details-img" style="display: none">imagem aqui</div>
+        </div>
+        <div class="details-data">
+          <h1>{{ evasoes }}</h1>
+        </div>
+        <div class="details-data-percentage">
+         <div
+           #percentageBlock
+          *ngIf="!valoresParaComparacao.evasaoAumentando"
+          class="percentage"
+          style="background-color: #ff5d48"
+          >
+          + {{ valoresParaComparacao.percentualEvasao }}%
+        </div>
+        <div
+          #percentageBlock
+          *ngIf="valoresParaComparacao.evasaoAumentando"
+          class="percentage"
+          style="background-color: #43a700dd"
+         >
+          - {{ valoresParaComparacao.percentualEvasao }}%
+        </div>
+          <div class="details-data-percentage-text">
+            Comparado ao mes anterior
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="graphs">
+    <div class="container-left-graphs">
+      <div class="graph-above">
+        <div class="bar-chart" id="barChartId">
+          <div class="bar-chart-above">
+            <h4>Percentual de Evasões com Base no Tráfego Mensal</h4>
+            <div class="buttons">
+              <button class="button1" (click)="handleFilterChange(01)">
+                1M
+              </button>
+              <button class="button2" (click)="handleFilterChange(06)">
+                6M
+              </button>
+              <button class="button3" (click)="handleFilterChange(12)">
+                1A
+              </button>
+            </div>
+          </div>
+          <div class="teste" style="height: 100%">
             <canvas id="barCanvas"></canvas>
           </div>
         </div>
+        <!-- <div class="radar-chart" id="radarChartId">
+                <h4>EVASÕES POR REGIÃO</h4>
+                <canvas id="radarCanvas"></canvas>
+              </div> -->
       </div>
+      <!-- <div class="graph-below">
+        <div class="heat-map-chart">
+          <h4>EVASÕES POR DIA X MÊS</h4>
+          <div class="teste" style="height: 30vh">
+            <canvas id="heatMapCanvas"></canvas>
+          </div>
+        </div>
+      </div> -->
     </div>
-  </section>
-</div>
+    <div class="container-right-graphs">
+      <div class="graph-above">
+        <div class="horizontal-bar-chart" id="barHorizontalId">
+          <h4>EVASÕES POR CATEGORIA</h4>
+          <div class="teste" id="horizontal-bar-chart-id" style="height: 100%">
+            <canvas id="horizontalBarChart"></canvas>
+          </div>
+        </div>
+      </div>
+      <!-- <div class="graph-below">
+        <div class="bar-chart" id="barChartId">
+          <h4>EVASÕES POR DIA DA SEMANA</h4>
+          <canvas id="barCanvas"></canvas>
+        </div>
+      </div> -->
+    </div>
+  </div>
+</section>

@@ -1,0 +1,157 @@
+$primary-color: #1ef0a6;
+$secondary-color: #1becaa;
+$accent-color: #0bc47a;
+
+$logo-color: #003c64;
+$text-color: #000;
+$cards-styling: #0098b1;
+$text-color-secondary: #000;
+$text-color-button: #fff;
+
+$background-color: #050d20;
+$background-color-cards: #232a3c;
+$background-color-aside: #171e31;
+$background-color-button: #31383e;
+
+$background-color-secondary: #ef6a47;
+$background-color-three: #c50c0c;
+
+/* banner */
+.container {
+  font-family: "Montserrat", sans-serif;
+}
+
+.wrapper_profile {
+  width: 100%;
+  max-width: 1600px;
+  margin-left: auto;
+}
+
+.profile_banner {
+  background-image: url("/images/DashBoard/UTF-8backgound_dash.png");
+  background-size: cover;
+  height: 25vh;
+  width: 100%;
+  display: flex;
+  align-items: flex-end;
+  padding: 30px;
+  padding-right: 0;
+}
+
+.text_banner {
+  color: $text-color;
+  display: flex;
+  width: fit-content;
+  text-wrap: nowrap;
+}
+
+.text_banner h1 {
+  font-size: 3rem;
+  font-weight: bolder;
+}
+
+.border_text {
+  border-bottom: 5px solid $text-color;
+  margin-bottom: 13px;
+  width: 100%;
+  margin-left: 20px;
+}
+
+/* suporte */
+
+.suport_sect {
+  height: 75vh;
+  justify-content: space-between;
+  position: relative;
+  color: $text-color;
+  h1 {
+    font-size: 2.7rem;
+    font-weight: bolder;
+  }
+
+  .suport_sect_title_main {
+    margin-bottom: 20px;
+  }
+
+  .suport_sect_title_sec {
+    font-weight: normal;
+    margin-bottom: 20px;
+  }
+}
+
+.triangle {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+  aspect-ratio: 552 / 1080;
+  background-image: url("/images/DashBoard/21.png");
+  background-repeat: no-repeat;
+  background-position: right center;
+  background-size: auto 100%;
+}
+
+.text_and_form {
+  width: fit-content;
+  display: flex;
+  flex-direction: column;
+  height: 75vh;
+  justify-content: center;
+}
+
+.message_box {
+  border-radius: 10px;
+  width: 50vw;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  form {
+    padding: 30px;
+    border: solid 1px $background-color;
+
+    width: 100%;
+    .input-field {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+
+      label {
+        font-size: 1.2rem;
+        margin-bottom: 10px;
+        font-weight: bold;
+      }
+      input {
+        padding: 15px;
+        margin-bottom: 20px;
+        border: solid 1px $background-color;
+      }
+
+      textarea {
+        height: 20vh;
+        resize: none;
+        border: solid 1px $background-color;
+      }
+
+      input,
+      textarea {
+        background-color: transparent;
+      }
+    }
+  }
+
+  .edit_profile_data {
+    padding: 10px 15px;
+    border-radius: 10px;
+    border: none;
+    background-color: $background-color-button;
+    color: $text-color-button;
+    font-size: 1.2rem;
+    font-weight: bolder;
+  }
+
+  button {
+    height: 50px;
+    width: 50%;
+    margin-left: 50px;
+  }
+}
