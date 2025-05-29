@@ -38,4 +38,11 @@ router.get("/comparacao_evasao_impacto", function (req, res) {
   trafegoEvasaoController.getComparacaoEvasaoImpacto(req, res, idUsuario, mes, concessao);
 });
 
+router.get("/categorias", function (req, res) {
+  const idUsuario = req.query.idUsuario;
+  const mes = req.query.mes;
+  const concessao = req.query.concessao;
+  trafegoEvasaoController.getCategoria(req, res, idUsuario, mes, concessao);
+});
+
 module.exports = router;
