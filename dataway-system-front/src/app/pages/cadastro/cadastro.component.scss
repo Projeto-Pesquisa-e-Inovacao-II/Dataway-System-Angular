@@ -1,3 +1,7 @@
+
+/* Red Hat Display font */
+@import url("https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@400..700&display=swap");
+
 $primary-color: #1ef0a6;
 $secondary-color: #1becaa;
 $accent-color: #0bc47a;
@@ -13,24 +17,35 @@ $background-color-aside: #171e31;
 
 $background-color-secondary: #ef6a47;
 
+main {
+  margin: 0 auto;
+  // ou
+  margin: auto 0;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  overflow: hidden;
+}
+
 .container {
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
-  height: 100vh;
-  width: 68vw;
-  margin-right: auto;
-  margin-left: auto;
-  min-width: 700px;
-  font-family: "Montserrat", sans-serif;
+  justify-content: space-between; 
+  min-height: 100vh;
+  height: auto; 
 }
+
 
 .wrapper-logo {
   width: 50%;
   .logo {
+    font-family: "Red Hat Display";
     display: flex;
     align-items: center;
-    font-size: 3rem;
+    font-size: 4.5rem;
     color: $text-color;
     margin-top: 1rem;
   }
@@ -38,8 +53,10 @@ $background-color-secondary: #ef6a47;
 
 main {
   display: flex;
-  margin: auto 0 150px 0;
+  margin: auto 0; // remove margem inferior
+  align-items: flex-start;
 }
+
 
 .container-text-login {
   margin-top: 1rem;
@@ -47,28 +64,30 @@ main {
   flex-direction: column;
   gap: 5rem;
   width: 100%;
-  height: 50%;
+  height: 80%;
+  font-size: 20px;
 }
 
 .container-text-login .login-text {
   display: flex;
   flex-direction: column;
-  width: 100%;
+  width: 70%;
+  /* height: 100vh; */ /* Remova essa linha */
 }
 
+
 .container-text-login .login-text h1 {
-  font-size: 4rem;
+  font-size: 20px;
   color: $text-color;
   margin-bottom: 20px;
 }
 
 .container-text-login .login-text h2 {
   color: $text-color;
+  font-size: 21px;
 }
 .container-text-login .generic-text {
-  position: absolute;
-  left: 300px;         // distância da esquerda
-  bottom: 40px;       // distância do fundo
+
   width: 260px;       // largura menor, ajuste se quiser
   text-align: left;
   display: flex;
@@ -76,12 +95,13 @@ main {
   align-items: flex-start;
   gap: 8px;           // espaço entre traço e texto
   z-index: 2;
+  margin-top: 2rem; 
 }
 
 
 .container-text-login .generic-text .generic-text-border {
-  width: 24px;        // traço/quadrado menor
-  height: 4px;        // altura do traço
+  width: 24px;        
+  height: 4px;       
   background: $text-color;
   border-radius: 8px;
   margin: 0;
@@ -100,9 +120,9 @@ main {
 }
 .container-text-login .generic-text p {
   color: $text-color;
-  font-size: 1rem;
+  font-size: 20px !important;
   width: 100%;
-  margin: 0;
+  margin-bottom: 20px;
   font-weight: normal;
   text-transform: none;
 }
@@ -121,6 +141,7 @@ main {
 .container-form-login h1 {
   font-size: 3rem;
   color: $text-color;
+  margin-top: -10px;
 }
 
 .container-form-login .container-inputs {
@@ -144,12 +165,12 @@ main {
 
 .btn-login-link {
   display: inline-block;
-  background-color: #007bff;
+  background-color: #0097b2;
   color: #fff;
   border: none;
   border-radius: 8px;
-  padding: 8px 18px;        // menor
-  font-size: 0.95rem;       // menor
+  padding: 10px 50px;        // menor
+  font-size: 1.2rem;       // menor
   font-weight: 600;
   text-align: center;
   text-decoration: none;
@@ -158,7 +179,29 @@ main {
   cursor: pointer;
 
   &:hover {
-    background-color: #0056b3;
+    background-color: #3db9dc;
+    color: #fff;
+    text-decoration: none;
+  }
+}
+
+.btn-login-link-cadastro {
+  display: inline-block;
+  background-color: #0097b2;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;        // menor
+  font-size: 1.2rem;       // menor
+  font-weight: 600;
+  text-align: center;
+  text-decoration: none;
+  transition: background 0.2s;
+  margin: 0;                // remove margem superior
+  cursor: pointer;
+
+  &:hover {
+    background-color: #3db9dc;
     color: #fff;
     text-decoration: none;
   }
@@ -543,7 +586,6 @@ $color-button: #20f3a5;
   align-items: center;
   font-size: 3rem;
   color: $text-color;
-  margin-top: 60px;
 }
 
 .wrapper-logo .logo img {
@@ -563,21 +605,18 @@ main {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  width: 100%;
-  height: 30vh;
+  
 }
 
 .container-text-login .login-text {
   display: flex;
   flex-direction: column;
   width: 70%;
-  height: 100vh;
 }
 
 .container-text-login .login-text h1 {
-  font-size: 4rem;
+  font-size: 3rem;
   color: $text-color;
-  margin-bottom: 20px;
 }
 
 .container-text-login .login-text h2 {
@@ -585,9 +624,6 @@ main {
 }
 
 .container-text-login .generic-text {
-  position: absolute;
-  left: 300px;         // distância da esquerda
-  bottom: 40px;       // distância do fundo
   width: 260px;       // largura menor, ajuste se quiser
   text-align: left;
   display: flex;
@@ -598,8 +634,8 @@ main {
 }
 
 .container-text-login .generic-text .generic-text-border {
-  width: 24px;        // traço/quadrado menor
-  height: 4px;        // altura do traço
+  width: 24px;        
+  height: 4px;        
   background: $text-color;
   border-radius: 8px;
   margin: 0;
@@ -609,16 +645,11 @@ main {
 
 .container-text-login .generic-text p {
   color: $text-color;
-  font-size: 1.4rem;
-  width: 80%;
-}
-
-form {
-    width: 70%;
+  font-size: 25px;
+  width: 600px;
 }
 
 .container-form-login {
-  display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -653,7 +684,7 @@ form {
   padding: 1rem;
   font-size: 1rem;
   color: #ececec;
-  background-color: rgba(158, 158, 158, 0.3); // transparência
+  background-color: rgba(158, 158, 158, 0.3); 
 }
 
 

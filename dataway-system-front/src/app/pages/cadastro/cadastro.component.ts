@@ -60,12 +60,12 @@ export class CadastroComponent implements OnInit {
   temLetraMaiusculaDiv!: ElementRef<HTMLDivElement>;
 
   passo: number = 1;
-
-  user = {
+user = {
   nome: '',
   email: '',
   senha: '',
-  dataNascimento: ''
+  dataNascimento: '',
+  codigoEmpresa: '' 
 };
 
   constructor(
