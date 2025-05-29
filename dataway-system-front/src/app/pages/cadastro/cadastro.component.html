@@ -8,7 +8,7 @@
   <main>
     <section class="container-text-login">
       <div class="login-text">
-        <h1>Cadastrar <br> Nova empresa</h1>
+        <h1>Cadastre-se agora mesmo</h1>
         <h2>Preencha os campos com seus dados</h2>
       </div>
       <div class="generic-text">
@@ -17,13 +17,13 @@
           Transformamos dados em atitudes estratégicas.
         </p>
         <a href="/login" class="btn-login-link">
-          Ir para Login
+          Login
         </a>
       </div>
     </section>
 
     <section class="container-form-login">
-      <h1>Criar conta</h1>
+      <h1>Cadastrar-se</h1>
       <div class="container-inputs">
         <!--
         <div [hidden]="passo !== 1">
@@ -106,17 +106,18 @@
           <label class="user-label" for="senhaInput">Senha</label>
         </div>
         <div class="input-field">
-          <input
-            type="date"
-            class="input"
-            id="dataNascimentoInput"
-            [(ngModel)]="user.dataNascimento"
-            name="dataNascimento"
-            required
-            placeholder=" "
-          />
-          <label class="user-label" for="dataNascimentoInput">Data de Nascimento</label>
+        <input
+         type="text"
+         class="input"
+         id="codigoEmpresaInput"
+        [(ngModel)]="user.codigoEmpresa"
+        name="codigoEmpresa"
+        required
+        placeholder=" "
+        />
+        <label class="user-label" for="codigoEmpresaInput">Código Empresa</label>
         </div>
+
         <!--
           <div class="input-field">
             <input name="text" class="input" id="emailInput" placeholder=" " #emailInput />
@@ -186,7 +187,7 @@
         -->
       </div>
       <div class="container-btn">
-        <button class="btn-login-link" type="submit">
+        <button class="btn-login-link-cadastro" type="submit">
           <span>Cadastrar</span>
         </button>
       </div>
