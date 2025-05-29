@@ -77,13 +77,14 @@ main {
 
 
 .container-text-login .login-text h1 {
-  font-size: 4rem;
+  font-size: 20px;
   color: $text-color;
   margin-bottom: 20px;
 }
 
 .container-text-login .login-text h2 {
   color: $text-color;
+  font-size: 21px;
 }
 .container-text-login .generic-text {
 
@@ -121,7 +122,7 @@ main {
   color: $text-color;
   font-size: 20px !important;
   width: 100%;
-  margin: 0;
+  margin-bottom: 20px;
   font-weight: normal;
   text-transform: none;
 }
@@ -163,12 +164,34 @@ main {
 
 .btn-login-link {
   display: inline-block;
-  background-color: #007bff;
+  background-color: #0097b2;
   color: #fff;
   border: none;
   border-radius: 8px;
-  padding: 8px 18px;        // menor
-  font-size: 0.95rem;       // menor
+  padding: 10px 50px;        // menor
+  font-size: 1.2rem;       // menor
+  font-weight: 600;
+  text-align: center;
+  text-decoration: none;
+  transition: background 0.2s;
+  margin: 0;                // remove margem superior
+  cursor: pointer;
+
+  &:hover {
+    background-color: #0056b3;
+    color: #fff;
+    text-decoration: none;
+  }
+}
+
+.btn-login-link-cadastro {
+  display: inline-block;
+  background-color: #0097b2;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;        // menor
+  font-size: 1.2rem;       // menor
   font-weight: 600;
   text-align: center;
   text-decoration: none;
@@ -591,7 +614,7 @@ main {
 }
 
 .container-text-login .login-text h1 {
-  font-size: 3.05rem;
+  font-size: 3rem;
   color: $text-color;
 }
 
