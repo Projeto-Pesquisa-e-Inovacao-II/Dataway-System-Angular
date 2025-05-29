@@ -100,8 +100,8 @@ main {
 
 
 .container-text-login .generic-text .generic-text-border {
-  width: 24px;        // traço/quadrado menor
-  height: 4px;        // altura do traço
+  width: 24px;        
+  height: 4px;       
   background: $text-color;
   border-radius: 8px;
   margin: 0;
@@ -141,6 +141,7 @@ main {
 .container-form-login h1 {
   font-size: 3rem;
   color: $text-color;
+  margin-top: -10px;
 }
 
 .container-form-login .container-inputs {
@@ -633,8 +634,8 @@ main {
 }
 
 .container-text-login .generic-text .generic-text-border {
-  width: 24px;        // traço/quadrado menor
-  height: 4px;        // altura do traço
+  width: 24px;        
+  height: 4px;        
   background: $text-color;
   border-radius: 8px;
   margin: 0;
@@ -683,7 +684,7 @@ main {
   padding: 1rem;
   font-size: 1rem;
   color: #ececec;
-  background-color: rgba(158, 158, 158, 0.3); // transparência
+  background-color: rgba(158, 158, 158, 0.3); 
 }
 
 
