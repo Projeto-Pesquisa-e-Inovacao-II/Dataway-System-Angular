@@ -16,6 +16,8 @@ import { iif } from 'rxjs';
 export class DashboardHomeComponent {
   concessao: any = [];
   monthInCard: string = '';
+  nomeDoUsuario: string = localStorage.getItem('nomeUsuario') || '';
+  mesSelected: number = Number(localStorage.getItem('mesNumber')) || 0;
 
   constructor(
     private router: Router,
@@ -59,19 +61,23 @@ export class DashboardHomeComponent {
             const lote: HomeDashboard = {
               nomeConcessao: element.concessao,
               trafego: element.trafego,
-              evasoes: 0,
+              valor: element.valor,
+              impactoFinanceiro: element.impactoFinanceiro,
             };
-            this.homeDashboardService
-              .getEvasao(idUsuario, element.concessao, monthFilter)
-              .subscribe({
-                next: (evasaoRes: any) => {
-                  lote.evasoes = evasaoRes[0]?.evasoes ?? 0;
-                },
-                error: (err) => {
-                  console.error('Error fetching evasao:', err);
-                },
-              });
+            lote.evasoes = Number(Number(element.evasoes).toFixed(2));
+            lote.impactoFinanceiroPorcentagem = Number(((Number(element.impactoFinanceiro) / Number(element.valor)) * 100).toFixed(2));
+            // this.homeDashboardService
+            //   .getEvasao(idUsuario, element.concessao, monthFilter)
+            //   .subscribe({
+            //     next: (evasaoRes: any) => {
+            //       lote.evasoes = evasaoRes[0]?.evasoes !== undefined ? Number(evasaoRes[0].evasoes).toFixed(2) : 0;
+            //     },
+            //     error: (err) => {
+            //       console.error('Error fetching evasao:', err);
+            //     },
+            //   });
             this.lotes.push(lote);
+            console.log('Lote:', lote);
           });
           console.log('Distinct concessions:', res);
           console.log(this.lotes);
@@ -116,5 +122,6 @@ export class DashboardHomeComponent {
 
     localStorage.setItem('mes', this.monthInCard);
     localStorage.setItem('mesNumber', month.toString());
+    this.mesSelected = monthNumber;
   }
 }

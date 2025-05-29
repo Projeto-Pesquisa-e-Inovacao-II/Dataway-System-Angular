@@ -201,7 +201,7 @@ WHERE fkEmpresa = ${idEmpresa}
 }
 
 async function getCategoria(idUsuario, mes, concessao) {
-   try {
+  try {
     console.log(
       "ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function entrar(): ",
       idUsuario
@@ -220,11 +220,15 @@ async function getCategoria(idUsuario, mes, concessao) {
 
     const mesFormatado = mes < 10 ? `0${mes}` : mes;
     const sql = `
-      select categoria from DadosPracaPedagio 
-		    where fkEmpresa = ${idEmpresa}
-        and tpCampo = 2
-        and data LIKE '2024-${mesFormatado}-%'
-        and lote = '${concessao}' ORDER BY categoria ASC LIMIT 3;
+        SELECT categoria, SUM(quantidade) AS total
+      FROM DadosPracaPedagio
+      WHERE fkEmpresa = ${idEmpresa}
+        AND tpCampo = 2
+        AND data LIKE '2024-${mesFormatado}-%'
+        AND lote = '${concessao}'
+      GROUP BY categoria
+      ORDER BY total DESC
+      LIMIT 3;
     `;
     console.log("SQL:", sql);
 
@@ -232,7 +236,7 @@ async function getCategoria(idUsuario, mes, concessao) {
   } catch (erro) {
     console.log("Erro ao executar as queries:", erro);
     return [];
-  } 
+  }
 }
 module.exports = {
   getGraphData,
@@ -240,5 +244,5 @@ module.exports = {
   getEvasao,
   getImpactoFinancerio,
   getComparacaoEvasaoImpacto,
-  getCategoria
+  getCategoria,
 };

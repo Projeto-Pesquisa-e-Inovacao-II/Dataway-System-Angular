@@ -287,6 +287,11 @@ export class DashboardComponent implements OnInit {
       });
   }
 
+  rankingCategoria: any = {
+    categoria: '',
+    total: 0,
+  };
+
   getCategorias() {
     const idUsuario: number = Number(localStorage.getItem('idUsuario') ?? 0);
     const mes: number = Number(localStorage.getItem('mesNumber') ?? 0);
@@ -295,20 +300,19 @@ export class DashboardComponent implements OnInit {
       .getCategorias(idUsuario, mes, concessao)
       .subscribe((data: any) => {
         console.log(data);
-        // this.data.datasets[0].data = data.map((item: any) => item.valor);
-        // this.data.labels = data.map((item: any) => item.categoria);
-        // this.config.type = 'horizontalBar';
-        // this.lineChart.update();
+        this.data.datasets[0].data = data.map((item: any) => item.total);
+        this.data.labels = data.map((item: any) => item.categoria);
+        this.lineChart.update();
       });
   }
 
   //gráfico horizontal
   public data: any = {
-    labels: ['MOTO', 'PASSEIO', 'COMERCIAL'],
+    labels: [],
     datasets: [
       {
         label: 'Valores',
-        data: [5, 10, 18],
+        data: [],
         backgroundColor: [
           'rgba(102, 230, 230, 0.8)',
           'rgba(56, 195, 224, 0.8)',
