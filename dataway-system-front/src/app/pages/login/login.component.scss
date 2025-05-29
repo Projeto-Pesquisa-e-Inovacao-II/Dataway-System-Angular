@@ -274,6 +274,12 @@ form {
   transition: 0.5s;
 }
 
+.btn-entrar:hover {
+  background-color: #3db9dc;
+    color: #fff;
+    text-decoration: none;
+}
+
 .btn-entrar span:after {
   content: "»";
   position: absolute;
