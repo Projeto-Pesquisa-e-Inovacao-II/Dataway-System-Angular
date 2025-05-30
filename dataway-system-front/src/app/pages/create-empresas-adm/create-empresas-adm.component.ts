@@ -36,8 +36,27 @@ export class CreateEmpresasAdmComponent {
         telefone: empresa.codigoEmpresa,
         status: empresa.CNPJ,
       }));
-      console.error('Dados recebidos não são um array:', dados);
     });
     console.log('Empresas:', this.empresas);
+  }
+
+  getEmpresaSearchResults(event: Event) {
+    const searchTerm: string = (event.target as HTMLInputElement)?.value || '';
+    console.log('Search Term:', searchTerm);
+    if (!searchTerm) {
+      this.getEmpresas(); // If search term is empty, fetch all empresas
+      return;
+    }
+    this.admPagesService
+      .getEmpresaSearchResults(searchTerm)
+      .subscribe((dados: any) => {
+        console.log('Search Results:', dados);
+        this.empresas = dados.map((empresa: any) => ({
+          nome: empresa.nomeFantasia,
+          email: empresa.representanteLegal,
+          telefone: empresa.codigoEmpresa,
+          status: empresa.CNPJ,
+        }));
+      });
   }
 }

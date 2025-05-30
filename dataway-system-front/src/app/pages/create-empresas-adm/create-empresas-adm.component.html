@@ -13,7 +13,7 @@
     <div class="wrapper-right">
       <button>Nova empresa</button>
       <div class="inp-search">
-        <input type="search" name="" id="" />
+        <input type="search" name="" #searchTerm (keyup)="getEmpresaSearchResults($event)"/>
         <img src="/images/Icon/icons8-search.svg" alt="" />
       </div>
     </div>

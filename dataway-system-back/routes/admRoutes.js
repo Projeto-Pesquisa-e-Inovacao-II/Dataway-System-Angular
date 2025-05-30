@@ -7,4 +7,9 @@ router.get("/empresas", function (req, res) {
   admController.getEmpresasCadastradas(req, res);
 });
 
+router.get("/empresasFiltradas", function (req, res) {
+  search = req.query.search;
+  admController.getEmpresasFiltradas(req, res, search);
+});
+
 module.exports = router;
