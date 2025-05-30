@@ -1,0 +1,33 @@
+<div class="container">
+  <h1>Gerenciamento de Empresas</h1>
+  <div class="wrapper-header">
+    <p>Selecione a empresa que deseja visualizar</p>
+    <div class="wrapper-right">
+      <button>Nova empresa</button>
+      <input type="search" name="" id="" />
+    </div>
+  </div>
+
+  <div class="table-empresas">
+    <div class="header">
+      <p>Nome</p>
+      <p>Email</p>
+      <p>Telefone</p>
+      <p>Status</p>
+    </div>
+    <div class="table-row" *ngFor="let empresa of empresas">
+      <div class="empresa-item__column">
+        <p>{{ empresa.nome }}</p>
+      </div>
+      <div class="empresa-item__column">
+        <p>{{ empresa.email }}</p>
+      </div>
+      <div class="empresa-item__column">
+        <p>{{ empresa.telefone }}</p>
+      </div>
+      <div class="empresa-item__column">
+        <p>{{ empresa.status }}</p>
+      </div>
+    </div>
+  </div>
+</div>
