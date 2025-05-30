@@ -1,18 +1,103 @@
 $text-color: #000;
+$background-color-button: #3db9dc;
+$background-color-header: #e4e4e4;
+
+$header-background-color: #cacaca;
+$header-background-color-profile: #0b768b;
+$header-text-color: #050d21;
+$header-text-color-profile: #050d21;
+$header-height: 90px;
+$header-padding: 10px;
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-right: 0;
+  width: -moz-available;
+  width: -webkit-fill-available;
+  margin: 0 auto;
+  font-family: "Montserrat", sans-serif !important;
+  background-color: $header-background-color;
+  height: 5rem;
+  margin-bottom: 30px;
+
+  .header-logo {
+    max-width: 1600px;
+    width: 100%;
+    margin: 0 auto;
+    a {
+      font-size: 40px !important;
+      font-weight: bold;
+      color: $header-text-color;
+      text-decoration: none;
+    }
+  }
+}
 
 .container {
   max-width: 1600px;
   margin: 0 auto;
   color: $text-color;
+  font-family: "Montserrat", sans-serif !important;
   .wrapper-header {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     margin-top: 40px;
     margin-bottom: 20px;
 
+    p {
+      font-size: 1.2rem;
+      font-weight: normal;
+      color: $text-color;
+    }
+
     .wrapper-right {
+      display: flex;
       button {
         margin-right: 20px;
+        background-color: $background-color-button;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        &:hover {
+          background-color: darken($background-color-button, 10%);
+        }
+        &:focus {
+          outline: none;
+        }
+        &:active {
+          background-color: darken($background-color-button, 20%);
+        }
+        font-size: 1rem;
+        font-weight: bold;
+      }
+
+      input {
+        width: 250px;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        font-size: 1rem;
+        background-color: $background-color-header;
+        &:focus {
+          outline: none;
+          border-color: $background-color-header;
+        }
+      }
+
+      .inp-search {
+        position: relative;
+        img {
+          position: absolute;
+          right: 5px;
+          top: 4px;
+          width: 35px;
+        }
       }
     }
   }
@@ -29,6 +114,7 @@ $text-color: #000;
       background-color: #e4e4e4;
       padding: 0 3rem;
       height: 5rem;
+      font-weight: bold;
     }
   }
 
@@ -40,6 +126,7 @@ $text-color: #000;
     align-items: center;
     height: 4rem;
     padding: 0 3rem;
+    border-bottom: solid 1px #99999954;
     .empresa-item__column {
       text-align: center;
     }

@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { HeaderComponent } from "../../components/header/header/header.component";
 
 interface Empresa {
   
