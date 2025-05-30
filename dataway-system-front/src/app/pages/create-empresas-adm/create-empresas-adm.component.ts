@@ -1,9 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { HeaderComponent } from "../../components/header/header/header.component";
+import { HeaderComponent } from '../../components/header/header/header.component';
+import { AdmPagesService } from '../../services/adm-pages/adm-pages.service';
 
 interface Empresa {
-  
   nome: string;
   email: string;
   telefone: string;
@@ -18,26 +18,26 @@ interface Empresa {
 })
 export class CreateEmpresasAdmComponent {
   // Add more example empresas
-  empresas: Empresa[] = [
-    {
-      nome: 'Empresa Alpha',
-      email: 'contato@alpha.com',
-      telefone: '(11) 1234-5678',
-      status: 'Ativo',
-    },
-    {
-      nome: 'Empresa Beta',
-      email: 'contato@beta.com',
-      telefone: '(21) 8765-4321',
-      status: 'Inativo',
-    },
-    {
-      nome: 'Empresa Gamma',
-      email: 'contato@gamma.com',
-      telefone: '(31) 1122-3344',
-      status: 'Ativo',
-    }
-  ];
+  empresas: Empresa[] = [];
 
-  ngOnInit() {}
+  constructor(private admPagesService: AdmPagesService) {}
+
+  ngOnInit() {
+    this.getEmpresas();
+  }
+
+  getEmpresas() {
+    this.admPagesService.getEmpresas().subscribe((dados: any) => {
+      console.log('Empresas:', this.empresas);
+      console.log('Dados recebidos:', dados);
+      this.empresas = dados.map((empresa: any) => ({
+        nome: empresa.nomeFantasia,
+        email: empresa.representanteLegal,
+        telefone: empresa.codigoEmpresa,
+        status: empresa.CNPJ,
+      }));
+      console.error('Dados recebidos não são um array:', dados);
+    });
+    console.log('Empresas:', this.empresas);
+  }
 }
