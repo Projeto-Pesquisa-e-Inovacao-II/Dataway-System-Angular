@@ -17,6 +17,13 @@ router.get("/praca_alerta", function (req, res) {
   trafegoEvasaoController.pracaAlerta(req, res, idUsuario, mes, concessao);
 });
 
+router.get("/porcetagem_praca", function (req, res) {
+  const idUsuario = req.query.idUsuario;
+  const mes = req.query.mes;
+  const concessao = req.query.concessao;
+  trafegoEvasaoController.porcetagemPraca(req, res, idUsuario, mes, concessao);
+});
+
 router.get("/total_evasao", function (req, res) {
   const idUsuario = req.query.idUsuario;
   const mes = req.query.mes;

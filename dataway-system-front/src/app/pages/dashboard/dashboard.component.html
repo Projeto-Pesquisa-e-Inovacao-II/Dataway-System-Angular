@@ -56,7 +56,6 @@
       <a href="/app"><img src="/images/Icon/13.png" alt="">Voltar para concessões</a>
       <h1>Análise de tráfego e evasões</h1>
     </div>
-    <i class="fa-solid fa-bell"></i>
     <div class="nota" style="cursor: pointer" (click)="openModal()">
       <img
         src="assets/20.png"
@@ -125,9 +124,10 @@
           <h1>{{ praca }}</h1>
         </div>
         <div class="details-data-percentage">
-          <div class="percentage" style="background-color: #ff5d48">55%</div>
+          <div class="percentage" style="background-color: #ff5d48">{{percentualPraca}}%</div>
           <div class="details-data-percentage-text">
             Responsável pelas evasões
+            <p>({{quantidadePracas}} praças no total)</p>
           </div>
         </div>
       </div>

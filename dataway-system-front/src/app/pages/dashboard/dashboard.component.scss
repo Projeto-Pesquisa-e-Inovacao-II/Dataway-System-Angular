@@ -29,7 +29,7 @@ $background-color-secondary: #ef6a47;
       font-weight: 600;
     }
     .header-title {
-      margin-top: 30px;
+      margin-top: 15px;
       a {
         display: flex;
         align-items: center;
@@ -52,6 +52,10 @@ $background-color-secondary: #ef6a47;
     .nota {
       background-color: $background-color-button;
       padding: 8px;
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      margin-bottom: 25px;
     }
 
     .modal {
@@ -126,8 +130,7 @@ $background-color-secondary: #ef6a47;
 
     h1 {
       font-size: 2rem;
-      margin: 30px 0;
-      margin-top: 25px;
+      margin: 20px 0;
       font-weight: bold;
       color: $text-color;
     }

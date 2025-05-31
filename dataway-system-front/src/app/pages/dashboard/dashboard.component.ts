@@ -6,6 +6,7 @@ import { DashboardService } from '../../services/dashboard/dashboard.service';
 import { DashboardGraficoTrafegoEvasao } from '../../interfaces/dashboard/dashboard-data-structure';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { PracaPorc } from '../../interfaces/pracaPorc/praca-porc';
 Chart.register(...registerables);
 Chart.register(MatrixController, MatrixElement);
 @Component({
@@ -69,6 +70,7 @@ export class DashboardComponent implements OnInit {
     );
     this.getPercentualEvasaoImpacto();
     this.getCategorias();
+    this.getPercentualPraca();
   }
 
   ngAfterViewInit(): void {
@@ -303,6 +305,38 @@ export class DashboardComponent implements OnInit {
         this.data.datasets[0].data = data.map((item: any) => item.total);
         this.data.labels = data.map((item: any) => item.categoria);
         this.lineChart.update();
+      });
+  }
+
+  pracaPorc: PracaPorc[] = [];
+  percentualPraca: string = '';
+  quantidadePracas: number = 0;
+
+  getPercentualPraca() {
+    const idUsuario: number = Number(localStorage.getItem('idUsuario') ?? 0);
+    const mes: number = Number(localStorage.getItem('mesNumber') ?? 0);
+    const concessao: string = this.nomeConcessao;
+    var somaGeral: number = 0;
+    this.dashboardService
+      .getPercentualPraca(idUsuario, mes, concessao)
+      .subscribe((data: PracaPorc[]) => {
+        data.map((item: any) => {
+          somaGeral += Number(item.total);
+          console.log(item.total);
+        });
+
+        this.pracaPorc = data.map((item: any) => {
+          return {
+            praca: item.praca,
+            total: (
+              (Number(item.total) / somaGeral) *
+              100
+            ).toFixed(2),
+          };
+        });
+        console.log(this.pracaPorc[0].total);
+        this.percentualPraca = this.pracaPorc[0].total;
+        this.quantidadePracas = this.pracaPorc.length;
       });
   }
 
