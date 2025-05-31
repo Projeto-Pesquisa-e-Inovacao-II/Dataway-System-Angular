@@ -12,4 +12,20 @@ router.get("/empresasFiltradas", function (req, res) {
   admController.getEmpresasFiltradas(req, res, search);
 });
 
+router.put("/empresa", function (req, res) {
+  admController.updateEmpresa(req, res);
+});
+
+router.put("/empresa/desativar/:idEmpresa", function (req, res) {
+  admController.softDelete(req, res);
+});
+
+router.put("/empresa/reativar/:idEmpresa", function (req, res) {
+  admController.reativarEmpresa(req, res);
+});
+
+router.post("/cadastrar-empresa", function (req, res) {
+  admController.cadastrarEmpresa(req, res);
+});
+
 module.exports = router;
