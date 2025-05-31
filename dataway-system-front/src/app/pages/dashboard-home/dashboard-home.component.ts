@@ -31,6 +31,13 @@ export class DashboardHomeComponent {
     if (month) {
       this.handleMonths(Number(month));
     }
+
+    if (!month) {
+      localStorage.removeItem('mes');
+      localStorage.removeItem('mesNumber');
+      this.mesSelected = 0;
+      this.monthInCard = '';
+    }
   }
 
   handleFilterDashboard(item: string) {
@@ -65,7 +72,12 @@ export class DashboardHomeComponent {
               impactoFinanceiro: element.impactoFinanceiro,
             };
             lote.evasoes = Number(Number(element.evasoes).toFixed(2));
-            lote.impactoFinanceiroPorcentagem = Number(((Number(element.impactoFinanceiro) / Number(element.valor)) * 100).toFixed(2));
+            lote.impactoFinanceiroPorcentagem = Number(
+              (
+                (Number(element.impactoFinanceiro) / Number(element.valor)) *
+                100
+              ).toFixed(2)
+            );
             // this.homeDashboardService
             //   .getEvasao(idUsuario, element.concessao, monthFilter)
             //   .subscribe({
@@ -115,7 +127,7 @@ export class DashboardHomeComponent {
       'Novembro',
       'Dezembro',
     ];
-    
+
     const monthNumber = Number(month);
     month = monthNumber;
     this.monthInCard = monthNames[month - 1];
