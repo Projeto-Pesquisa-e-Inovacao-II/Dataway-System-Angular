@@ -9,6 +9,8 @@ import { CadastrarFuncionarioComponent } from './pages/cadastrar-funcionario/cad
 import { ListEmployeesComponent } from './pages/list-employees/list-employees.component';
 import { LoginAdmComponent } from './pages/login-adm/login-adm.component';
 import { CreateEmpresasAdmComponent } from './pages/create-empresas-adm/create-empresas-adm.component';
+import { UpdateEmpresaComponent } from './pages/update-empresa/update-empresa.component';
+import { CreateEmpresaComponent } from './pages/create-empresa/create-empresa.component';
 
 export const routes: Routes = [
   { path: 'cadastro', component: CadastroComponent },
@@ -28,7 +30,9 @@ export const routes: Routes = [
   { path: 'perfil', component: PerfilComponent },
   { path: 'suporte', component: SuporteComponent },
   { path: 'cadastrar-funcionario', component: CadastrarFuncionarioComponent },
-  { path: 'adm/cadastro-empresa', component: CreateEmpresasAdmComponent },
+  { path: 'adm/empresa', component: CreateEmpresasAdmComponent },
+  { path: 'adm/create-empresa', component: CreateEmpresaComponent },
+  { path: 'adm/empresa/:idEmpresa', component: UpdateEmpresaComponent },
   { path: 'adm/login', component: LoginAdmComponent },
   { path: '', component: DashboardHomeComponent },
   { path: '**', redirectTo: '' },

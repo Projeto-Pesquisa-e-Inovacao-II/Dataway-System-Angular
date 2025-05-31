@@ -1,0 +1,64 @@
+<app-header-adm></app-header-adm>
+
+<div class="container">
+  <div class="row">
+    <div class="form-container">
+      <div class="header">
+        <h2>Editar Empresa</h2>
+      </div>
+      <form [formGroup]="empresaForm" (ngSubmit)="updateEmpresa(empresaForm)">
+        <div class="form-wrapper">
+          <div class="form-group">
+            <div class="input-wrapper">
+              <label for="nomeFantasia">Nome da Empresa</label>
+              <input
+                type="text"
+                id="nomeFantasia"
+                formControlName="nomeFantasia"
+              />
+            </div>
+            <div class="input-wrapper">
+              <label for="representanteLegal">Representante legal</label>
+              <input
+                type="text"
+                id="representanteLegal"
+                formControlName="representanteLegal"
+              />
+            </div>
+            <div class="input-wrapper">
+              <label for="CNPJ">CNPJ</label>
+              <input type="text" id="CNPJ" formControlName="CNPJ" />
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="input-wrapper">
+              <label for="codigoEmpresa">Código da empresa</label>
+              <input
+                type="text"
+                id="codigoEmpresa"
+                formControlName="codigoEmpresa"
+              />
+            </div>
+            <div class="input-wrapper">
+              <label for="ativo">Status</label>
+
+              <select
+                name="ativo"
+                id="ativo"
+                formControlName="ativo"
+                [value]="empresaForm"
+              >
+                <option value="1">Ativo</option>
+                <option value="0">Inativo</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <button (click)="handleCancel()" type="submit" class="btn btn-primary">
+          Cancelar
+        </button>
+        <button type="submit" class="btn btn-primary">Atualizar</button>
+      </form>
+    </div>
+  </div>
+</div>

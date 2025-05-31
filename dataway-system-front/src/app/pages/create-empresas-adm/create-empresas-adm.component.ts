@@ -2,25 +2,23 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { HeaderComponent } from '../../components/header/header/header.component';
 import { AdmPagesService } from '../../services/adm-pages/adm-pages.service';
-
-interface Empresa {
-  nome: string;
-  email: string;
-  telefone: string;
-  status: string;
-}
+import { Empresa } from '../../interfaces/empresa/empresa';
+import { Router } from '@angular/router';
+import { HeaderAdmComponent } from '../../components/headerAdm/header-adm/header-adm.component';
 
 @Component({
   selector: 'app-create-empresas-adm',
-  imports: [CommonModule],
+  imports: [CommonModule, HeaderAdmComponent],
   templateUrl: './create-empresas-adm.component.html',
   styleUrl: './create-empresas-adm.component.scss',
 })
 export class CreateEmpresasAdmComponent {
   // Add more example empresas
   empresas: Empresa[] = [];
-
-  constructor(private admPagesService: AdmPagesService) {}
+  constructor(
+    private admPagesService: AdmPagesService,
+    private router: Router
+  ) {}
 
   ngOnInit() {
     this.getEmpresas();
@@ -31,10 +29,12 @@ export class CreateEmpresasAdmComponent {
       console.log('Empresas:', this.empresas);
       console.log('Dados recebidos:', dados);
       this.empresas = dados.map((empresa: any) => ({
-        nome: empresa.nomeFantasia,
-        email: empresa.representanteLegal,
-        telefone: empresa.codigoEmpresa,
-        status: empresa.CNPJ,
+        idEmpresa: empresa.idEmpresa,
+        nomeFantasia: empresa.nomeFantasia,
+        representanteLegal: empresa.representanteLegal,
+        CNPJ: empresa.CNPJ,
+        codigoEmpresa: empresa.codigoEmpresa,
+        ativo: empresa.ativo,
       }));
     });
     console.log('Empresas:', this.empresas);
@@ -52,11 +52,21 @@ export class CreateEmpresasAdmComponent {
       .subscribe((dados: any) => {
         console.log('Search Results:', dados);
         this.empresas = dados.map((empresa: any) => ({
-          nome: empresa.nomeFantasia,
-          email: empresa.representanteLegal,
-          telefone: empresa.codigoEmpresa,
-          status: empresa.CNPJ,
+          idEmpresa: empresa.idEmpresa,
+          nomeFantasia: empresa.nomeFantasia,
+          representanteLegal: empresa.representanteLegal,
+          CNPJ: empresa.CNPJ,
+          codigoEmpresa: empresa.codigoEmpresa,
+          ativo: empresa.ativo,
         }));
       });
+  }
+
+  handleUpdateEmpresa(empresa: Empresa) {
+    this.router.navigate([`/adm/empresa/${empresa.idEmpresa}`]);
+  }
+
+  handleNovaEmpresa() {
+    this.router.navigate(['/adm/create-empresa']);
   }
 }
