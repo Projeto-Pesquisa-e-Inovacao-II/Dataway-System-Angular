@@ -12,6 +12,10 @@ router.get("/empresasFiltradas", function (req, res) {
   admController.getEmpresasFiltradas(req, res, search);
 });
 
+router.get("/empresa", function (req, res) {
+  admController.getEmpresa(req, res);
+});
+
 router.put("/empresa", function (req, res) {
   admController.updateEmpresa(req, res);
 });

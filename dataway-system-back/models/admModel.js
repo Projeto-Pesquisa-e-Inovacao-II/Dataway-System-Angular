@@ -12,6 +12,18 @@ async function getEmpresasCadastradas() {
   return database.executar(instrucaoSql);
 }
 
+async function getEmpresa(idEmpresa) {
+  console.log(
+    "ACESSEI O adm MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function entrar(): "
+  );
+
+  var instrucaoSql = `
+    SELECT * from Empresa WHERE idEmpresa = ${idEmpresa};
+    `;
+  console.log("Executando a instrução SQL: \n" + instrucaoSql);
+  return database.executar(instrucaoSql);
+}
+
 async function getEmpresasFiltradas(search) {
   console.log(
     "ACESSEI O adm MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function entrar(): "
@@ -35,13 +47,20 @@ async function updateEmpresa(empresa) {
     "ACESSEI O adm MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function entrar(): "
   );
 
+  console.log(
+    "Recuperando empresa com o id: ",
+    empresa.idEmpresa,
+    "\nDados da empresa: ",
+    empresa
+  );
+
   var instrucaoSql = `
     UPDATE Empresa SET 
       representanteLegal = '${empresa.representanteLegal}',
-      razaoSocial = '${empresa.razaoSocial}',
       nomeFantasia = '${empresa.nomeFantasia}',
-      cnpj = '${empresa.cnpj}',
-      codigoEmpresa = ${empresa.codigoEmpresa}
+      cnpj = '${empresa.CNPJ}',
+      codigoEmpresa = '${empresa.codigoEmpresa}',
+      ativo = '${empresa.ativo}'
     WHERE idEmpresa = ${empresa.idEmpresa}
     `;
   console.log("Executando a instrução SQL: \n" + instrucaoSql);
@@ -83,7 +102,7 @@ async function cadastrarEmpresa(empresa) {
 
   var instrucaoSql = `
     INSERT INTO Empresa (representanteLegal, razaoSocial, nomeFantasia, cnpj, codigoEmpresa, ativo) 
-    VALUES ('${empresa.representanteLegal}', '${empresa.razaoSocial}', '${empresa.nomeFantasia}', '${empresa.cnpj}', ${empresa.codigoEmpresa}, 1);
+    VALUES ('${empresa.representanteLegal}', '${empresa.razaoSocial}', '${empresa.nomeFantasia}', '${empresa.CNPJ}', '${empresa.codigoEmpresa}', ${empresa.ativo});
     `;
   console.log("Executando a instrução SQL: \n" + instrucaoSql);
   return database.executar(instrucaoSql);
@@ -91,6 +110,7 @@ async function cadastrarEmpresa(empresa) {
 
 module.exports = {
   getEmpresasCadastradas,
+  getEmpresa,
   getEmpresasFiltradas,
   updateEmpresa,
   softDelete,

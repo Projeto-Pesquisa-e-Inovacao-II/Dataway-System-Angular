@@ -19,6 +19,30 @@ function getEmpresasCadastradas(req, res) {
     });
 }
 
+function getEmpresa(req, res) {
+  // Crie uma variável que vá recuperar os valores do arquivo cadastro.html
+  // Faça as validações dos valores
+  // Passe os valores como parâmetro e vá para o arquivo updateUserDataModel.js
+  console.log("Recuperando empresa com o id: ", req.query.idEmpresa);
+  admModel
+    .getEmpresa(req.query.idEmpresa)
+    .then(function (resultado) {
+      if (resultado.length > 0) {
+        res.json(resultado[0]);
+      } else {
+        res.status(404).json({ message: "Empresa não encontrada" });
+      }
+    })
+    .catch(function (erro) {
+      console.log(erro);
+      console.log(
+        "\nHouve um erro ao recuperar a empresa! Erro: ",
+        erro.sqlMessage
+      );
+      res.status(500).json(erro.sqlMessage);
+    });
+}
+
 function getEmpresasFiltradas(req, res, search) {
   // Crie uma variável que vá recuperar os valores do arquivo cadastro.html
   // Faça as validações dos valores
@@ -118,13 +142,12 @@ function cadastrarEmpresa(req, res) {
     });
 }
 
-
-
 module.exports = {
   getEmpresasCadastradas,
+  getEmpresa,
   getEmpresasFiltradas,
   updateEmpresa,
   softDelete,
   reativarEmpresa,
-  cadastrarEmpresa
+  cadastrarEmpresa,
 };
