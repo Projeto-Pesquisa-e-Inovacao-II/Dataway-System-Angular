@@ -66,6 +66,20 @@ export class CreateEmpresasAdmComponent {
     this.router.navigate([`/adm/empresa/${empresa.idEmpresa}`]);
   }
 
+  openModalConfirmation(empresa: Empresa) {
+    const confirmation = confirm(
+      `Tem certeza que deseja excluir a empresa ${empresa.nomeFantasia}?`
+    );
+    if (confirmation) {
+      this.admPagesService.softDeleteEmpresa(empresa.idEmpresa).subscribe(() => {
+        console.log(
+          `Empresa ${empresa.nomeFantasia} excluída com sucesso!`
+        );
+        this.getEmpresas(); // Refresh the list of empresas after deletion
+      });
+    }
+  }
+
   handleNovaEmpresa() {
     this.router.navigate(['/adm/create-empresa']);
   }

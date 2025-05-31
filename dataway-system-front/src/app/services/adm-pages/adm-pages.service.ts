@@ -54,5 +54,11 @@ export class AdmPagesService {
     return this.http.post(`${BASE_URL}/adm/cadastrar-empresa`, body);
   }
 
-  
+  softDeleteEmpresa(idEmpresa: number) {
+    const params = new HttpParams().set('idEmpresa', idEmpresa.toString());
+    return this.http.put(
+      `${BASE_URL}/adm/empresa/desativar/${idEmpresa}`,
+      params
+    );
+  }
 }
