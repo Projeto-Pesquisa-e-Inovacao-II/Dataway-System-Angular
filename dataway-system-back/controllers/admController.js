@@ -63,7 +63,6 @@ function getEmpresasFiltradas(req, res, search) {
 }
 
 function updateEmpresa(req, res) {
-  // Crie uma variável que vá recuperar os valores do arquivo cadastro.html
   // Faça as validações dos valores
   // Passe os valores como parâmetro e vá para o arquivo updateUserDataModel.js
   console.log("Atualizando empresa com os dados: ", req.body);
