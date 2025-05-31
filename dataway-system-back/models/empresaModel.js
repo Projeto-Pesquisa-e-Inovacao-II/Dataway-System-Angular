@@ -31,6 +31,19 @@ function autenticar(email, senha) {
   return database.executar(instrucaoSql);
 }
 
+function autenticarAdmin(email, senha) {
+  console.log(
+    "ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function autenticarAdmin(): ",
+    email,
+    senha
+  );
+  var instrucaoSql = `
+        SELECT cpf, tipoUsuario FROM Usuario WHERE email = '${email}' AND senha = '${senha}' AND tipoUsuario = 'admin';
+    `;
+  console.log("Executando a instrução SQL: \n" + instrucaoSql);
+  return database.executar(instrucaoSql);
+}
+
 async function cadastrar(
   empresaServer,
   nomeFantasia,
@@ -52,12 +65,11 @@ async function cadastrar(
     telefone,
     email,
     senha,
-    cep,
+    cep
   );
   // Insira exatamente a query do banco aqui, lembrando da nomenclatura exata nos valores
   //  e na ordem de inserção dos dados.
   await inserirUsuario(email, senha, telefone, representanteLegal);
-
 
   const usuarioResult = await database.executar(`
     SELECT idUsuario FROM Usuario WHERE email = '${email}' AND senha = '${senha}' AND telefone = '${telefone}';
@@ -72,7 +84,6 @@ async function cadastrar(
     empresaServer,
     idUsuario
   );
-
 
   const empresaResult = await database.executar(`
     SELECT idEmpresa FROM Empresa WHERE CNPJ = '${CNPJ}' AND representanteLegal = '${representanteLegal}' AND concessionaria = '${empresaServer}';
@@ -136,7 +147,7 @@ function deletar(idEmpresa) {
     "ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar():",
     idEmpresa
   );
-//verificar id usuario de empresa, guarda delete de endereço e de empresa. executa verificação de id, deleta endereço, deleta empresa e deleta usuario
+  //verificar id usuario de empresa, guarda delete de endereço e de empresa. executa verificação de id, deleta endereço, deleta empresa e deleta usuario
   const sqlSelectUsuario = `SELECT Usuario_idUsuario FROM Empresa WHERE idEmpresa = ${idEmpresa};`;
 
   const sqlDeleteEndereco = `DELETE FROM Endereco WHERE Empresa_idEmpresa = ${idEmpresa};`;
@@ -146,7 +157,6 @@ function deletar(idEmpresa) {
   console.log("Executando a instrução SQL de seleção: \n" + sqlSelectUsuario);
 
   return database.executar(sqlSelectUsuario).then((resultado) => {
-
     if (resultado.length === 0) {
       throw new Error("Empresa não encontrada!");
     }
@@ -162,7 +172,7 @@ function deletar(idEmpresa) {
       "Executando a instrução SQL de deleção do endereco: \n" +
         sqlDeleteEndereco
     );
-    
+
     return database
       .executar(sqlDeleteEndereco)
       .then((resultadoEndereco) => {
@@ -172,7 +182,7 @@ function deletar(idEmpresa) {
           "Executando a instrução SQL de deleção da empresa: \n" +
             sqlDeleteEmpresa
         );
-    
+
         return database.executar(sqlDeleteEmpresa);
       })
       .then((resultadoEmpresa) => {
@@ -193,6 +203,7 @@ function deletar(idEmpresa) {
 
 module.exports = {
   autenticar,
+  autenticarAdmin,
   cadastrar,
   deletar,
 };

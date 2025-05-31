@@ -11,4 +11,12 @@ export class LoginService {
   postLogin(dados: any) {
     return this.http.post(`${BASE_URL}/usuarios/autenticar`, dados);
   }
+
+  postLoginAdm(dados: any) {
+    dados = {
+      email: dados.email,
+      senha: dados.senha,
+    };
+    return this.http.post(`${BASE_URL}/usuarios/autenticar_adm`, dados);
+  }
 }
