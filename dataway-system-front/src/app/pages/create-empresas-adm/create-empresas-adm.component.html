@@ -1,0 +1,53 @@
+<app-header-adm></app-header-adm>
+
+<div class="container">
+  <h1>Gerenciamento de Empresas</h1>
+  <div class="wrapper-header">
+    <p>Selecione a empresa que deseja visualizar</p>
+    <div class="wrapper-right">
+      <button (click)="handleNovaEmpresa()">Nova empresa</button>
+      <div class="inp-search">
+        <input
+          type="search"
+          name=""
+          #searchTerm
+          (keyup)="getEmpresaSearchResults($event)"
+        />
+        <img src="/images/Icon/icons8-search.svg" alt="" />
+      </div>
+    </div>
+  </div>
+
+  <div class="table-empresas">
+    <div class="header">
+      <p>Nome fantasia</p>
+      <p>Representante Legal</p>
+      <p>CNPJ</p>
+      <p>Código da empresa</p>
+      <p>Status</p>
+      <p>Ações</p>
+    </div>
+    <div class="table-row" *ngFor="let empresa of empresas">
+      <div class="empresa-item__column">
+        <p>{{ empresa.nomeFantasia }}</p>
+      </div>
+      <div class="empresa-item__column">
+        <p>{{ empresa.representanteLegal }}</p>
+      </div>
+      <div class="empresa-item__column">
+        <p>{{ empresa.CNPJ }}</p>
+      </div>
+      <div class="empresa-item__column">
+        <p>{{ empresa.codigoEmpresa }}</p>
+      </div>
+      <div class="empresa-item__column">
+        <p *ngIf="empresa.ativo == 1">Ativo</p>
+        <p *ngIf="empresa.ativo == 0">Inativo</p>
+      </div>
+      <div class="empresa-item__column">
+        <button (click)="handleUpdateEmpresa(empresa)">Lapis</button>
+        <button (click)="openModalConfirmation(empresa)">Lixeira</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -35,6 +35,41 @@ function autenticar(req, res) {
   }
 }
 
+function autenticarAdmin(req, res) {
+  var email = req.body.email;
+  var senha = req.body.senha;
+
+  if (email == undefined) {
+    res.status(400).send("Seu email está undefined!");
+  } else if (senha == undefined) {
+    res.status(400).send("Sua senha está indefinida!");
+  } else {
+    empresaModel
+      .autenticarAdmin(email, senha)
+      .then(function (resultadoAutenticar) {
+        console.log(`\nResultados encontrados: ${resultadoAutenticar.length}`);
+        console.log(`Resultados: ${JSON.stringify(resultadoAutenticar)}`); // transforma JSON em String
+
+        if (resultadoAutenticar.length == 1) {
+          console.log(resultadoAutenticar);
+          res.status(200).json(resultadoAutenticar[0]);
+        } else if (resultadoAutenticar.length == 0) {
+          res.status(403).send("Email e/ou senha inválido(s)");
+        } else {
+          res.status(403).send("Mais de um usuário com o mesmo login e senha!");
+        }
+      })
+      .catch(function (erro) {
+        console.log(erro);
+        console.log(
+          "\nHouve um erro ao realizar o login! Erro: ",
+          erro.sqlMessage
+        );
+        res.status(500).json(erro.sqlMessage);
+      });
+  }
+}
+
 function cadastrar(req, res) {
   // Crie uma variável que vá recuperar os valores do arquivo cadastro.html
   var empresaServer = req.body.userData.empresaServer;
@@ -104,6 +139,7 @@ function deletar(req, res, idUsuario) {
 }
 module.exports = {
   autenticar,
+  autenticarAdmin,
   cadastrar,
   deletar,
 };

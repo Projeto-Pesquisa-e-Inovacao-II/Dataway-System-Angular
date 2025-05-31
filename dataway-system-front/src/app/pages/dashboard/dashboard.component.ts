@@ -6,6 +6,7 @@ import { DashboardService } from '../../services/dashboard/dashboard.service';
 import { DashboardGraficoTrafegoEvasao } from '../../interfaces/dashboard/dashboard-data-structure';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { PracaPorc } from '../../interfaces/pracaPorc/praca-porc';
 Chart.register(...registerables);
 Chart.register(MatrixController, MatrixElement);
 @Component({
@@ -17,25 +18,25 @@ Chart.register(MatrixController, MatrixElement);
 })
 export class DashboardComponent implements OnInit {
   constructor(
-  private dashboardService: DashboardService,
-  private route: ActivatedRoute,
-  private router: Router
+    private dashboardService: DashboardService,
+    private route: ActivatedRoute,
+    private router: Router
   ) {}
 
   showModal = false;
 
-openModal() {
-  this.showModal = true;
-}
-
-closeModal() {
-  this.showModal = false;
-} // TYPESCRIPT DO MODAL DA OCORRENCIA
-onModalBackgroundClick(event: MouseEvent) {
-  if ((event.target as HTMLElement).classList.contains('modal')) {
-    this.closeModal();
+  openModal() {
+    this.showModal = true;
   }
-}
+
+  closeModal() {
+    this.showModal = false;
+  } // TYPESCRIPT DO MODAL DA OCORRENCIA
+  onModalBackgroundClick(event: MouseEvent) {
+    if ((event.target as HTMLElement).classList.contains('modal')) {
+      this.closeModal();
+    }
+  }
   public dadosTrafegoEvasao: DashboardGraficoTrafegoEvasao[] = [];
   public monthFilter: number = 0;
   public nomeConcessao: string = '';
@@ -68,6 +69,8 @@ onModalBackgroundClick(event: MouseEvent) {
       this.nomeConcessao
     );
     this.getPercentualEvasaoImpacto();
+    this.getCategorias();
+    this.getPercentualPraca();
   }
 
   ngAfterViewInit(): void {
@@ -76,25 +79,7 @@ onModalBackgroundClick(event: MouseEvent) {
     this.lineChart = new Chart('horizontalBarChart', this.config);
   }
 
-public meses: string[] = [
-  'Jan',
-  'Fev',
-  'Mar',
-  'Abr',
-  'Mai',
-  'Jun',
-  'Jul',
-  'Ago',
-  'Set',
-  'Out',
-  'Nov',
-  'Dez',
-];
-
-handleFilterChange(period: number) {
-  this.monthFilter = period;
-  console.log(this.monthFilter);
-  this.meses = [
+  public meses: string[] = [
     'Jan',
     'Fev',
     'Mar',
@@ -109,20 +94,9 @@ handleFilterChange(period: number) {
     'Dez',
   ];
 
-  if (this.monthFilter === 1) {
-    this.meses = [localStorage.getItem('mes') || ''];
-  }
-
-  if (this.monthFilter === 6) {
-    var mesNumero = localStorage.getItem('mesNumber');
-
-    this.meses = this.meses.slice(
-      Number(mesNumero) - 1,
-      Number(mesNumero) + 5
-    );
-  }
-
-  if (this.monthFilter === 12) {
+  handleFilterChange(period: number) {
+    this.monthFilter = period;
+    console.log(this.monthFilter);
     this.meses = [
       'Jan',
       'Fev',
@@ -137,25 +111,53 @@ handleFilterChange(period: number) {
       'Nov',
       'Dez',
     ];
+
+    if (this.monthFilter === 1) {
+      this.meses = [localStorage.getItem('mes') || ''];
+    }
+
+    if (this.monthFilter === 6) {
+      var mesNumero = localStorage.getItem('mesNumber');
+
+      this.meses = this.meses.slice(
+        Number(mesNumero) - 1,
+        Number(mesNumero) + 5
+      );
+    }
+
+    if (this.monthFilter === 12) {
+      this.meses = [
+        'Jan',
+        'Fev',
+        'Mar',
+        'Abr',
+        'Mai',
+        'Jun',
+        'Jul',
+        'Ago',
+        'Set',
+        'Out',
+        'Nov',
+        'Dez',
+      ];
+    }
+
+    this.barChart.data.labels = this.meses;
+    this.barChart.update();
   }
 
-  this.barChart.data.labels = this.meses;
-  this.barChart.update();
-}
+  getPracaAlerta(idUsuario: number, concessao: string, mes: number) {
+    this.dashboardService
+      .getPracaAlerta(idUsuario, concessao, mes)
+      .subscribe((data: any) => {
+        this.praca = data[0]?.praca;
+        console.log(data[0]?.praca);
+      });
 
-getPracaAlerta(idUsuario: number, concessao: string, mes: number) {
-  this.dashboardService
-    .getPracaAlerta(idUsuario, concessao, mes)
-    .subscribe((data: any) => {
-      this.praca = data[0]?.praca;
-      console.log(data[0]?.praca);
-    });
+    console.log(this.praca);
+  }
 
-  console.log(this.praca);
-}
-
-getTrafegoEvasaoData(concessao: string) {
-
+  getTrafegoEvasaoData(concessao: string) {
     const idUsuario: number = Number(localStorage.getItem('idUsuario') ?? 0);
 
     this.dashboardService
@@ -287,13 +289,64 @@ getTrafegoEvasaoData(concessao: string) {
       });
   }
 
+  rankingCategoria: any = {
+    categoria: '',
+    total: 0,
+  };
+
+  getCategorias() {
+    const idUsuario: number = Number(localStorage.getItem('idUsuario') ?? 0);
+    const mes: number = Number(localStorage.getItem('mesNumber') ?? 0);
+    const concessao: string = this.nomeConcessao;
+    this.dashboardService
+      .getCategorias(idUsuario, mes, concessao)
+      .subscribe((data: any) => {
+        console.log(data);
+        this.data.datasets[0].data = data.map((item: any) => item.total);
+        this.data.labels = data.map((item: any) => item.categoria);
+        this.lineChart.update();
+      });
+  }
+
+  pracaPorc: PracaPorc[] = [];
+  percentualPraca: string = '';
+  quantidadePracas: number = 0;
+
+  getPercentualPraca() {
+    const idUsuario: number = Number(localStorage.getItem('idUsuario') ?? 0);
+    const mes: number = Number(localStorage.getItem('mesNumber') ?? 0);
+    const concessao: string = this.nomeConcessao;
+    var somaGeral: number = 0;
+    this.dashboardService
+      .getPercentualPraca(idUsuario, mes, concessao)
+      .subscribe((data: PracaPorc[]) => {
+        data.map((item: any) => {
+          somaGeral += Number(item.total);
+          console.log(item.total);
+        });
+
+        this.pracaPorc = data.map((item: any) => {
+          return {
+            praca: item.praca,
+            total: (
+              (Number(item.total) / somaGeral) *
+              100
+            ).toFixed(2),
+          };
+        });
+        console.log(this.pracaPorc[0].total);
+        this.percentualPraca = this.pracaPorc[0].total;
+        this.quantidadePracas = this.pracaPorc.length;
+      });
+  }
+
   //gráfico horizontal
   public data: any = {
-    labels: ['MOTO', 'PASSEIO', 'COMERCIAL'],
+    labels: [],
     datasets: [
       {
         label: 'Valores',
-        data: [5, 10, 18],
+        data: [],
         backgroundColor: [
           'rgba(102, 230, 230, 0.8)',
           'rgba(56, 195, 224, 0.8)',

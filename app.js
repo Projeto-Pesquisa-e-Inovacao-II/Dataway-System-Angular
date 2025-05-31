@@ -27,6 +27,9 @@ var getUserConcessoes = require("./dataway-system-back/routes/concessoesUsuario"
 //dashboard
 var graficoTrafegoEvasao = require("./dataway-system-back/routes/graficoTrafegoEvasao");
 
+//admRoutes
+var adm = require("./dataway-system-back/routes/admRoutes");
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));
@@ -44,6 +47,8 @@ app.use("/create_employee", createEmployee);
 app.use("/grafico_trafego_evasao", graficoTrafegoEvasao);
 
 app.use("/concessoes_usuario", getUserConcessoes);
+
+app.use("/adm", adm);
 
 app.listen(PORTA_APP, HOST_APP, function () {
     console.log(`

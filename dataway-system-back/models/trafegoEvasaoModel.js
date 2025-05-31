@@ -90,6 +90,46 @@ async function pracaAlerta(idUsuario, mes, concessao) {
   }
 }
 
+async function porcetagemPraca(idUsuario, mes, concessao) {
+  try {
+    console.log(
+      "ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function getEvasao(): ",
+      idUsuario
+    );
+    console.log(idUsuario);
+    const empresa = `
+      SELECT fkEmpresa FROM Usuario
+      WHERE Usuario.cpf = ${idUsuario};
+    `;
+
+    console.log("Query empresa:", empresa);
+
+    const resultadoEmpresa = await database.executar(empresa);
+
+    const idEmpresa = resultadoEmpresa[0].fkEmpresa;
+
+    const resultadoPorMes = [];
+
+    const mesFormatado = mes < 10 ? `0${mes}` : mes;
+    const sql = `
+      select distinct(praca), sum(quantidade) as total 
+      from DadosPracaPedagio 
+      WHERE fkEmpresa = ${idEmpresa}
+        AND tpCampo = 2
+        AND data LIKE '2024-${mesFormatado}-%'
+        AND lote = '${concessao}' 
+      GROUP BY praca
+      ORDER BY total desc;
+    `;
+    console.log("SQL:", sql);
+
+    return await database.executar(sql);
+  } catch (erro) {
+    console.log("Erro ao executar as queries:", erro);
+    return [];
+  }
+}
+
 async function getEvasao(idUsuario, mes, concessao) {
   try {
     console.log(
@@ -200,10 +240,50 @@ WHERE fkEmpresa = ${idEmpresa}
   }
 }
 
+async function getCategoria(idUsuario, mes, concessao) {
+  try {
+    console.log(
+      "ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function entrar(): ",
+      idUsuario
+    );
+    console.log(idUsuario);
+    const empresa = `
+      SELECT fkEmpresa FROM Usuario
+      WHERE Usuario.cpf = ${idUsuario};
+    `;
+
+    const resultadoEmpresa = await database.executar(empresa);
+
+    const idEmpresa = resultadoEmpresa[0].fkEmpresa;
+
+    const resultadoPorMes = [];
+
+    const mesFormatado = mes < 10 ? `0${mes}` : mes;
+    const sql = `
+        SELECT categoria, SUM(quantidade) AS total
+      FROM DadosPracaPedagio
+      WHERE fkEmpresa = ${idEmpresa}
+        AND tpCampo = 2
+        AND data LIKE '2024-${mesFormatado}-%'
+        AND lote = '${concessao}'
+      GROUP BY categoria
+      ORDER BY total DESC
+      LIMIT 3;
+    `;
+    console.log("SQL:", sql);
+
+    return await database.executar(sql);
+  } catch (erro) {
+    console.log("Erro ao executar as queries:", erro);
+    return [];
+  }
+}
 module.exports = {
   getGraphData,
   pracaAlerta,
+  porcetagemPraca,
   getEvasao,
   getImpactoFinancerio,
   getComparacaoEvasaoImpacto,
+  getCategoria,
 };

@@ -18,12 +18,15 @@ SELECT fkEmpresa FROM Usuario WHERE cpf = ${idUsuario};
 
   var instrucaoSql = `
     SELECT
-      dp.lote      AS concessao,
-      SUM(dp.quantidade) AS trafego
-    FROM DadosPracaPedagio dp
-    WHERE dp.fkEmpresa = ${idEmpresa}
-      AND dp.data LIKE '2024-${mesFormatado}-%'
-    GROUP BY dp.lote;
+      lote AS concessao,
+      SUM(quantidade) AS trafego,
+      sum(valor) as valor,
+      sum(case when tpCampo = 2 then valor else 0 end) as impactoFinanceiro,
+      (COUNT(case when tpCampo = 2 then 2 end) / COUNT(*)) * 100 as evasoes
+    FROM DadosPracaPedagio     
+    WHERE fkEmpresa = ${idEmpresa}
+      AND data LIKE '2024-${mesFormatado}-%'
+    GROUP BY lote;
     `;
   console.log("Executando a instrução SQL: \n" + instrucaoSql);
   return database.executar(instrucaoSql);

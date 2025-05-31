@@ -1,0 +1,103 @@
+$text-color: #000;
+$background-color-button: #3db9dc;
+$background-color-header: #e4e4e4;
+
+
+.container {
+  max-width: 1600px;
+  margin: 0 auto;
+  color: $text-color;
+  font-family: "Montserrat", sans-serif !important;
+  .wrapper-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 40px;
+    margin-bottom: 20px;
+
+    p {
+      font-size: 1.2rem;
+      font-weight: normal;
+      color: $text-color;
+    }
+
+    .wrapper-right {
+      display: flex;
+      button {
+        font-family: "Montserrat", sans-serif !important;
+        margin-right: 20px;
+        background-color: $background-color-button;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        &:hover {
+          background-color: darken($background-color-button, 10%);
+        }
+        &:focus {
+          outline: none;
+        }
+        &:active {
+          background-color: darken($background-color-button, 20%);
+        }
+        font-size: 1rem;
+        font-weight: bold;
+      }
+
+      input {
+        width: 250px;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        font-size: 1rem;
+        background-color: $background-color-header;
+        &:focus {
+          outline: none;
+          border-color: $background-color-header;
+        }
+      }
+
+      .inp-search {
+        position: relative;
+        img {
+          position: absolute;
+          right: 5px;
+          top: 4px;
+          width: 35px;
+        }
+      }
+    }
+  }
+
+  .table-empresas {
+    border: solid 1px #000;
+    .header {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(2.5rem, 1fr));
+      gap: 2.5rem;
+      align-items: center;
+      padding: 0 3rem;
+      text-align: center;
+      background-color: #e4e4e4;
+      padding: 0 3rem;
+      height: 5rem;
+      font-weight: bold;
+    }
+  }
+
+  .table-row {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(2.5rem, 1fr));
+    gap: 2.5rem;
+    align-items: center;
+    height: 4rem;
+    padding: 0 3rem;
+    border-bottom: solid 1px #99999954;
+    .empresa-item__column {
+      text-align: center;
+    }
+  }
+}
