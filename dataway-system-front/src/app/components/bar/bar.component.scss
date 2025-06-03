@@ -1,0 +1,18 @@
+.row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between; 
+    align-items: center;     
+    margin-top: 4rem;
+    background-color: #bfd8dc;
+    height: 7rem;
+    img{
+        margin:0 2rem 0 2rem;
+        height: 8rem;
+    }
+}
+
+h1 {
+  font-size: 2rem;
+  font-weight: 600;
+}
