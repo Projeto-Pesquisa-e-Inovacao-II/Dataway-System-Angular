@@ -36,6 +36,10 @@ export class UpdateEmpresaComponent {
       codigoEmpresa: [''],
       ativo: [''],
     });
+
+    localStorage.getItem('adm') !== 'true'
+      ? window.location.replace('/adm/login')
+      : console.log('Admin access granted');
   }
 
   updateEmpresa(form: FormGroup) {

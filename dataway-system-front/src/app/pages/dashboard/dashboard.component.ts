@@ -86,12 +86,7 @@ export class DashboardComponent implements OnInit {
     'Abr',
     'Mai',
     'Jun',
-    'Jul',
-    'Ago',
-    'Set',
-    'Out',
-    'Nov',
-    'Dez',
+
   ];
 
   handleFilterChange(period: number) {
@@ -104,43 +99,31 @@ export class DashboardComponent implements OnInit {
       'Abr',
       'Mai',
       'Jun',
-      'Jul',
-      'Ago',
-      'Set',
-      'Out',
-      'Nov',
-      'Dez',
     ];
 
     if (this.monthFilter === 1) {
       this.meses = [localStorage.getItem('mes') || ''];
     }
 
-    if (this.monthFilter === 6) {
+    if (this.monthFilter === 3) {
       var mesNumero = localStorage.getItem('mesNumber');
 
       this.meses = this.meses.slice(
         Number(mesNumero) - 1,
-        Number(mesNumero) + 5
+        Number(mesNumero) + 2
       );
     }
 
-    if (this.monthFilter === 12) {
-      this.meses = [
-        'Jan',
-        'Fev',
-        'Mar',
-        'Abr',
-        'Mai',
-        'Jun',
-        'Jul',
-        'Ago',
-        'Set',
-        'Out',
-        'Nov',
-        'Dez',
-      ];
-    }
+    // if (this.monthFilter === 6) {
+    //   this.meses = [
+    //     'Jan',
+    //     'Fev',
+    //     'Mar',
+    //     'Abr',
+    //     'Mai',
+    //     'Jun',
+    //   ];
+    // }
 
     this.barChart.data.labels = this.meses;
     this.barChart.update();

@@ -26,6 +26,9 @@ export class CreateEmpresaComponent {
 
   ngOnInit() {
     this.initializeForm();
+    localStorage.getItem('adm') !== 'true'
+      ? window.location.replace('/adm/login')
+      : console.log('Admin access granted');
   }
 
   initializeForm() {

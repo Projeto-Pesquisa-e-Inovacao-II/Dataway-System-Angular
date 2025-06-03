@@ -1,7 +1,7 @@
 <app-header></app-header>
 <div class="container">
   <div class="row">
-    <h1>Que bom ter você com a gente, {{nomeDoUsuario}}!</h1>
+    <h1>Que bom ter você com a gente, {{ nomeDoUsuario }}!</h1>
   </div>
 
   <div class="container-filtro">
@@ -17,37 +17,27 @@
         <option value="4">Abril</option>
         <option value="5">Maio</option>
         <option value="6">Junho</option>
-        <option value="7">Julho</option>
-        <option value="8">Agosto</option>
-        <option value="9">Setembro</option>
-        <option value="10">Outubro</option>
-        <option value="10">Novembro</option>
-        <option value="12">Dezembro</option>
       </select>
 
       <button type="submit">Filtrar</button>
     </form>
 
-    
-      <div class="concessao-texto-if" *ngIf="mesSelected > 0">
-        <h2>Selecione a concessão desejada para análise:</h2>
-      </div>
+    <div class="concessao-texto-if" *ngIf="mesSelected > 0">
+      <h2>Selecione a concessão desejada para análise:</h2>
+    </div>
   </div>
   <div class="container-cards">
-
     <div
       class="card-concessoes"
       *ngFor="let item of lotes"
       (click)="handleFilterDashboard(item.nomeConcessao)"
     >
-
       <app-home-cards
         [concessao]="item.nomeConcessao"
         [veiculos]="item.trafego"
         [evasoes]="item.evasoes"
         [impactoFinanceiro]="item.impactoFinanceiroPorcentagem ?? 0"
         [periodo]="monthInCard"
-
       ></app-home-cards>
     </div>
   </div>
