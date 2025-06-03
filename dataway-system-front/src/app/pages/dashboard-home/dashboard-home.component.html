@@ -1,8 +1,6 @@
 <app-header></app-header>
 <div class="container">
-  <div class="row">
-    <h1>Que bom ter você com a gente, {{nomeDoUsuario}}!</h1>
-  </div>
+  <app-bar [nomeDoUsuario]="nomeDoUsuario" [mensagem]="'Que bom ter você com a gente, ' + nomeDoUsuario + '!'"></app-bar>
 
   <div class="container-filtro">
     <h1>Concessões</h1>
