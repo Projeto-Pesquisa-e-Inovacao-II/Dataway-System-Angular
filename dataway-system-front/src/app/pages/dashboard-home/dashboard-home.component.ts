@@ -6,10 +6,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { HomeDashboardService } from '../../services/home-dashboard/home-dashboard.service';
 import { HomeDashboard } from '../../interfaces/homeDashboard/home-dashboard';
 import { iif } from 'rxjs';
+import { BarComponent } from "../../components/bar/bar.component";
 
 @Component({
   selector: 'app-dashboard-home',
-  imports: [HeaderComponent, HomeCardsComponent, CommonModule],
+  imports: [HeaderComponent, HomeCardsComponent, CommonModule, BarComponent],
   templateUrl: './dashboard-home.component.html',
   styleUrl: './dashboard-home.component.scss',
 })
