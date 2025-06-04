@@ -30,4 +30,8 @@ export class HeaderComponent {
   handlePerfil() {
     window.location.href = '/perfil';
   }
+
+  handleNotification() {
+    
+  }
 }

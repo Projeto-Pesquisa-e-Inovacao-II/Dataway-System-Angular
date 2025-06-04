@@ -31,8 +31,21 @@
         <div class="popup">
           <h3>Olá!</h3>
           <a (click)="handlePerfil()">Perfil</a>
+          <div class="notificacoes">
+            <a (click)="handleNotification()">Notificações</a>
+            <label class="switch">
+              <input type="checkbox">
+              <span class="slider round"></span>
+            </label>
+
+          </div>
           <a (click)="logout()">Sair</a>
         </div>
+        <img
+          class="configuracoes-icon"
+          src="/images/Icon/icons8-configurações-50.png"
+          alt=""
+        />
       </li>
     </ul>
   </div>
