@@ -11,7 +11,8 @@ export class SuportServiceService {
   http = inject(HttpClient);
 
   enviarEmail(to: string, subject: string, text: string) {
-    this.http.post(`${BASE_URL}/send-email`, {
+    console.log("Enviando email para:", to, "Assunto:", subject, "Mensagem:", text);
+    return this.http.post(`${BASE_URL}/suport-send-email`, {
       to: to,
       subject: subject,
       text: text,

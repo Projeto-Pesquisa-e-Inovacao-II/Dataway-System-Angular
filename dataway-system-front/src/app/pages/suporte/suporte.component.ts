@@ -15,6 +15,7 @@ export class SuporteComponent {
   // https://nodemailer.com/
   // https://www.w3schools.com/nodejs/nodejs_email.asp
   USER_EMAIL = localStorage.getItem('email') ?? '';
+  ID_USUARIO = localStorage.getItem('idUsuario') ?? '';
   emailStructure = {
     emailTo: this.USER_EMAIL,
     assunto: '',
@@ -34,8 +35,16 @@ export class SuporteComponent {
         this.emailStructure.emailTo,
         this.emailStructure.assunto,
         this.emailStructure.mensagem
+      ).subscribe(
+        (response: any) => {
+          console.log('Email enviado com sucesso:', response);
+        },
+        (error) => {
+          console.error('Mensagem failed:', error);
+        }
       );
       console.log('Email enviado com sucesso!');
+
     } else {
       console.error('Por favor, preencha todos os campos.');
     }
