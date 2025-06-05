@@ -32,8 +32,10 @@ export class LoginComponent {
         console.log('foi', res);
         const idUsuario = res.cpf;
         const nomeUsuario = res.nome;
+        const emailUsuario = res.email;
         localStorage.setItem('idUsuario', idUsuario);
         localStorage.setItem('nomeUsuario', nomeUsuario);
+        localStorage.setItem('email', emailUsuario);
         location.href = '/dashboard';
       },
       (error) => {

@@ -127,6 +127,8 @@ $background-color-three: #c50c0c;
       }
 
       textarea {
+        padding: 15px;
+
         height: 20vh;
         resize: none;
         border: solid 1px $background-color;

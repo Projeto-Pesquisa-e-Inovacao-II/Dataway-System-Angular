@@ -13,12 +13,12 @@
           <form action="">
             <div class="input-field">
               <label class="user-label" for="email_input">Assunto:</label>
-              <input required="" type="text" name="text" />
+              <input required="" type="text" name="assunto" [(ngModel)]="emailStructure.assunto" (input)="handleChange()">
               <label class="user-label" for="email_input">Descrição:</label>
-              <textarea name="" id=""></textarea>
+              <textarea name="mensagem" id="" [(ngModel)]="emailStructure.mensagem" (input)="handleChange()"></textarea>
             </div>
           </form>
-          <button class="edit_profile_data">Enviar mensagem</button>
+          <button class="edit_profile_data" (click)="enviarEmail()">Enviar mensagem</button>
         </div>
       </div>
       <div class="triangle"></div>
