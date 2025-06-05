@@ -32,9 +32,10 @@
           <h3>Olá!</h3>
           <a (click)="handlePerfil()">Perfil</a>
           <div class="notificacoes">
-            <a (click)="handleNotification()">Notificações</a>
+            <span>Notificações</span>
+            <!-- https://www.w3schools.com/howto/howto_css_switch.asp -->
             <label class="switch">
-              <input type="checkbox">
+              <input type="checkbox" (change)="handleNotificationUpdate($event)" [checked]="notificacoesAtivas" />
               <span class="slider round"></span>
             </label>
 
