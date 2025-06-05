@@ -35,6 +35,7 @@ export class LoginAdmComponent {
 
         if(tipoUsuario == 'admin'.toLowerCase()) {
           localStorage.clear();
+          localStorage.setItem('adm', 'true');
         }
         localStorage.setItem('idUsuario', idUsuario);
         location.href = '/adm/empresa';

@@ -29,7 +29,7 @@ async function getGraphData(idUsuario, concessao) {
 
     const resultadoPorMes = [];
 
-    for (let mes = 1; mes <= 12; mes++) {
+    for (let mes = 1; mes <= 6; mes++) {
       const mesFormatado = mes < 10 ? `0${mes}` : mes;
       const sql = `
         select (COUNT(case when tpCampo = 2 then 2 end) / COUNT(*)) * 100 as evasoes 

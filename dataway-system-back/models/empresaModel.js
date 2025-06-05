@@ -25,7 +25,8 @@ function autenticar(email, senha) {
   //     FOREIGN KEY (Usuario_idUsuario) REFERENCES Usuario(idUsuario)
   // );
   var instrucaoSql = `
-        SELECT cpf, nome, email FROM Usuario WHERE email = '${email}' AND senha = '${senha}';
+        SELECT cpf, nome, email FROM Usuario JOIN Empresa ON Usuario.fkEmpresa = Empresa.idEmpresa
+WHERE email = '${email}' AND senha = '${senha}' and Empresa.ativo = 1;
     `;
   console.log("Executando a instrução SQL: \n" + instrucaoSql);
   return database.executar(instrucaoSql);

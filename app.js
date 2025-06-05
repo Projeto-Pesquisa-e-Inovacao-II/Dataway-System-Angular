@@ -30,6 +30,8 @@ var graficoTrafegoEvasao = require("./dataway-system-back/routes/graficoTrafegoE
 //admRoutes
 var adm = require("./dataway-system-back/routes/admRoutes");
 
+var notificacoes = require("./dataway-system-back/routes/notificacaoRoutes");
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));
@@ -49,6 +51,8 @@ app.use("/grafico_trafego_evasao", graficoTrafegoEvasao);
 app.use("/concessoes_usuario", getUserConcessoes);
 
 app.use("/adm", adm);
+
+app.use("/notificacoes", notificacoes);
 
 app.listen(PORTA_APP, HOST_APP, function () {
     console.log(`

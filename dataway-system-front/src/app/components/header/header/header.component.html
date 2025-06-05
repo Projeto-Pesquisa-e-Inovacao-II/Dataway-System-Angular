@@ -31,8 +31,22 @@
         <div class="popup">
           <h3>Olá!</h3>
           <a (click)="handlePerfil()">Perfil</a>
+          <div class="notificacoes">
+            <span>Notificações</span>
+            <!-- https://www.w3schools.com/howto/howto_css_switch.asp -->
+            <label class="switch">
+              <input type="checkbox" (change)="handleNotificationUpdate($event)" [checked]="notificacoesAtivas" />
+              <span class="slider round"></span>
+            </label>
+
+          </div>
           <a (click)="logout()">Sair</a>
         </div>
+        <img
+          class="configuracoes-icon"
+          src="/images/Icon/icons8-configurações-50.png"
+          alt=""
+        />
       </li>
     </ul>
   </div>
