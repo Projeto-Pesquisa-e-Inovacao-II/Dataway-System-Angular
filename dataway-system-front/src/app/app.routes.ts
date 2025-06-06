@@ -22,11 +22,9 @@ export const routes: Routes = [
   { path: 'app', component: DashboardHomeComponent },
   { path: 'app/perfil', component: PerfilComponent },
   { path: 'app/suporte', component: SuporteComponent },
-<<<<<<< HEAD
   { path: 'app/cadastrar-funcionario', component: CadastrarFuncionarioComponent },
   { path: 'notas', component: NotasComponent },
   { path: '', component: DashboardComponent },
-=======
   {
     path: 'app/cadastrar-funcionario',
     component: CadastrarFuncionarioComponent,
@@ -41,7 +39,6 @@ export const routes: Routes = [
   { path: 'adm/empresa/:idEmpresa', component: UpdateEmpresaComponent },
   { path: 'adm/login', component: LoginAdmComponent },
   { path: '', component: DashboardHomeComponent },
->>>>>>> 79c4e9065585992b9757948ecee567d98c40bb8c
   { path: '**', redirectTo: '' },
 
 ];
