@@ -32,6 +32,8 @@ var adm = require("./dataway-system-back/routes/admRoutes");
 
 var notificacoes = require("./dataway-system-back/routes/notificacaoRoutes");
 
+var suport = require("./dataway-system-back/routes/suport");
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));
@@ -54,6 +56,8 @@ app.use("/adm", adm);
 
 app.use("/notificacoes", notificacoes);
 
+app.use("/suport-send-email", suport);
+console.log("Suporte")
 app.listen(PORTA_APP, HOST_APP, function () {
     console.log(`
 
