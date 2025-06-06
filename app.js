@@ -16,9 +16,8 @@ var HOST_APP = process.env.APP_HOST;
 var app = express();
 
 var usuariosRouter = require("./dataway-system-back/routes/usuarios");
-
+var ocorrenciaRoutes = require("./dataway-system-back/routes/ocorrenciaRoutes");
 var createEmployee = require("./dataway-system-back/routes/createEmployee");
-
 var deleteUser = require("./dataway-system-back/routes/deleteUserData")
 var getUserData = require("./dataway-system-back/routes/getUserData");
 var updateUserData = require("./dataway-system-back/routes/updateUserData");
@@ -38,7 +37,7 @@ app.use("/get_user_data", getUserData);
 app.use("/update_user_data", updateUserData);
 app.use("/delete_user_data", deleteUser);
 app.use("/create_employee", createEmployee);
-
+app.use("/ocorrencias", ocorrenciaRoutes);
 //dashboard
 app.use("/grafico_trafego_evasao", graficoTrafegoEvasao);
 

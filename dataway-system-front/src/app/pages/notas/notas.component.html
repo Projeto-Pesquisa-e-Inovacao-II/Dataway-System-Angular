@@ -1,0 +1,45 @@
+<app-header></app-header>
+
+<div class="notas-container">
+  <div class="notas-titulo">
+    <h2>Notas</h2>
+  </div>
+  <div class="notas-setas">
+    <span class="seta-esquerda">&#x21D2;&#x21D2;&#x21D2;</span>
+    <span class="seta-direita">&#x21D0;&#x21D0;&#x21D0;</span>
+  </div>
+  <div class="notas-cards-grid">
+    <div class="nota-card" *ngFor="let nota of notas">
+      <div class="nota-header">
+        <span class="nota-concessao">Ecovias Rio Minas</span>
+        <span class="nota-data">Maio de 2025</span>
+      </div>
+      <div class="nota-alerta">
+        <span class="nota-alerta-titulo">Alerta</span>
+        <img
+          *ngIf="nota.cor === 'vermelho'"
+          src="assets/alerta-vermelho.svg"
+          alt="Alerta vermelho"
+          class="nota-alerta-icone"
+        />
+        <img
+          *ngIf="nota.cor === 'laranja'"
+          src="assets/alerta-laranja.svg"
+          alt="Alerta laranja"
+          class="nota-alerta-icone"
+        />
+        <img
+          *ngIf="nota.cor === 'verde'"
+          src="assets/alerta-verde.svg"
+          alt="Alerta verde"
+          class="nota-alerta-icone"
+        />
+        <div class="nota-alerta-texto">Alta taxa de evasões</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer class="footer">
+  <span>Data<span style="font-weight: bold;">Way</span></span>
+</footer>
