@@ -35,11 +35,14 @@ export class UpdateEmpresaComponent {
       CNPJ: [''],
       codigoEmpresa: [''],
       ativo: [''],
+      lotes: [''],
     });
 
     localStorage.getItem('adm') !== 'true'
       ? window.location.replace('/adm/login')
       : console.log('Admin access granted');
+
+    // this.getConcessoes()
   }
 
   updateEmpresa(form: FormGroup) {
@@ -47,19 +50,31 @@ export class UpdateEmpresaComponent {
     console.log('Updating empresa with id:', idEmpresa);
     console.log('Form value:', form.value);
     if (form.valid) {
-      this.admService.updateEmpresa(idEmpresa, form.value).subscribe({
-        next: (response) => {
-          console.log('Empresa updated successfully', response);
-          this.router.navigate(['/adm/empresa']);
-        },
-        error: (error) => {
-          console.error('Error updating empresa', error);
-        },
-      });
+      this.selectedConcessoes = this.selectedCheckboxes.filter(
+        (item) => item !== '' && item !== null && item !== undefined
+      );
+      console.log('Selected concessoes:', this.selectedConcessoes);
+      this.admService
+        .updateEmpresa(idEmpresa, form.value, this.selectedConcessoes)
+        .subscribe({
+          next: (response: any) => {
+            console.log('Empresa updated successfully', response);
+            this.router.navigate(['/adm/empresa']);
+          },
+          error: (error) => {
+            console.error('Error updating empresa', error);
+            if (error.status == 400) {
+              alert(error.error.mensagem);
+              return;
+            }
+          },
+        });
     } else {
       console.error('Form is invalid');
     }
   }
+  selectedConcessoes: string[] = [];
+  allLotes: string[] = [];
 
   getEmpresa() {
     const idEmpresa = this.route.snapshot.paramMap.get('idEmpresa') || '';
@@ -69,12 +84,42 @@ export class UpdateEmpresaComponent {
       return;
     }
     this.admService.getEmpresa(idEmpresa).subscribe({
-      next: (empresa) => {
+      next: (empresa: any) => {
         this.empresaForm.patchValue(empresa);
         console.log('Empresa fetched successfully', empresa);
+        for (let i = 0; i < empresa.allLotes.length; i++) {
+          this.selectedConcessoes.push(empresa.lotes[i]);
+          this.selectedCheckboxes.push(empresa.lotes[i]);
+          this.allLotes.push(empresa.allLotes[i]);
+        }
       },
       error: (error) => {
         console.error('Error fetching empresa', error);
+      },
+    });
+  }
+
+  selectedCheckboxes: string[] = [];
+
+  onConcessaoChange(checkbox: string) {
+    const index = this.selectedCheckboxes.indexOf(checkbox);
+    if (index === -1) {
+      this.selectedCheckboxes.push(checkbox);
+    } else {
+      this.selectedCheckboxes.splice(index, 1);
+    }
+  }
+
+  concessoes: string[] = [];
+  getConcessoes() {
+    this.admService.getConcessoes().subscribe({
+      next: (response) => {
+        console.log('empresa: ', response);
+        this.concessoes = (response as any[]).map((item) => item.lotes);
+        console.log('Concessoes:', this.concessoes);
+      },
+      error: (error) => {
+        console.error('Error fetching concessoes', error);
       },
     });
   }
@@ -83,5 +128,23 @@ export class UpdateEmpresaComponent {
     // Logic to handle cancel action, e.g., navigate back or reset the form
     console.log('Cancel action triggered');
     this.router.navigate(['/adm/empresa']);
+  }
+
+  expanded: boolean = false;
+
+  // https://stackoverflow.com/questions/17714705/how-to-use-checkbox-inside-select-option
+  showCheckboxes(): void {
+    const checkboxes = document.getElementById(
+      'checkboxes'
+    ) as HTMLElement | null;
+    if (!checkboxes) return; // Garante que o elemento existe
+
+    if (!this.expanded) {
+      checkboxes.style.display = 'block';
+      this.expanded = true;
+    } else {
+      checkboxes.style.display = 'none';
+      this.expanded = false;
+    }
   }
 }

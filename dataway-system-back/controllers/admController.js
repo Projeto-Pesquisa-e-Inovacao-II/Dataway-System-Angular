@@ -27,8 +27,9 @@ function getEmpresa(req, res) {
   admModel
     .getEmpresa(req.query.idEmpresa)
     .then(function (resultado) {
-      if (resultado.length > 0) {
-        res.json(resultado[0]);
+      if (resultado) {
+        console.log("Empresa encontrada: ", resultado);
+        res.json(resultado);
       } else {
         res.status(404).json({ message: "Empresa não encontrada" });
       }
@@ -69,6 +70,11 @@ function updateEmpresa(req, res) {
   admModel
     .updateEmpresa(req.body)
     .then(function (resultado) {
+      if (resultado.status && resultado.status !== 200) {
+        return res
+          .status(resultado.status)
+          .json({ mensagem: resultado.message });
+      }
       res.json(resultado);
     })
     .catch(function (erro) {
