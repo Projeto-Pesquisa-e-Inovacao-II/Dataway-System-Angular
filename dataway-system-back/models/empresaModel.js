@@ -46,64 +46,43 @@ function autenticarAdmin(email, senha) {
 }
 
 async function cadastrar(
-  empresaServer,
-  nomeFantasia,
-  numero,
-  cep,
+  nome,
+  cpf,
+  telefone,
   email,
   senha,
-  representanteLegal,
-  CNPJ,
-  telefone
+  codigoEmpresa,
 ) {
   console.log(
     "ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar():",
-    empresaServer,
-    nomeFantasia,
-    representanteLegal,
-    CNPJ,
-    numero,
+    nome,
+    cpf,
     telefone,
     email,
     senha,
-    cep
+    codigoEmpresa
   );
   // Insira exatamente a query do banco aqui, lembrando da nomenclatura exata nos valores
   //  e na ordem de inserção dos dados.
-  await inserirUsuario(email, senha, telefone, representanteLegal);
-
-  const usuarioResult = await database.executar(`
-    SELECT idUsuario FROM Usuario WHERE email = '${email}' AND senha = '${senha}' AND telefone = '${telefone}';
-  `);
-
-  const idUsuario = usuarioResult[0].idUsuario;
-
-  await inserirEmpresa(
-    CNPJ,
-    representanteLegal,
-    nomeFantasia,
-    empresaServer,
-    idUsuario
-  );
-
-  const empresaResult = await database.executar(`
-    SELECT idEmpresa FROM Empresa WHERE CNPJ = '${CNPJ}' AND representanteLegal = '${representanteLegal}' AND concessionaria = '${empresaServer}';
-  `);
-
-  const idEmpresa = empresaResult[0].idEmpresa;
-
-  await inserirEndereco(cep, numero, idEmpresa);
-
-  return true;
+  await inserirUsuario(nome, cpf, telefone, email, senha, codigoEmpresa);
 }
 
+
+
 //representanteLegal aqui seria o 'nome'
-async function inserirUsuario(email, senha, telefone, representanteLegal) {
+async function inserirUsuario(nome, cpf, telefone, email, senha, codigoEmpresa) {
+  var instrucaoSql = `
+        select idEmpresa FROM Empresa WHERE codigoEmpresa = '${codigoEmpresa}';
+  `;
+  console.log("Executando a instrução SQL: \n" + instrucaoSql);
+  const resultado = await database.executar(instrucaoSql);
+  const idEmpresa = resultado[0].idEmpresa;
+
   var instrucaoSql = `
         INSERT INTO Usuario 
-        (tipoUsuario, email, senha, telefone, nome) 
+        (cpf, tipoUsuario, email, senha, telefone, nome, codigoEmpresa, fkEmpresa) 
         VALUES 
-        ('Empresa', '${email}', '${senha}', '${telefone}', '${representanteLegal}');
+        ('${cpf}', 'comum', '${email}', '${senha}', '${telefone}', '${nome}', '${codigoEmpresa}', ${idEmpresa});
     `;
   return await database.executar(instrucaoSql);
 }
