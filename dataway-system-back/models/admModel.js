@@ -101,9 +101,27 @@ async function cadastrarEmpresa(empresa) {
   );
 
   var instrucaoSql = `
-    INSERT INTO Empresa (representanteLegal, razaoSocial, nomeFantasia, cnpj, codigoEmpresa, ativo) 
-    VALUES ('${empresa.representanteLegal}', '${empresa.razaoSocial}', '${empresa.nomeFantasia}', '${empresa.CNPJ}', '${empresa.codigoEmpresa}', ${empresa.ativo});
+    INSERT INTO Empresa (representanteLegal, razaoSocial, nomeFantasia, cnpj, codigoEmpresa) 
+    VALUES ('${empresa.representanteLegal}', '${empresa.razaoSocial}', '${empresa.nomeFantasia}', '${empresa.CNPJ}', '${empresa.codigoEmpresa}');
     `;
+
+  console.log("Executando a instrução SQL: \n" + instrucaoSql);
+  const result = await database.executar(instrucaoSql);
+  const idEmpresa = result.insertId;
+  for (let lote in empresa.concessoes) {
+    let updateConcessoes = `
+      UPDATE DadosPracaPedagio SET fkEmpresa = ${idEmpresa} WHERE lote = '${empresa.concessoes[lote]}';
+    `;
+
+    console.log("Executando a instrução SQL: \n" + updateConcessoes);
+    await database.executar(updateConcessoes);
+  }
+}
+
+function getConcessoesReq() {
+  var instrucaoSql = `
+    SELECT Distinct(lote) FROM DadosPracaPedagio where fkEmpresa is null;
+  `;
   console.log("Executando a instrução SQL: \n" + instrucaoSql);
   return database.executar(instrucaoSql);
 }
@@ -115,5 +133,6 @@ module.exports = {
   updateEmpresa,
   softDelete,
   reativarEmpresa,
-  cadastrarEmpresa
+  cadastrarEmpresa,
+  getConcessoesReq,
 };
