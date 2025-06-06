@@ -24,11 +24,18 @@ export class CreateEmpresaComponent {
     private fb: FormBuilder
   ) {}
 
+  selected: string = '';
+
   ngOnInit() {
     this.initializeForm();
     localStorage.getItem('adm') !== 'true'
       ? window.location.replace('/adm/login')
       : console.log('Admin access granted');
+
+    this.selected =
+      this.selectedCheckboxes.length > 0
+        ? this.selectedCheckboxes.join(', ')
+        : 'Select an option';
   }
 
   initializeForm() {
@@ -40,6 +47,24 @@ export class CreateEmpresaComponent {
       codigoEmpresa: [''],
       ativo: [''],
     });
+  }
+
+  expanded: boolean = false;
+  selectedCheckboxes: string[] = [];
+
+  showCheckboxes(): void {
+    const checkboxes = document.getElementById(
+      'checkboxes'
+    ) as HTMLElement | null;
+    if (!checkboxes) return; // Garante que o elemento existe
+
+    if (!this.expanded) {
+      checkboxes.style.display = 'block';
+      this.expanded = true;
+    } else {
+      checkboxes.style.display = 'none';
+      this.expanded = false;
+    }
   }
 
   handleSubmit(event: Event, form: FormGroup) {

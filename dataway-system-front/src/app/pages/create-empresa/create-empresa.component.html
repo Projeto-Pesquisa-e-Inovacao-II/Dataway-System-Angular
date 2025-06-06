@@ -52,6 +52,28 @@
               />
             </div>
             <div class="input-wrapper">
+              <label for="concessoes">Concessões</label>
+              <div class="multiselect">
+                <div class="selectBox" (click)="showCheckboxes()">
+                  <select>
+                    <option>Select an option</option>
+                  </select>
+                  <div class="overSelect"></div>
+                </div>
+                <div id="checkboxes">
+                  <label for="one" class="checkbox-label">
+                    <input type="checkbox" id="one" />First checkbox</label
+                  >
+                  <label for="two">
+                    <input type="checkbox" id="two" />Second checkbox</label
+                  >
+                  <label for="three">
+                    <input type="checkbox" id="three" />Third checkbox</label
+                  >
+                </div>
+              </div>
+            </div>
+            <div class="input-wrapper">
               <label for="ativo">Status</label>
 
               <select name="ativo" id="ativo" formControlName="ativo">
