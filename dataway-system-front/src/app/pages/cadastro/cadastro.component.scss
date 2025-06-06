@@ -115,7 +115,7 @@ main {
   border-radius: 1rem;
   padding: 1rem;
   font-size: 1rem;
-  color: #757579;
+  color: #ececec;
   transition: background 0.2s;
 }
 .container-text-login .generic-text p {
@@ -504,41 +504,7 @@ input[type="number"]::-webkit-outer-spin-button {
   margin: 0;
 }
 
-.toast {
-  position: fixed;
-  top: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  color: white;
-  padding: 15px 20px;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-  font-size: 1.5rem;
-  z-index: 1000;
-  opacity: 0;
-  transition: opacity 0.3s ease, transform 0.3s ease;
-  font-family: "Montserrat", sans-serif;
-}
-.toast.visible {
-  opacity: 1;
-  pointer-events: auto;
-}
-.toast.hidden {
-  opacity: 0;
-  pointer-events: none;
-}
 
-.neutral {
-  color: #ececec;
-}
-
-.valid {
-  color: #7cb15f;
-}
-
-.invalid {
-  color: #ff6347;
-}
 
 .caminho-login {
   margin: 1rem 0 0 9rem;
@@ -548,12 +514,7 @@ input[type="number"]::-webkit-outer-spin-button {
   }
 }
 
-.valido {
-  color: #7cb15f;
-}
-.invalido {
-  color: #ff6347;
-}
+
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
 
 $primary-color: #1ef0a6;
@@ -800,11 +761,15 @@ main {
 }
 
 .toast {
-  position: fixed;
-  bottom: 40px;
-  left: 40px;
+position: absolute; 
+    left: 50%; 
+    top: 50%; 
+    text-align: center; 
+    transform: translate(-50%, -550%);
   background: #232a3c;
   color: #fff;
+  font-family: "Red Hat Display", sans-serif;
+  font-size: 2rem;
   padding: 1rem 2rem;
   border-radius: 8px;
   opacity: 0;

@@ -22,7 +22,7 @@
       </div>
     </section>
 
-    <section class="container-form-login">
+    <form class="container-form-login" (submit)="cadastrar($event)">
       <h1>Cadastrar-se</h1>
       <div class="container-inputs">
         <!--
@@ -73,6 +73,7 @@
           <input
             type="text"
             class="input"
+            #nomeInput
             id="nomeInput"
             [(ngModel)]="user.nome"
             name="nome"
@@ -81,10 +82,41 @@
           />
           <label class="user-label" for="nomeInput">Nome</label>
         </div>
+        
+        <div class="input-field">
+          <input
+            type="text"
+            class="input"
+            #cpfInput
+            id="cpfInput"
+            name="cpf"
+            (input)="mascaraCPF(cpfInput)"
+            required
+            placeholder=" "
+          />
+          <label class="user-label" for="cpfInput">CPF</label>
+        </div>
+
+        <div class="input-field">
+          <input
+            type="text"
+            class="input"
+            #telefoneInput
+            id="telefoneInput"
+            name="telefone"
+            (input)="mascaraTelefone(telefoneInput)"
+            required
+            placeholder=" "
+          />
+          <label class="user-label" for="telefoneInput">Telefone</label>
+        </div>
+
+
         <div class="input-field">
           <input
             type="email"
             class="input"
+            #emailInput
             id="emailInput"
             [(ngModel)]="user.email"
             name="email"
@@ -97,6 +129,7 @@
           <input
             type="password"
             class="input"
+            #senhaInput
             id="senhaInput"
             [(ngModel)]="user.senha"
             name="senha"
@@ -109,6 +142,7 @@
         <input
          type="text"
          class="input"
+         #codigoEmpresaInput
          id="codigoEmpresaInput"
         [(ngModel)]="user.codigoEmpresa"
         name="codigoEmpresa"
@@ -191,7 +225,7 @@
           <span>Cadastrar</span>
         </button>
       </div>
-    </section>
+    </form>
   </main>
 </div>
 
