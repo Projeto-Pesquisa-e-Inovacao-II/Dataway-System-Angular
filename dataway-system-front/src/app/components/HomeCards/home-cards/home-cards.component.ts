@@ -1,8 +1,9 @@
+import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-home-cards',
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './home-cards.component.html',
   styleUrl: './home-cards.component.scss',
 })
@@ -12,10 +13,12 @@ export class HomeCardsComponent {
   @Input()
   public periodo!: string;
   @Input()
-  public veiculos!: string;
+  public veiculos!: number;
   @Input()
-  public evasoes!: string;
+  public evasoes!: number;
+  @Input()
+  public impactoFinanceiro!: number;
   ngOnInit() {
-    console.log(this.concessao);
+    console.log(this.periodo);
   }
 }

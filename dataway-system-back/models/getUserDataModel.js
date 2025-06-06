@@ -5,8 +5,8 @@ function getUserData(idUsuario) {
     console.log(idUsuario)
     var instrucaoSql = `
         SELECT * FROM Usuario
-        JOIN Empresa ON Empresa.Usuario_idUsuario = Usuario.idUsuario
-        WHERE idUsuario = ${idUsuario};
+        JOIN Empresa ON Empresa.idEmpresa = Usuario.fkEmpresa
+        WHERE cpf = ${idUsuario};
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);

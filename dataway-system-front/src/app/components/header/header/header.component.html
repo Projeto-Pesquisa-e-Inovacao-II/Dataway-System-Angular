@@ -1,6 +1,8 @@
 <header>
   <div class="header-logo">
-    <a href="/app"><h1>Data<b>Way</b></h1></a>
+    <a href="/app"
+      ><span>Data<b>Way</b></span></a
+    >
   </div>
   <div class="pages-router-header">
     <ul>
@@ -8,13 +10,17 @@
         <a href="/app">Home</a>
       </li>
       <li>
-        <a href="/dashboard">Dashboard</a>
+        <a href="/suporte">Suporte</a>
       </li>
       <li>
-        <a href="/app/suporte">Suporte</a>
+        <a href="/notas">Notas</a>
       </li>
       <li class="user" (click)="handlePopup()">
-        <img src="https://placehold.co/50x50/png" alt="rapaz" class="user-img" />
+        <img
+          src="https://placehold.co/50x50/png"
+          alt="rapaz"
+          class="user-img"
+        />
         <h3>{{ nomeUsuario }}</h3>
         <img
           src="https://img.icons8.com/?size=100&id=2K3ixDRRS2eG&format=png&color=228BE6"
@@ -24,9 +30,23 @@
         />
         <div class="popup">
           <h3>Olá!</h3>
-          <a (click)=handlePerfil()>Perfil</a>
+          <a (click)="handlePerfil()">Perfil</a>
+          <div class="notificacoes">
+            <span>Notificações</span>
+            <!-- https://www.w3schools.com/howto/howto_css_switch.asp -->
+            <label class="switch">
+              <input type="checkbox" (change)="handleNotificationUpdate($event)" [checked]="notificacoesAtivas" />
+              <span class="slider round"></span>
+            </label>
+
+          </div>
           <a (click)="logout()">Sair</a>
         </div>
+        <img
+          class="configuracoes-icon"
+          src="/images/Icon/icons8-configurações-50.png"
+          alt=""
+        />
       </li>
     </ul>
   </div>

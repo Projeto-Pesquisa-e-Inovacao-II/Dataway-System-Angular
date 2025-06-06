@@ -5,26 +5,26 @@ function updateUserData(req, res, idUsuario) {
   console.log("ACESSEI O updateUserData CONTROLLER");
   console.log("idUsuario: ", idUsuario);
   console.log("req: ", req.body);
+  var nome = req.body.nome;
   var email = req.body.email;
   var telefone = req.body.telefone;
-  var representanteLegal = req.body.representanteLegal;
-  var nomeFantasia = req.body.nomeFantasia;
+  var senha = req.body.senha;
   // Faça as validações dos valores
   if (idUsuario == undefined) {
     res.status(400).send("Seu id está undefined!");
   } else {
     console.log(email);
     console.log(telefone);
-    console.log(representanteLegal);
-    console.log(nomeFantasia);
+    console.log(nome);
+    console.log(senha);
 
     // Passe os valores como parâmetro e vá para o arquivo updateUserDataModel.js
     updateUserDataModel
       .updateUserData(
+        nome,
         email,
         telefone,
-        representanteLegal,
-        nomeFantasia,
+        senha,
         idUsuario
       )
       .then(function (resultado) {

@@ -1,14 +1,22 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
+import { BASE_URL } from '../../../global';
 
 @Injectable({
   providedIn: 'root',
 })
 export class LoginService {
   http = inject(HttpClient);
-  BASE_URL = 'http://localhost:3333';
 
   postLogin(dados: any) {
-    return this.http.post(`${this.BASE_URL}/usuarios/autenticar`, dados);
+    return this.http.post(`${BASE_URL}/usuarios/autenticar`, dados);
+  }
+
+  postLoginAdm(dados: any) {
+    dados = {
+      email: dados.email,
+      senha: dados.senha,
+    };
+    return this.http.post(`${BASE_URL}/usuarios/autenticar_adm`, dados);
   }
 }

@@ -4,7 +4,38 @@
       <p class="card-title">{{ concessao }}</p>
       <p class="periodo">Tráfego {{ periodo }}</p>
     </div>
-    <h1 >{{ veiculos }} </h1>
-    <p class="evasoes">{{ evasoes }} evasões</p>
+    <h1>{{ veiculos }}</h1>
+    <div class="wrapper-data">
+      <div class="percentage" *ngIf="evasoes < 20">
+        <img src="/images/Icon/icons8-truck-50-green.png" alt="" />
+
+        <p class="evasoes">{{ evasoes }}% evasões</p>
+      </div>
+      <div class="percentage" *ngIf="evasoes >= 20 && evasoes < 50">
+        <img src="/images/Icon/icons8-truck-50.png" alt="" />
+        <p class="evasoes">{{ evasoes }}% evasões</p>
+      </div>
+      <div class="percentage" *ngIf="evasoes >= 50">
+        <img src="/images/Icon/icons8-truck-50-red.png" alt="" />
+        <p class="evasoes">{{ evasoes }}% evasões</p>
+      </div>
+      
+      <div class="percentage" *ngIf="impactoFinanceiro < 20">
+        <img src="/images/Icon/icons8-money-50-green.png" alt="" />
+        <p class="evasoes">{{ impactoFinanceiro }}% Financeiro</p>
+      </div>
+      <div
+        class="percentage"
+        *ngIf="impactoFinanceiro >= 20 && impactoFinanceiro < 50"
+      >
+        <img src="/images/Icon/icons8-money-50.png" alt="" />
+
+        <p class="evasoes">{{ impactoFinanceiro }}% Financeiro</p>
+      </div>
+      <div class="percentage" *ngIf="impactoFinanceiro >= 50">
+        <img src="/images/Icon/icons8-money-50-red.png" alt="" />
+        <p class="evasoes">{{ impactoFinanceiro }}% Financeiro</p>
+      </div>
+    </div>
   </div>
 </div>

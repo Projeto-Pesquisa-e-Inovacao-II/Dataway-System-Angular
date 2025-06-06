@@ -1,0 +1,10 @@
+<div class="form-login">
+    <form action="" (submit)="handleAdmLogin()">
+        <label for="email">email</label>
+        <input type="text" name="email" #email [(ngModel)]="user.email">
+        <label for="senha">senha</label>
+        <input type="password" name="senha" #senha [(ngModel)]="user.senha">
+
+        <button type="submit" class="btn-login">Entrar</button>
+    </form>
+</div>

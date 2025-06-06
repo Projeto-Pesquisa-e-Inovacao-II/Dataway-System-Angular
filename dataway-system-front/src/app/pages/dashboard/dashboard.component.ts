@@ -4,7 +4,9 @@ import { MatrixController, MatrixElement } from 'chartjs-chart-matrix';
 import { HeaderComponent } from '../../components/header/header/header.component';
 import { DashboardService } from '../../services/dashboard/dashboard.service';
 import { DashboardGraficoTrafegoEvasao } from '../../interfaces/dashboard/dashboard-data-structure';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { PracaPorc } from '../../interfaces/pracaPorc/praca-porc';
 Chart.register(...registerables);
 Chart.register(MatrixController, MatrixElement);
 @Component({
@@ -15,31 +17,134 @@ Chart.register(MatrixController, MatrixElement);
   styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent implements OnInit {
-  constructor(private dashboardService: DashboardService) {}
+  constructor(
+    private dashboardService: DashboardService,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {}
 
   showModal = false;
 
-openModal() {
-  this.showModal = true;
-}
-
-closeModal() {
-  this.showModal = false;
-} // TYPESCRIPT DO MODAL DA OCORRENCIA
-onModalBackgroundClick(event: MouseEvent) {
-  if ((event.target as HTMLElement).classList.contains('modal')) {
-    this.closeModal();
+  openModal() {
+    this.showModal = true;
   }
-}
+
+  closeModal() {
+    this.showModal = false;
+  } // TYPESCRIPT DO MODAL DA OCORRENCIA
+  onModalBackgroundClick(event: MouseEvent) {
+    if ((event.target as HTMLElement).classList.contains('modal')) {
+      this.closeModal();
+    }
+  }
   public dadosTrafegoEvasao: DashboardGraficoTrafegoEvasao[] = [];
+  public monthFilter: number = 0;
+  public nomeConcessao: string = '';
+  public praca: string = '';
+  public evasoes: string = '';
+  public impactoFinanceiro: string = '';
+  public checkButtonValue: boolean = false;
+  public actualMonth: string = localStorage.getItem('mes') || '';
 
-  
+  ngOnInit(): void {
+    this.nomeConcessao =
+      this.route.snapshot.paramMap.get('nomeConcessao') || '';
 
-  getTrafegoEvasaoData() {
+    if (this.nomeConcessao === '') {
+      this.router.navigate(['/app']);
+    }
+
+    this.getTrafegoEvasaoData(this.nomeConcessao);
+    this.getPracaAlerta(
+      Number(localStorage.getItem('idUsuario')),
+      this.nomeConcessao,
+      Number(localStorage.getItem('mesNumber'))
+    );
+    this.getEvasaoData(
+      Number(localStorage.getItem('mesNumber')),
+      this.nomeConcessao
+    );
+    this.getImpactoFinanceiroData(
+      Number(localStorage.getItem('mesNumber')),
+      this.nomeConcessao
+    );
+    this.getPercentualEvasaoImpacto();
+    this.getCategorias();
+    this.getPercentualPraca();
+  }
+
+  ngAfterViewInit(): void {
+    // this.lineChart = new Chart('lineCanvas', this.configLine);
+    this.barChart = new Chart('barCanvas', this.configBarAndLine);
+    this.lineChart = new Chart('horizontalBarChart', this.config);
+  }
+
+  public meses: string[] = [
+    'Jan',
+    'Fev',
+    'Mar',
+    'Abr',
+    'Mai',
+    'Jun',
+
+  ];
+
+  handleFilterChange(period: number) {
+    this.monthFilter = period;
+    console.log(this.monthFilter);
+    this.meses = [
+      'Jan',
+      'Fev',
+      'Mar',
+      'Abr',
+      'Mai',
+      'Jun',
+    ];
+
+    if (this.monthFilter === 1) {
+      this.meses = [localStorage.getItem('mes') || ''];
+    }
+
+    if (this.monthFilter === 3) {
+      var mesNumero = localStorage.getItem('mesNumber');
+
+      this.meses = this.meses.slice(
+        Number(mesNumero) - 1,
+        Number(mesNumero) + 2
+      );
+    }
+
+    // if (this.monthFilter === 6) {
+    //   this.meses = [
+    //     'Jan',
+    //     'Fev',
+    //     'Mar',
+    //     'Abr',
+    //     'Mai',
+    //     'Jun',
+    //   ];
+    // }
+
+    this.barChart.data.labels = this.meses;
+    this.barChart.update();
+  }
+
+  getPracaAlerta(idUsuario: number, concessao: string, mes: number) {
+    this.dashboardService
+      .getPracaAlerta(idUsuario, concessao, mes)
+      .subscribe((data: any) => {
+        this.praca = data[0]?.praca;
+        console.log(data[0]?.praca);
+      });
+
+    console.log(this.praca);
+  }
+
+  getTrafegoEvasaoData(concessao: string) {
     const idUsuario: number = Number(localStorage.getItem('idUsuario') ?? 0);
 
     this.dashboardService
-      .getTrafegoEvasaoData(idUsuario)
+      .getTrafegoEvasaoData(idUsuario, concessao)
       .subscribe((data: any) => {
         console.log(data[2].dados);
         this.dadosTrafegoEvasao = data.map((item: any) => ({
@@ -80,13 +185,151 @@ onModalBackgroundClick(event: MouseEvent) {
       });
   }
 
+  getEvasaoData(mes: number, concessao: string) {
+    const idUsuario: number = Number(localStorage.getItem('idUsuario') ?? 0);
+    this.dashboardService
+      .getEvasaoData(idUsuario, mes, concessao)
+      .subscribe((data: any) => {
+        console.log(data[0].evasoes);
+        this.evasoes = data[0].evasoes;
+      });
+  }
+
+  getImpactoFinanceiroData(mes: number, concessao: string) {
+    const idUsuario: number = Number(localStorage.getItem('idUsuario') ?? 0);
+    this.dashboardService
+      .getImpactoFinanceiro(idUsuario, mes, concessao)
+      .subscribe((data: any) => {
+        console.log(data[0].impacto);
+        this.impactoFinanceiro = data[0].impactoFinanceiro;
+      });
+  }
+
+  valoresParaComparacao: any = {
+    evasaoMesAnterior: 0,
+    evasaoMesAtual: 0,
+    evasaoAumentando: false,
+    impactoMesAnterior: 0,
+    impactoMesAtual: 0,
+    impactoAumentando: false,
+    percentualEvasao: 0,
+    percentualImpacto: 0,
+  };
+
+  getPercentualEvasaoImpacto() {
+    this.dashboardService
+      .getPercentualEvasaoImpacto(
+        Number(localStorage.getItem('idUsuario')),
+        Number(localStorage.getItem('mesNumber')),
+        this.nomeConcessao
+      )
+      .subscribe((data: any) => {
+        console.log(data[0]);
+        //evasaoMesAnterior, evasaoMesAtual, impactoMesAnterior, impactoMesAtual
+        this.valoresParaComparacao = {
+          evasaoMesAnterior: data[0].evasaoMesAnterior,
+          evasaoMesAtual: data[0].evasaoMesAtual,
+          impactoMesAnterior: data[0].impactoMesAnterior,
+          impactoMesAtual: data[0].impactoMesAtual,
+        };
+
+        const comparacao = data[0].impactoMesAnterior - data[0].impactoMesAtual;
+        const percentualComparacaoImpacto =
+          (Number(comparacao) / Number(data[0].impactoMesAnterior)) * 100;
+
+        const comparacaoEvasao =
+          data[0].evasaoMesAnterior - data[0].evasaoMesAtual;
+        const percentualComparacaoEvasao =
+          (Number(comparacaoEvasao) / Number(data[0].evasaoMesAnterior)) * 100;
+
+        console.log(comparacao);
+        console.log(percentualComparacaoEvasao);
+
+        if (comparacao < 0) {
+          console.log('diminuindo');
+          this.valoresParaComparacao.impactoAumentando = false;
+        }
+        if (comparacao > 0) {
+          console.log('aumentando');
+          this.valoresParaComparacao.impactoAumentando = true;
+        }
+
+        if (comparacaoEvasao < 0) {
+          console.log('evasao diminuindo');
+          this.valoresParaComparacao.evasaoAumentando = false;
+        }
+        if (comparacaoEvasao > 0) {
+          console.log('evasao aumentando');
+          this.valoresParaComparacao.evasaoAumentando = true;
+        }
+        this.valoresParaComparacao.percentualImpacto = Math.abs(
+          Number(percentualComparacaoImpacto.toFixed(0))
+        );
+        this.valoresParaComparacao.percentualEvasao = Math.abs(
+          Number(percentualComparacaoEvasao.toFixed(0))
+        );
+        console.log(this.valoresParaComparacao);
+      });
+  }
+
+  rankingCategoria: any = {
+    categoria: '',
+    total: 0,
+  };
+
+  getCategorias() {
+    const idUsuario: number = Number(localStorage.getItem('idUsuario') ?? 0);
+    const mes: number = Number(localStorage.getItem('mesNumber') ?? 0);
+    const concessao: string = this.nomeConcessao;
+    this.dashboardService
+      .getCategorias(idUsuario, mes, concessao)
+      .subscribe((data: any) => {
+        console.log(data);
+        this.data.datasets[0].data = data.map((item: any) => item.total);
+        this.data.labels = data.map((item: any) => item.categoria);
+        this.lineChart.update();
+      });
+  }
+
+  pracaPorc: PracaPorc[] = [];
+  percentualPraca: string = '';
+  quantidadePracas: number = 0;
+
+  getPercentualPraca() {
+    const idUsuario: number = Number(localStorage.getItem('idUsuario') ?? 0);
+    const mes: number = Number(localStorage.getItem('mesNumber') ?? 0);
+    const concessao: string = this.nomeConcessao;
+    var somaGeral: number = 0;
+    this.dashboardService
+      .getPercentualPraca(idUsuario, mes, concessao)
+      .subscribe((data: PracaPorc[]) => {
+        data.map((item: any) => {
+          somaGeral += Number(item.total);
+          console.log(item.total);
+        });
+
+        this.pracaPorc = data.map((item: any) => {
+          return {
+            praca: item.praca,
+            total: (
+              (Number(item.total) / somaGeral) *
+              100
+            ).toFixed(2),
+          };
+        });
+        console.log(this.pracaPorc[0].total);
+        this.percentualPraca = this.pracaPorc[0].total;
+        this.quantidadePracas = this.pracaPorc.length;
+      });
+  }
+
   //gráfico horizontal
   public data: any = {
-    labels: ['MOTO', 'PASSEIO', 'COMERCIAL'],
+    labels: [],
     datasets: [
       {
         label: 'Valores',
-        data: [5, 10, 18],
+        data: [],
         backgroundColor: [
           'rgba(102, 230, 230, 0.8)',
           'rgba(56, 195, 224, 0.8)',
@@ -219,20 +462,7 @@ onModalBackgroundClick(event: MouseEvent) {
   };
 
   // Dados heatmap
-  public meses: string[] = [
-    'Jan',
-    'Fev',
-    'Mar',
-    'Abr',
-    'Mai',
-    'Jun',
-    'Jul',
-    'Ago',
-    'Set',
-    'Out',
-    'Nov',
-    'Dez',
-  ];
+
   public dias: string[] = [
     'Segunda-feira',
     'Terça-feira',
@@ -380,6 +610,11 @@ onModalBackgroundClick(event: MouseEvent) {
 
     data: this.dataBarAndLine,
     options: {
+      plugins: {
+        legend: {
+          display: false,
+        },
+      },
       responsive: true,
       maintainAspectRatio: false,
       scales: {
@@ -400,14 +635,4 @@ onModalBackgroundClick(event: MouseEvent) {
   };
   public lineChart!: Chart;
   public barChart!: Chart;
-
-  ngOnInit(): void {
-    this.getTrafegoEvasaoData();
-  }
-
-  ngAfterViewInit(): void {
-    // this.lineChart = new Chart('lineCanvas', this.configLine);
-    this.barChart = new Chart('barCanvas', this.configBarAndLine);
-    this.lineChart = new Chart('horizontalBarChart', this.config);
-  }
 }

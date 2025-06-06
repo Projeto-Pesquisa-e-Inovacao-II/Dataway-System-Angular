@@ -30,10 +30,12 @@ export class LoginComponent {
     this.loginService.postLogin(dados).subscribe(
       (res: any) => {
         console.log('foi', res);
-        const idUsuario = res.idUsuario;
+        const idUsuario = res.cpf;
         const nomeUsuario = res.nome;
+        const emailUsuario = res.email;
         localStorage.setItem('idUsuario', idUsuario);
         localStorage.setItem('nomeUsuario', nomeUsuario);
+        localStorage.setItem('email', emailUsuario);
         location.href = '/dashboard';
       },
       (error) => {

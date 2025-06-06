@@ -6,6 +6,7 @@ import {
   ElementRef,
   ViewChild,
   Inject,
+  viewChild,
 } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { Router } from '@angular/router';
@@ -23,6 +24,14 @@ import { CommonModule } from '@angular/common';
 export class CadastroComponent implements OnInit {
   empresaSelecionada: string = '';
 
+  @ViewChild('cpfInput', { static: false })
+  cpfVar!: ElementRef<HTMLInputElement>;
+  @ViewChild('telefoneInput', { static: false })
+  telefoneVar!: ElementRef<HTMLInputElement>;
+  @ViewChild('codigoEmpresaInput', { static: false })
+  codigoEmpresaVar!: ElementRef<HTMLInputElement>;
+  @ViewChild('nomeInput', { static: false })
+  nomeVar!: ElementRef<HTMLInputElement>;
   @ViewChild('empresaSelect', { static: false })
   empresaSelect!: ElementRef<HTMLSelectElement>;
   @ViewChild('numeroInput') numeroVar!: ElementRef<HTMLInputElement>;
@@ -60,12 +69,11 @@ export class CadastroComponent implements OnInit {
   temLetraMaiusculaDiv!: ElementRef<HTMLDivElement>;
 
   passo: number = 1;
-
-  user = {
+user = {
   nome: '',
   email: '',
   senha: '',
-  dataNascimento: ''
+  codigoEmpresa: '' 
 };
 
   constructor(
@@ -161,14 +169,14 @@ export class CadastroComponent implements OnInit {
     this.cadastrar(new Event('submit'));
   }
 
-  mascaraCNPJ(cnpj: HTMLInputElement) {
-    cnpj.value = cnpj.value
+  mascaraCPF(cpf: HTMLInputElement) {
+    cpf.value = cpf.value
       .replace(/\D/g, '')
-      .replace(/^(\d{2})(\d)/, '$1.$2')
-      .replace(/^(\d{2})\.(\d{3})(\d)/, '$1.$2.$3')
-      .replace(/\.(\d{3})(\d)/, '.$1/$2')
+      .replace(/^(\d{3})(\d)/, '$1.$2')
+      .replace(/^(\d{3})\.(\d{3})(\d)/, '$1.$2.$3')
+      .replace(/\.(\d{3})(\d)/, '.$1-$2')
       .replace(/(\d{4})(\d)/, '$1-$2')
-      .slice(0, 18);
+      .slice(0, 14);
   }
 
   mascaraTelefone(telefone: HTMLInputElement) {
@@ -223,20 +231,17 @@ export class CadastroComponent implements OnInit {
   }
 
   async cadastrar(event: Event) {
+    console.log('Iniciando cadastro...');
     event.preventDefault();
     const userData = {
-      empresaServer: this.empresaSelect.nativeElement.value,
-      nomeFantasiaServer: this.nomeFantasiaVar.nativeElement.value,
-      numeroServer: this.numeroVar.nativeElement.value,
-      representanteLegalServer:
-        this.representanteLegalInput.nativeElement.value,
-      cnpjServer: this.cnpjInput.nativeElement.value,
-      telefoneServer: this.telefoneInput.nativeElement.value,
+      nomeServer: this.nomeVar.nativeElement.value,
+      cpfServer: this.cpfVar.nativeElement.value,
+      telefoneServer: this.telefoneVar.nativeElement.value,
       emailServer: this.emailVar.nativeElement.value,
       senhaServer: this.senhaVar.nativeElement.value,
-      cepServer: this.cepVar.nativeElement.value,
+      codigoEmpresaServer: this.codigoEmpresaVar.nativeElement.value,
     };
-
+     console.log('Dados do usuário:', userData);
     this.cadastroService.cadastrarUsuario({ userData }).subscribe({
       next: (response: any) => {
         this.showToast('Cadastro realizado com sucesso!', '#28a745');

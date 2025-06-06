@@ -1,5 +1,5 @@
-/* Montserrat font */
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
+/* Red Hat Display font */
+@import url("https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@400..700&display=swap");
 
 $text-color: #000;
 $background-color-row: #bed7db;
@@ -45,6 +45,10 @@ $default-margin: 25px;
       }
     }
 
+    .concessao-texto-if {
+      margin-top: 20px;
+    }
+
     p {
       margin-top: $default-margin;
       font-size: 1.5rem;
@@ -58,5 +62,9 @@ $default-margin: 25px;
     gap: 20px;
     max-width: 1600px;
     margin: 0 auto;
+
+    .card-concessoes {
+      cursor: pointer;
+    }
   }
 }

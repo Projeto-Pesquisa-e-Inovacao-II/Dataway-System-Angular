@@ -12,4 +12,8 @@ router.post("/autenticar", function (req, res) {
   empresaController.autenticar(req, res);
 });
 
+router.post("/autenticar_adm", function (req, res) {
+  empresaController.autenticarAdmin(req, res);
+});
+
 module.exports = router;
