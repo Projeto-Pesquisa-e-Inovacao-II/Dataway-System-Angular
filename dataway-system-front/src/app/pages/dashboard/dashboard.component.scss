@@ -65,12 +65,15 @@ $background-color-secondary: #ef6a47;
       top: 75px;
       right: 0;
       overflow: auto;
+      margin-right: -5px;
+      margin-top: 50px;
     }
     .modal-content {
       background-color: $background-color-button;
       padding: 20px;
       border-radius: 8px;
-      width: 400px;
+      width: 250px;
+      height: 370px;
       position: relative;
       display: flex;
       flex-direction: column;
@@ -113,7 +116,7 @@ $background-color-secondary: #ef6a47;
     }
 
     .modal-btn:hover {
-      background-color: #0056b3;
+      background-color: rgba(70, 205, 230, 0.85);
     }
     .close {
       color: #aaa;
@@ -123,6 +126,8 @@ $background-color-secondary: #ef6a47;
       font-size: 28px;
       font-weight: bold;
       cursor: pointer;
+      margin-top: -5px;
+      margin-right: -5px;
     }
     .close:hover {
       color: #000;
