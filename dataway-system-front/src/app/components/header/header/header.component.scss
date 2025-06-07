@@ -55,11 +55,11 @@ header {
 
       .popup {
         position: absolute;
-        background-color: $popup-background-color;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        width: 100%;
+        // background-color: $popup-background-color;
+        width: 800px;
+        // box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         display: none;
-        flex-direction: column;
+        flex-direction: row;
         justify-content: center;
         align-items: center;
         border-radius: 10px;
@@ -69,13 +69,24 @@ header {
         -moz-transition: all 0.3s ease;
         transition: all 0.3s ease;
         z-index: 2;
+        .wrapper-handles {
+          width: 40%;
+          background-color: $popup-background-color;
+          position: absolute;
+          right: 0;
+          top: 0;
+          a {
+            transition: background-color 0.3s ease;
+          }
+        }
         h3 {
           background-color: $header-background-color;
           color: $popup-text-color;
           margin: 0;
           padding: 10px;
         }
-        a, span {
+        a,
+        span {
           display: flex;
           flex-direction: column;
           text-decoration: none;
@@ -86,6 +97,67 @@ header {
           margin: 0;
           padding: 10px;
           z-index: 1000;
+        }
+
+        .config-notif {
+          display: flex;
+          flex-direction: column;
+          width: 32%;
+          margin-right: 2rem;
+          position: absolute;
+          top: 0;
+          left: 200px;
+          background-color: $popup-background-color;
+          h3 {
+            width: 100%;
+            background-color: $header-background-color;
+            text-align: center;
+          }
+          .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+          }
+
+          .notificacoes {
+            margin-bottom: 0.75rem;
+
+            span {
+              padding: 0 !important;
+              margin-right: 0.5rem !important;
+            }
+          }
+
+          .wrapper-config {
+            margin-left: 2rem;
+            padding: 0.85rem 0;
+          }
+
+          .botoes-config {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 1rem;
+            margin-right: 2rem;
+            button {
+              font-size: 0.9rem;
+              padding: 0.5rem 1rem;
+              border: none;
+              border-radius: 4px;
+              cursor: pointer;
+              width: 80px;
+            }
+
+            button:last-child {
+              background-color: $header-background-color-profile;
+              color: #fff;
+            }
+          }
+
+          .botoes-config button:first-child {
+            background-color: $header-background-color;
+            color: #333;
+            margin-right: 0.5rem;
+          }
         }
       }
       .configuracoes-icon {
@@ -124,6 +196,7 @@ header {
           background-color: #ccc;
           -webkit-transition: 0.4s;
           transition: 0.4s;
+          width: 100%;
         }
 
         .slider:before {
@@ -179,7 +252,8 @@ header {
       }
     }
     li {
-      a, span {
+      a,
+      span {
         text-decoration: none;
         color: $header-text-color;
         cursor: pointer;
@@ -204,3 +278,23 @@ header {
     max-width: 1300px;
   }
 }
+
+.link-notif {
+  display: flex;
+  align-items: center;
+  flex-direction: row !important;
+  padding: 0.5rem 0;
+  color: #333;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+  .arrow-notif {
+    margin-left: 5px;
+    transform: rotate(270deg);
+  }
+}
+.link-notif:hover {
+  transition: background-color 0.3s ease;
+  background-color: #f5f5f5;
+}
+

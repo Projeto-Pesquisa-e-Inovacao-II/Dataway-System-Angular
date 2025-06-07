@@ -20,4 +20,14 @@ export class NotificacoesService {
       .set('notificacoesAtivas', notificacoesAtivas);
     return this.http.put(`${BASE_URL}/notificacoes`, null, { params });
   }
+
+  updateParametrizacao(
+    idUsuario: string,
+    frequencia: string,
+  ) {
+    const params = new HttpParams()
+      .set('idUsuario', idUsuario)
+      .set('frequencia', frequencia);
+    return this.http.put(`${BASE_URL}/notificacoes/parametrizacao`, null, { params });
+  }
 }
