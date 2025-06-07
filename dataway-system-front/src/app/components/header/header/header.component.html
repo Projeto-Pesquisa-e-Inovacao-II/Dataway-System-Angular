@@ -112,6 +112,11 @@
                   src="https://img.icons8.com/?size=100&id=2K3ixDRRS2eG&format=png&color=228BE6"
                   alt=""
                   class="arrow-notif"
+                  [style]="
+                    isEditingConfig
+                      ? 'transform: rotate(90deg);'
+                      : 'transform: rotate(270deg);'
+                  "
               /></a>
 
               <a (click)="logout()">Sair</a>
