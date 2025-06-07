@@ -52,6 +52,47 @@ $text-color: #000;
           }
         }
       }
-    }
+    } .form-footer {
+ margin-left: 5%;
   }
+
+  
+  .btn-primary {
+    background: #0097b2; // coloque aqui o azul do botão da lista
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 0.75rem 2rem;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.2s;
+    margin-left: 1%
+  }
+
+  .btn-primary:hover {
+    background: #007a91; // um azul um pouco mais escuro no hover
+  }
+
+  .btn-secondary {
+    background: #fff;
+    color: #0097b2;
+    border: 2px solid #0097b2;
+    border-radius: 6px;
+    padding: 0.75rem 2rem;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+    
+  }
+
+  .btn-secondary:hover {
+    background: #e6f7fa;
+    color: #007a91;
+  }
+  }
+  
+ 
 }
+

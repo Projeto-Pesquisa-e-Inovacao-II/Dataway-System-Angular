@@ -1,7 +1,8 @@
 var database = require("../database/config");
 
-async function listarNotas() {
-  var instrucaoSql = `SELECT * FROM Notas;`;
+
+async function listarNotasPorUsuario(cpf) {
+  var instrucaoSql = `SELECT * FROM Notas WHERE fkUsuario = '${cpf}';`;
   return await database.executar(instrucaoSql);
 }
 
@@ -33,8 +34,8 @@ async function deletarNota(id) {
 }
 
 module.exports = {
-  listarNotas,
   criarNota,
   atualizarNota,
-  deletarNota
+  deletarNota,
+  listarNotasPorUsuario
 };

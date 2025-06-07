@@ -100,12 +100,32 @@ $background-color-header: #e4e4e4;
       text-align: center;
     }
     .empresa-item__icons {
-      text-align: center;
-    width: 20px;
-          height: 20px;
-          vertical-align: middle;
-          margin-right: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    button {
+      background: transparent;
+      border: none;
+      padding: 6px;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: background 0.2s;
+      margin: 0 2px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    button:hover {
+      background: #f0f0f0;
+    }
+
+    img {
+      width: 20px;
+      height: 20px;
+      pointer-events: none;
     }
   }
-}
+}}
 
