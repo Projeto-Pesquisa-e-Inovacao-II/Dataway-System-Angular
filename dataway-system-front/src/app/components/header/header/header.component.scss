@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@400..700&display=swap");
+
 $header-background-color: #cacaca;
 $header-background-color-profile: #0b768b;
 $header-text-color: #050d21;
@@ -17,13 +19,14 @@ header {
   width: -webkit-fill-available;
   margin-left: auto;
   max-width: 1600px;
+  margin-left:200px;
 
   .header-logo {
     a {
       font-size: 50px !important;
-      font-weight: bold;
       color: $header-text-color;
       text-decoration: none;
+      font-family: 'Red Hat Display', sans-serif;
     }
   }
 
