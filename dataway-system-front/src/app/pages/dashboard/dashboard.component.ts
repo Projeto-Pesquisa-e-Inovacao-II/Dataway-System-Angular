@@ -7,6 +7,8 @@ import { DashboardGraficoTrafegoEvasao } from '../../interfaces/dashboard/dashbo
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { PracaPorc } from '../../interfaces/pracaPorc/praca-porc';
+import { NotasService } from '../../services/notas/notas.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 Chart.register(...registerables);
 Chart.register(MatrixController, MatrixElement);
 @Component({
@@ -17,11 +19,22 @@ Chart.register(MatrixController, MatrixElement);
   styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent implements OnInit {
+  notaForm: FormGroup;
   constructor(
-    private dashboardService: DashboardService,
-    private route: ActivatedRoute,
-    private router: Router
-  ) {}
+  private dashboardService: DashboardService,
+  private route: ActivatedRoute,
+  private router: Router,
+  private notasService: NotasService,
+  private fb: FormBuilder
+) {
+  this.notaForm = this.fb.group({
+    Descricao: ['', Validators.required],
+    MesReferente: ['', Validators.required],
+    Concessao: ['', Validators.required],
+    Status: ['', Validators.required],
+    fkUsuario: ['', Validators.required]
+  });
+} 
 
   showModal = false;
 

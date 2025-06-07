@@ -44,9 +44,13 @@
         <p *ngIf="empresa.ativo == 1">Ativo</p>
         <p *ngIf="empresa.ativo == 0">Inativo</p>
       </div>
-      <div class="empresa-item__column">
-        <button (click)="handleUpdateEmpresa(empresa)">Lapis</button>
-        <button (click)="openModalConfirmation(empresa)">Lixeira</button>
+      <div class="empresa-item__icons">
+        <button (click)="handleUpdateEmpresa(empresa)">
+          <img src="/assets/lapis.png" alt="Editar">
+        </button>
+        <button (click)="openModalConfirmation(empresa)">
+          <img src="/assets/lixo.png" alt="Deletar">
+        </button>
       </div>
     </div>
   </div>
