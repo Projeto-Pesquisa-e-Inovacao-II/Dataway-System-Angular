@@ -24,7 +24,7 @@ export class AdmPagesService {
     return this.http.get(`${BASE_URL}/adm/empresasFiltradas`, { params });
   }
 
-  updateEmpresa(idEmpresa: string, empresa: Empresa) {
+  updateEmpresa(idEmpresa: string, empresa: Empresa, concessoes: string[]) {
     console.log('Updating empresa:', empresa);
     console.log('Empresa ID:', idEmpresa);
     console.log('Empresa cnpj:', empresa.CNPJ);
@@ -37,11 +37,12 @@ export class AdmPagesService {
       CNPJ: empresa.CNPJ,
       codigoEmpresa: empresa.codigoEmpresa,
       ativo: empresa.ativo,
+      concessoes: concessoes,
     };
     return this.http.put(`${BASE_URL}/adm/empresa`, body);
   }
 
-  createEmpresa(empresa: Empresa) {
+  createEmpresa(empresa: Empresa, concessoes: string[]) {
     console.log('Creating empresa:', empresa);
     const body = {
       nomeFantasia: empresa.nomeFantasia,
@@ -50,6 +51,7 @@ export class AdmPagesService {
       CNPJ: empresa.CNPJ,
       codigoEmpresa: empresa.codigoEmpresa,
       ativo: empresa.ativo,
+      concessoes: concessoes,
     };
     return this.http.post(`${BASE_URL}/adm/cadastrar-empresa`, body);
   }
@@ -60,5 +62,9 @@ export class AdmPagesService {
       `${BASE_URL}/adm/empresa/desativar/${idEmpresa}`,
       params
     );
+  }
+
+  getConcessoes() {
+    return this.http.get(`${BASE_URL}/adm/concessoes`);
   }
 }

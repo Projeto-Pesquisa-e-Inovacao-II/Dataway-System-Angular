@@ -32,4 +32,8 @@ router.post("/cadastrar-empresa", function (req, res) {
   admController.cadastrarEmpresa(req, res);
 });
 
+router.get("/concessoes", function (req, res) {
+  admController.getConcessoesGeral(req, res);
+});
+
 module.exports = router;

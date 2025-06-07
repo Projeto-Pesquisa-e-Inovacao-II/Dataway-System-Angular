@@ -27,8 +27,9 @@ function getEmpresa(req, res) {
   admModel
     .getEmpresa(req.query.idEmpresa)
     .then(function (resultado) {
-      if (resultado.length > 0) {
-        res.json(resultado[0]);
+      if (resultado) {
+        console.log("Empresa encontrada: ", resultado);
+        res.json(resultado);
       } else {
         res.status(404).json({ message: "Empresa não encontrada" });
       }
@@ -69,6 +70,11 @@ function updateEmpresa(req, res) {
   admModel
     .updateEmpresa(req.body)
     .then(function (resultado) {
+      if (resultado.status && resultado.status !== 200) {
+        return res
+          .status(resultado.status)
+          .json({ mensagem: resultado.message });
+      }
       res.json(resultado);
     })
     .catch(function (erro) {
@@ -141,6 +147,28 @@ function cadastrarEmpresa(req, res) {
     });
 }
 
+function getConcessoesGeral(req, res) {
+  var idUsuario = req.query.idUsuario;
+  var mes = req.query.mes;
+
+  // Crie uma variável que vá recuperar os valores do arquivo cadastro.html
+  // Faça as validações dos valores
+  // Passe os valores como parâmetro e vá para o arquivo updateUserDataModel.js
+  admModel
+    .getConcessoesReq(idUsuario, mes)
+    .then(function (resultado) {
+      res.json(resultado);
+    })
+    .catch(function (erro) {
+      console.log(erro);
+      console.log(
+        "\nHouve um erro ao realizar o cadastro! Erro: ",
+        erro.sqlMessage
+      );
+      res.status(500).json(erro.sqlMessage);
+    });
+}
+
 module.exports = {
   getEmpresasCadastradas,
   getEmpresa,
@@ -149,4 +177,5 @@ module.exports = {
   softDelete,
   reativarEmpresa,
   cadastrarEmpresa,
+  getConcessoesGeral,
 };

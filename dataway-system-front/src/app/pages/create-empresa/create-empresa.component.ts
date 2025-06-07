@@ -24,11 +24,20 @@ export class CreateEmpresaComponent {
     private fb: FormBuilder
   ) {}
 
+  selected: string = '';
+
   ngOnInit() {
     this.initializeForm();
     localStorage.getItem('adm') !== 'true'
       ? window.location.replace('/adm/login')
       : console.log('Admin access granted');
+
+    this.selected =
+      this.selectedCheckboxes.length > 0
+        ? this.selectedCheckboxes.join(', ')
+        : 'Select an option';
+
+    this.getConcessoes();
   }
 
   initializeForm() {
@@ -42,11 +51,44 @@ export class CreateEmpresaComponent {
     });
   }
 
+  expanded: boolean = false;
+  selectedCheckboxes: string[] = [];
+
+  // https://stackoverflow.com/questions/17714705/how-to-use-checkbox-inside-select-option
+  showCheckboxes(): void {
+    const checkboxes = document.getElementById(
+      'checkboxes'
+    ) as HTMLElement | null;
+    if (!checkboxes) return; // Garante que o elemento existe
+
+    if (!this.expanded) {
+      checkboxes.style.display = 'block';
+      this.expanded = true;
+    } else {
+      checkboxes.style.display = 'none';
+      this.expanded = false;
+    }
+  }
+
+  selectedConcessoes: string[] = [];
+  onConcessaoChange(event: Event, checkbox: string) {
+    const target = event.target as HTMLInputElement;
+    if (target.checked) {
+      this.selectedConcessoes.push(checkbox);
+    } else {
+      const index = this.selectedConcessoes.indexOf(checkbox);
+      if (index > -1) {
+        this.selectedConcessoes.splice(index, 1);
+      }
+    }
+    console.log('Selected concessoes:', this.selectedConcessoes);
+  }
+
   handleSubmit(event: Event, form: FormGroup) {
     event.preventDefault();
     console.log('Form submitted:', form.value);
     if (form.valid) {
-      this.admService.createEmpresa(form.value).subscribe({
+      this.admService.createEmpresa(form.value, this.selectedConcessoes).subscribe({
         next: (response) => {
           console.log('Empresa created successfully', response);
           // Navigate to the empresa list or detail page after successful creation
@@ -65,5 +107,19 @@ export class CreateEmpresaComponent {
     // Logic to handle cancel action, e.g., navigate back or reset the form
     console.log('Cancel action triggered');
     this.router.navigate(['/adm/empresa']);
+  }
+
+  concessoes: string[] = [];
+  getConcessoes() {
+    this.admService.getConcessoes().subscribe({
+      next: (response) => {
+        console.log('Concessoes fetched successfully', response);
+        this.concessoes = (response as any[]).map(item => item.lote);
+        console.log('Concessoes:', this.concessoes);
+      },
+      error: (error) => {
+        console.error('Error fetching concessoes', error);
+      },
+    });
   }
 }
