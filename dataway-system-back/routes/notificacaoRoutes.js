@@ -3,6 +3,13 @@ var router = express.Router();
 
 var notificacaoController = require("../controllers/notificacaoController");
 
+
+// Atualiza estado das notificações
+router.post('/notificacoes/telegram', function (req, res) {
+  notificacaoController.getChatId(req, res);
+});
+
+
 //Recebendo os dados do html e direcionando para a função cadastrar de usuarioController.js
 router.put("/", function (req, res) {
   const idUsuario = req.query.idUsuario;
