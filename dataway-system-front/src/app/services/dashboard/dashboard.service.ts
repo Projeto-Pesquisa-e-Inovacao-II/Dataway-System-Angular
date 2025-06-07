@@ -11,7 +11,7 @@ export class DashboardService {
 
   constructor() {}
 
-  getTrafegoEvasaoData(idUsuario: number, concessao: string) {
+  getTrafegoEvasaoData(idUsuario: string, concessao: string) {
     const params = new HttpParams()
       .set('idUsuario', idUsuario)
       .set('concessao', concessao);
@@ -19,7 +19,7 @@ export class DashboardService {
     return this.http.get(`${BASE_URL}/grafico_trafego_evasao`, { params });
   }
 
-  getPracaAlerta(idUsuario: number, concessao: string, mes: number) {
+  getPracaAlerta(idUsuario: string, concessao: string, mes: number) {
     const params = new HttpParams()
       .set('idUsuario', idUsuario)
       .set('mes', mes)
@@ -30,7 +30,7 @@ export class DashboardService {
     });
   }
 
-  getEvasaoData(idUsuario: number, mes: number, concessao: string) {
+  getEvasaoData(idUsuario: string, mes: number, concessao: string) {
     const params = new HttpParams()
       .set('idUsuario', idUsuario)
       .set('mes', mes)
@@ -40,7 +40,7 @@ export class DashboardService {
     });
   }
 
-  getImpactoFinanceiro(idUsuario: number, mes: number, concessao: string) {
+  getImpactoFinanceiro(idUsuario: string, mes: number, concessao: string) {
     const params = new HttpParams()
       .set('idUsuario', idUsuario)
       .set('mes', mes)
@@ -52,7 +52,7 @@ export class DashboardService {
   }
 
   getPercentualEvasaoImpacto(
-    idUsuario: number,
+    idUsuario: string,
     mes: number,
     concessao: string
   ) {
@@ -66,7 +66,7 @@ export class DashboardService {
     );
   }
 
-  getCategorias(idUsuario: number, mes: number, concessao: string) {
+  getCategorias(idUsuario: string, mes: number, concessao: string) {
     const params = new HttpParams()
       .set('idUsuario', idUsuario)
       .set('mes', mes)
@@ -76,7 +76,7 @@ export class DashboardService {
     });
   }
 
-  getPercentualPraca(idUsuario: number, mes: number, concessao: string) {
+  getPercentualPraca(idUsuario: string, mes: number, concessao: string) {
     const params = new HttpParams()
       .set('idUsuario', idUsuario)
       .set('mes', mes)

@@ -52,7 +52,7 @@ export class DashboardHomeComponent {
   lotes: HomeDashboard[] = [];
 
   getDistinctConcessoes() {
-    const idUsuario = Number(localStorage.getItem('idUsuario'));
+    const idUsuario = localStorage.getItem('idUsuario') || '';
 
     const monthFilter = Number(this.route.snapshot.paramMap.get('mes'));
     console.log(monthFilter);
@@ -102,7 +102,7 @@ export class DashboardHomeComponent {
   }
 
   getEvasao(mes: number, concessao: string) {
-    const idUsuario = Number(localStorage.getItem('idUsuario'));
+    const idUsuario = localStorage.getItem('idUsuario') || '';
     this.homeDashboardService.getEvasao(idUsuario, concessao, mes).subscribe({
       next: (res: any) => {
         return res[0].evasoes;

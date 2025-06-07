@@ -56,7 +56,7 @@ export class DashboardComponent implements OnInit {
 
     this.getTrafegoEvasaoData(this.nomeConcessao);
     this.getPracaAlerta(
-      Number(localStorage.getItem('idUsuario')),
+      localStorage.getItem('idUsuario') || '',
       this.nomeConcessao,
       Number(localStorage.getItem('mesNumber'))
     );
@@ -129,7 +129,7 @@ export class DashboardComponent implements OnInit {
     this.barChart.update();
   }
 
-  getPracaAlerta(idUsuario: number, concessao: string, mes: number) {
+  getPracaAlerta(idUsuario: string, concessao: string, mes: number) {
     this.dashboardService
       .getPracaAlerta(idUsuario, concessao, mes)
       .subscribe((data: any) => {
@@ -141,7 +141,7 @@ export class DashboardComponent implements OnInit {
   }
 
   getTrafegoEvasaoData(concessao: string) {
-    const idUsuario: number = Number(localStorage.getItem('idUsuario') ?? 0);
+    const idUsuario: string = localStorage.getItem('idUsuario') ?? '';
 
     this.dashboardService
       .getTrafegoEvasaoData(idUsuario, concessao)
@@ -186,7 +186,7 @@ export class DashboardComponent implements OnInit {
   }
 
   getEvasaoData(mes: number, concessao: string) {
-    const idUsuario: number = Number(localStorage.getItem('idUsuario') ?? 0);
+    const idUsuario: string = localStorage.getItem('idUsuario') ?? '';
     this.dashboardService
       .getEvasaoData(idUsuario, mes, concessao)
       .subscribe((data: any) => {
@@ -196,7 +196,7 @@ export class DashboardComponent implements OnInit {
   }
 
   getImpactoFinanceiroData(mes: number, concessao: string) {
-    const idUsuario: number = Number(localStorage.getItem('idUsuario') ?? 0);
+    const idUsuario: string = localStorage.getItem('idUsuario') ?? '';
     this.dashboardService
       .getImpactoFinanceiro(idUsuario, mes, concessao)
       .subscribe((data: any) => {
@@ -219,7 +219,7 @@ export class DashboardComponent implements OnInit {
   getPercentualEvasaoImpacto() {
     this.dashboardService
       .getPercentualEvasaoImpacto(
-        Number(localStorage.getItem('idUsuario')),
+        localStorage.getItem('idUsuario') || '',
         Number(localStorage.getItem('mesNumber')),
         this.nomeConcessao
       )
@@ -278,7 +278,7 @@ export class DashboardComponent implements OnInit {
   };
 
   getCategorias() {
-    const idUsuario: number = Number(localStorage.getItem('idUsuario') ?? 0);
+    const idUsuario: string = localStorage.getItem('idUsuario') ?? '';
     const mes: number = Number(localStorage.getItem('mesNumber') ?? 0);
     const concessao: string = this.nomeConcessao;
     this.dashboardService
@@ -296,7 +296,7 @@ export class DashboardComponent implements OnInit {
   quantidadePracas: number = 0;
 
   getPercentualPraca() {
-    const idUsuario: number = Number(localStorage.getItem('idUsuario') ?? 0);
+    const idUsuario: string = localStorage.getItem('idUsuario') ?? '';
     const mes: number = Number(localStorage.getItem('mesNumber') ?? 0);
     const concessao: string = this.nomeConcessao;
     var somaGeral: number = 0;

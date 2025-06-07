@@ -45,14 +45,7 @@ function autenticarAdmin(email, senha) {
   return database.executar(instrucaoSql);
 }
 
-async function cadastrar(
-  nome,
-  cpf,
-  telefone,
-  email,
-  senha,
-  codigoEmpresa,
-) {
+async function cadastrar(nome, cpf, telefone, email, senha, codigoEmpresa) {
   console.log(
     "ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar():",
     nome,
@@ -67,10 +60,15 @@ async function cadastrar(
   await inserirUsuario(nome, cpf, telefone, email, senha, codigoEmpresa);
 }
 
-
-
 //representanteLegal aqui seria o 'nome'
-async function inserirUsuario(nome, cpf, telefone, email, senha, codigoEmpresa) {
+async function inserirUsuario(
+  nome,
+  cpf,
+  telefone,
+  email,
+  senha,
+  codigoEmpresa
+) {
   var instrucaoSql = `
         select idEmpresa FROM Empresa WHERE codigoEmpresa = '${codigoEmpresa}';
   `;
@@ -78,11 +76,26 @@ async function inserirUsuario(nome, cpf, telefone, email, senha, codigoEmpresa) 
   const resultado = await database.executar(instrucaoSql);
   const idEmpresa = resultado[0].idEmpresa;
 
+  var instrucaoFrequencia = `
+    INSERT INTO Frequencia (frequencia, diaDisparo)
+    VALUES ('Semanal', 'Segunda-feira');  
+  `;
+
+  var frequencia = await database.executar(instrucaoFrequencia);
+  
+  var instrucaoConfigNotificacao = `
+        INSERT INTO Config_Notificacoes (mensagem, horarioDisparo, fkFrequencia)
+        VALUES ('', '08:00:00', ${frequencia.insertId});
+    `;
+  var notificacao = await database.executar(instrucaoConfigNotificacao);
+
+  const randomNumber = Math.floor(Math.random() * 1000000);
+
   var instrucaoSql = `
         INSERT INTO Usuario 
-        (cpf, tipoUsuario, email, senha, telefone, nome, fkEmpresa) 
+        (cpf, tipoUsuario, email, senha, telefone, nome, fkEmpresa, token, fkNotificacao) 
         VALUES 
-        ('${cpf}', 'comum', '${email}', '${senha}', '${telefone}', '${nome}', ${idEmpresa});
+        ('${cpf}', 'comum', '${email}', '${senha}', '${telefone}', '${nome}', ${idEmpresa}, '${randomNumber}', ${notificacao.insertId});
     `;
   return await database.executar(instrucaoSql);
 }
@@ -168,7 +181,7 @@ function deletar(idEmpresa) {
       .then((resultadoEmpresa) => {
         console.log("Empresa deletada:", resultadoEmpresa);
 
-        const sqlDeleteUsuario = `DELETE FROM Usuario WHERE idUsuario = ${idUsuario};`;
+        const sqlDeleteUsuario = `DELETE FROM Usuario WHERE idUsuario = '${idUsuario}';`;
         console.log(
           "Executando a instrução SQL de deleção do usuário: \n" +
             sqlDeleteUsuario

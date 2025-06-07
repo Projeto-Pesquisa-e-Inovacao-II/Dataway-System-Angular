@@ -2,23 +2,34 @@ import { Component } from '@angular/core';
 import { USERNAME } from '../../../../global';
 import { CommonModule } from '@angular/common';
 import { NotificacoesService } from '../../../services/notificacoes/notificacoes.service';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-header',
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
 })
 export class HeaderComponent {
   public nomeUsuario: string = USERNAME;
   isPopupOpen: boolean = false;
+  isEditingConfig: boolean = false;
   notificacoesAtivas: boolean = true;
   idUsuario: string = localStorage.getItem('idUsuario') ?? '';
+
+  frequencia: 'mensal' | 'semanal' | 'ambos' = 'semanal';
+  horarioSemanal: string = '08:00';
 
   constructor(private notificacoes: NotificacoesService) {}
 
   ngOnInit() {
     this.getNotificacoesAtivas();
+    const configLocal = localStorage.getItem('configNotificacoes');
+    if (configLocal) {
+      const config = JSON.parse(configLocal);
+      this.frequencia = config.frequencia;
+      this.horarioSemanal = config.horarioSemanal;
+    }
   }
 
   logout() {
@@ -29,12 +40,64 @@ export class HeaderComponent {
   handlePopup() {
     const popup = document.querySelector('.popup') as HTMLElement;
     if (popup) {
-      popup.style.display = popup.style.display === 'block' ? 'none' : 'block';
+      popup.style.display = popup.style.display === 'flex' ? 'none' : 'flex';
       this.isPopupOpen =
-        popup.style.display === 'block'
+        popup.style.display === 'flex'
           ? (this.isPopupOpen = true)
           : (this.isPopupOpen = false);
     }
+
+    if (!this.isPopupOpen) {
+      this.isEditingConfig = false;
+    }
+  }
+
+  startEditConfig() {
+    this.isEditingConfig = !this.isEditingConfig;
+  }
+
+  cancelConfig() {
+    this.resetConfig();
+    this.isEditingConfig = false;
+  }
+
+  saveConfig() {
+    if (
+      (this.frequencia === 'mensal' ||
+        this.frequencia === 'semanal' ||
+        this.frequencia === 'ambos') &&
+      !this.horarioSemanal
+    ) {
+      alert('Selecione um horário para notificações semanais.');
+      return;
+    }
+
+    const configuracaoSalva = {
+      frequencia: this.frequencia,
+      horarioSemanal:
+        this.frequencia === 'mensal' ||
+        this.frequencia === 'semanal' ||
+        this.frequencia === 'ambos'
+          ? this.horarioSemanal
+          : null,
+    };
+    localStorage.setItem(
+      'configNotificacoes',
+      JSON.stringify(configuracaoSalva)
+    );
+    this.notificacoes
+      .updateParametrizacao(this.idUsuario, this.frequencia)
+      .subscribe((response: any) => {
+        console.log(response);
+        this.isEditingConfig = false;
+        this.handlePopup();
+      });
+  }
+
+  private resetConfig() {
+    this.notificacoesAtivas = false;
+    this.frequencia = 'mensal';
+    this.horarioSemanal = '08:00';
   }
 
   handlePerfil() {

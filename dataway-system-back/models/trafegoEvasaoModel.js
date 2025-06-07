@@ -9,7 +9,7 @@ async function getGraphData(idUsuario, concessao) {
     console.log(idUsuario);
     const empresa = `
       SELECT fkEmpresa FROM Usuario
-      WHERE Usuario.cpf = ${idUsuario};
+      WHERE Usuario.cpf = '${idUsuario}';
     `;
 
     const resultadoEmpresa = await database.executar(empresa);
@@ -62,7 +62,7 @@ async function pracaAlerta(idUsuario, mes, concessao) {
     console.log(idUsuario);
     const empresa = `
       SELECT fkEmpresa FROM Usuario
-      WHERE Usuario.cpf = ${idUsuario};
+      WHERE Usuario.cpf = '${idUsuario}';
     `;
 
     const resultadoEmpresa = await database.executar(empresa);
@@ -99,7 +99,7 @@ async function porcetagemPraca(idUsuario, mes, concessao) {
     console.log(idUsuario);
     const empresa = `
       SELECT fkEmpresa FROM Usuario
-      WHERE Usuario.cpf = ${idUsuario};
+      WHERE Usuario.cpf = '${idUsuario}';
     `;
 
     console.log("Query empresa:", empresa);
@@ -139,7 +139,7 @@ async function getEvasao(idUsuario, mes, concessao) {
     console.log(idUsuario);
     const empresa = `
       SELECT fkEmpresa FROM Usuario
-      WHERE Usuario.cpf = ${idUsuario};
+      WHERE Usuario.cpf = '${idUsuario}';
     `;
 
     const resultadoEmpresa = await database.executar(empresa);
@@ -174,7 +174,7 @@ async function getImpactoFinancerio(idUsuario, mes, concessao) {
     console.log(idUsuario);
     const empresa = `
       SELECT fkEmpresa FROM Usuario
-      WHERE Usuario.cpf = ${idUsuario};
+      WHERE Usuario.cpf = '${idUsuario}';
     `;
 
     const resultadoEmpresa = await database.executar(empresa);
@@ -209,7 +209,7 @@ async function getComparacaoEvasaoImpacto(idUsuario, mes, concessao) {
     console.log(idUsuario);
     const empresa = `
       SELECT fkEmpresa FROM Usuario
-      WHERE Usuario.cpf = ${idUsuario};
+      WHERE Usuario.cpf = '${idUsuario}';
     `;
 
     const resultadoEmpresa = await database.executar(empresa);
@@ -249,7 +249,7 @@ async function getCategoria(idUsuario, mes, concessao) {
     console.log(idUsuario);
     const empresa = `
       SELECT fkEmpresa FROM Usuario
-      WHERE Usuario.cpf = ${idUsuario};
+      WHERE Usuario.cpf = '${idUsuario}';
     `;
 
     const resultadoEmpresa = await database.executar(empresa);
