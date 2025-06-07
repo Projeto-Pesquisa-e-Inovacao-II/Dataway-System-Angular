@@ -79,9 +79,9 @@ async function inserirUsuario(nome, cpf, telefone, email, senha, codigoEmpresa) 
 
   var instrucaoSql = `
         INSERT INTO Usuario 
-        (cpf, tipoUsuario, email, senha, telefone, nome, codigoEmpresa, fkEmpresa) 
+        (cpf, tipoUsuario, email, senha, telefone, nome, fkEmpresa) 
         VALUES 
-        ('${cpf}', 'comum', '${email}', '${senha}', '${telefone}', '${nome}', '${codigoEmpresa}', ${idEmpresa});
+        ('${cpf}', 'comum', '${email}', '${senha}', '${telefone}', '${nome}', ${idEmpresa});
     `;
   return await database.executar(instrucaoSql);
 }
