@@ -16,15 +16,20 @@ export class HeaderComponent {
   isEditingConfig: boolean = false;
   notificacoesAtivas: boolean = true;
   idUsuario: string = localStorage.getItem('idUsuario') ?? '';
-  
 
-  frequencia: 'semanal' | 'semanal' | 'ambos' = 'semanal';
+  frequencia: 'mensal' | 'semanal' | 'ambos' = 'semanal';
   horarioSemanal: string = '08:00';
 
   constructor(private notificacoes: NotificacoesService) {}
 
   ngOnInit() {
     this.getNotificacoesAtivas();
+    const configLocal = localStorage.getItem('configNotificacoes');
+    if (configLocal) {
+      const config = JSON.parse(configLocal);
+      this.frequencia = config.frequencia;
+      this.horarioSemanal = config.horarioSemanal;
+    }
   }
 
   logout() {
@@ -51,25 +56,16 @@ export class HeaderComponent {
     this.isEditingConfig = !this.isEditingConfig;
   }
 
-  onToggleNotification(evt: Event) {
-    const chk = evt.target as HTMLInputElement;
-    this.notificacoesAtivas = chk.checked;
-    // Se ele desativou, poderíamos limpar imediatamente qualquer configuração:
-    if (!this.notificacoesAtivas) {
-      this.resetConfig();
-    }
-    // Se ativou, o restante do formulário (radio, horários) fica acessível.
-  }
-
   cancelConfig() {
-    // Resetamos quaisquer alterações que o usuário tenha feito:
     this.resetConfig();
     this.isEditingConfig = false;
   }
 
   saveConfig() {
     if (
-      (this.frequencia === 'semanal' || this.frequencia === 'ambos') &&
+      (this.frequencia === 'mensal' ||
+        this.frequencia === 'semanal' ||
+        this.frequencia === 'ambos') &&
       !this.horarioSemanal
     ) {
       alert('Selecione um horário para notificações semanais.');
@@ -79,13 +75,18 @@ export class HeaderComponent {
     const configuracaoSalva = {
       frequencia: this.frequencia,
       horarioSemanal:
-        this.frequencia === 'semanal' || this.frequencia === 'ambos'
+        this.frequencia === 'mensal' ||
+        this.frequencia === 'semanal' ||
+        this.frequencia === 'ambos'
           ? this.horarioSemanal
           : null,
     };
-
+    localStorage.setItem(
+      'configNotificacoes',
+      JSON.stringify(configuracaoSalva)
+    );
     this.notificacoes
-      .updateParametrizacao(this.idUsuario, configuracaoSalva.frequencia)
+      .updateParametrizacao(this.idUsuario, this.frequencia)
       .subscribe((response: any) => {
         console.log(response);
         this.isEditingConfig = false;
@@ -95,7 +96,7 @@ export class HeaderComponent {
 
   private resetConfig() {
     this.notificacoesAtivas = false;
-    this.frequencia = 'semanal';
+    this.frequencia = 'mensal';
     this.horarioSemanal = '08:00';
   }
 
