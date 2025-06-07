@@ -52,6 +52,27 @@
               />
             </div>
             <div class="input-wrapper">
+              <label for="concessoes">Concessões</label>
+              <div class="multiselect">
+                <div class="selectBox" (click)="showCheckboxes()">
+                  <select>
+                    <option>Select an option</option>
+                  </select>
+                  <div class="overSelect"></div>
+                </div>
+                <div id="checkboxes">
+                  <label *ngFor="let item of concessoes">
+                    <input
+                      type="checkbox"
+                      [value]="item"
+                      [checked]="selectedConcessoes.includes(item)"
+                      (change)="onConcessaoChange($event, item)"
+                    />{{ item }}
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="input-wrapper">
               <label for="ativo">Status</label>
 
               <select name="ativo" id="ativo" formControlName="ativo">
