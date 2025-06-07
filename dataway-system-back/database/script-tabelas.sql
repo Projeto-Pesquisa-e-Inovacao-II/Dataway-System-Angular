@@ -59,20 +59,20 @@ CREATE TABLE IF NOT EXISTS Usuario (
 
 
 -- ====================================================================================
--- 4) Tabela: Ocorrencias
---    - Cada ocorrência está associada a um funcionário (fkFuncionario ➞ Usuario.cpf)
+-- 4) Tabela: Notas
+--    - Cada nota está associada a um funcionário (fkFuncionario ➞ Usuario.cpf)
 -- ====================================================================================
 CREATE TABLE IF NOT EXISTS Notas (
-    idOcorrencias   INT AUTO_INCREMENT,
-    Descricao       VARCHAR(45),
-    MesReferencia       VARCHAR(45),
-    Praca           VARCHAR(45),
-    Status          VARCHAR(45),
-    MesReferente    VARCHAR(45),
-    fkFuncionario   varchar(14),
-    PRIMARY KEY (idOcorrencias),
-    CONSTRAINT fk_Ocorrencias_Usuario
-        FOREIGN KEY (fkFuncionario)
+    idNotas        INT AUTO_INCREMENT,
+    Descricao      VARCHAR(45),
+    MesReferente   VARCHAR(45),
+    Concessao      VARCHAR(45),
+    Status         ENUM('Alerta', 'Crítico', 'Estável'),
+    fkUsuario      VARCHAR(14),
+    
+    PRIMARY KEY (idNotas),
+    CONSTRAINT fk_Notas_Usuario
+        FOREIGN KEY (fkUsuario)
         REFERENCES Usuario (cpf)
 );
 
