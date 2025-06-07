@@ -14,6 +14,10 @@ export class NotasService {
     return this.http.get<any[]>(this.apiUrl);
   }
 
+  getNotasPorUsuario(cpf: string): Observable<any[]> {
+  return this.http.get<any[]>(`${this.apiUrl}/usuario/${cpf}`);
+}
+
   criarNota(nota: any): Observable<any> {
     return this.http.post<any>(this.apiUrl, nota);
   }

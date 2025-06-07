@@ -1,8 +1,11 @@
 const notasModel = require("../models/notasModel");
 
-async function listarNotas(req, res) {
+
+
+async function listarNotasPorUsuario(req, res) {
+  const cpf = req.params.cpf;
   try {
-    const notas = await notasModel.listarNotas();
+    const notas = await notasModel.listarNotasPorUsuario(cpf);
     res.status(200).json(notas);
   } catch (error) {
     res.status(500).send(error);
@@ -41,8 +44,8 @@ async function deletarNota(req, res) {
 }
 
 module.exports = {
-  listarNotas,
   criarNota,
   atualizarNota,
-  deletarNota
+  deletarNota,
+  listarNotasPorUsuario
 };

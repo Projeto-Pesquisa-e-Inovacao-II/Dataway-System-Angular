@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HeaderComponent } from '../../components/header/header/header.component';
+import { NotasService } from '../../services/notas/notas.service';
 
 @Component({
   selector: 'app-notas',
@@ -8,15 +9,17 @@ import { HeaderComponent } from '../../components/header/header/header.component
   imports: [HeaderComponent, CommonModule],
   styleUrl: './notas.component.scss'
 })
-export class NotasComponent {
-  notas = [
-    { cor: 'vermelho' },
-    { cor: 'laranja' },
-    { cor: 'verde' },
-    { cor: 'vermelho' },
-    { cor: 'laranja' },
-    { cor: 'verde' },
-    { cor: 'vermelho' },
-    { cor: 'vermelho' }
-  ];
+export class NotasComponent implements OnInit {
+  notas: any[] = [];
+
+  constructor(private notasService: NotasService) {}
+
+  ngOnInit() {
+    const cpf = localStorage.getItem('cpf');
+    if (cpf) {
+      this.notasService.getNotasPorUsuario(cpf).subscribe(notas => {
+        this.notas = notas;
+      });
+    }
+  }
 }
