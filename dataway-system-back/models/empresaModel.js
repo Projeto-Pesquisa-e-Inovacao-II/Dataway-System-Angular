@@ -76,18 +76,29 @@ async function inserirUsuario(
   const resultado = await database.executar(instrucaoSql);
   const idEmpresa = resultado[0].idEmpresa;
 
+  var instrucaoFrequencia = `
+    INSERT INTO Frequencia (frequencia, diaDisparo)
+    VALUES ('Semanal', 'Segunda-feira');  
+  `;
+
+  var frequencia = await database.executar(instrucaoFrequencia);
+  
+  var instrucaoConfigNotificacao = `
+        INSERT INTO Config_Notificacoes (mensagem, horarioDisparo, fkFrequencia)
+        VALUES ('', '08:00:00', ${frequencia.insertId});
+    `;
+  var notificacao = await database.executar(instrucaoConfigNotificacao);
+
   const randomNumber = Math.floor(Math.random() * 1000000);
 
   var instrucaoSql = `
         INSERT INTO Usuario 
-        (cpf, tipoUsuario, email, senha, telefone, nome, fkEmpresa, token) 
+        (cpf, tipoUsuario, email, senha, telefone, nome, fkEmpresa, token, fkNotificacao) 
         VALUES 
-        ('${cpf}', 'comum', '${email}', '${senha}', '${telefone}', '${nome}', ${idEmpresa}, '${randomNumber}');
+        ('${cpf}', 'comum', '${email}', '${senha}', '${telefone}', '${nome}', ${idEmpresa}, '${randomNumber}', ${notificacao.insertId});
     `;
   return await database.executar(instrucaoSql);
 }
-
-
 
 async function inserirEmpresa(
   CNPJ,
@@ -170,7 +181,7 @@ function deletar(idEmpresa) {
       .then((resultadoEmpresa) => {
         console.log("Empresa deletada:", resultadoEmpresa);
 
-        const sqlDeleteUsuario = `DELETE FROM Usuario WHERE idUsuario = ${idUsuario};`;
+        const sqlDeleteUsuario = `DELETE FROM Usuario WHERE idUsuario = '${idUsuario}';`;
         console.log(
           "Executando a instrução SQL de deleção do usuário: \n" +
             sqlDeleteUsuario

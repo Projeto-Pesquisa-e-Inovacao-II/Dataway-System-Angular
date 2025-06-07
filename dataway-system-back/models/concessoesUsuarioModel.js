@@ -8,7 +8,7 @@ async function getUserConcessoes(idUsuario, mes) {
   console.log(idUsuario);
   console.log(idUsuario);
   var instrucaoSql = `
-SELECT fkEmpresa FROM Usuario WHERE cpf = ${idUsuario};
+SELECT fkEmpresa FROM Usuario WHERE cpf = '${idUsuario}';
 `;
   console.log("Executando a instrução SQL: \n" + instrucaoSql);
   var fkEmpresa = await database.executar(instrucaoSql);
@@ -39,7 +39,7 @@ async function getEvasao(idUsuario, mes, concessao) {
   );
   console.log(idUsuario);
   var instrucaoSql = `
-SELECT fkEmpresa FROM Usuario WHERE cpf = ${idUsuario};
+SELECT fkEmpresa FROM Usuario WHERE cpf = '${idUsuario}';
 `;
   console.log("Executando a instrução SQL: \n" + instrucaoSql);
   var fkEmpresa = await database.executar(instrucaoSql);

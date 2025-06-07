@@ -24,5 +24,13 @@ router.get("/", function (req, res) {
   notificacaoController.verificarNotificacoes(req, res, idUsuario);
 });
 
+router.put("/parametrizacao", function (req, res) {
+  const idUsuario = req.query.idUsuario;
+  const frequencia = req.query.frequencia;
+  console.log("Rota de atualização de parametrização chamada com idUsuario:", idUsuario);
+  console.log("Frequência:", frequencia);
+  notificacaoController.updateParametrizacao(req, res, idUsuario, frequencia);
+});
+
 module.exports = router;
 
