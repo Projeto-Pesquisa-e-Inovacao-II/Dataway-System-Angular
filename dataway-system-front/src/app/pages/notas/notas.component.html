@@ -1,76 +1,92 @@
 <app-header></app-header>
 
 <div class="notas-container">
-   <app-bar [nomeDoUsuario]="nomeDoUsuario" [mensagem]="'Notas'"></app-bar>
+  <app-bar [nomeDoUsuario]="nomeDoUsuario" [mensagem]="'Notas'"></app-bar>
 
-   <div class="nota" style="cursor: pointer" (click)="openModal()">
-      <img
-        src="assets/20.png"
-        alt="ícone"
-        style="
-          width: 20px;
-          height: 20px;
-          vertical-align: middle;
-          margin-right: 8px;
-        "
-      />
-      Criar Nota
-    </div>
+  <!-- Botão Criar Nota -->
+  <div *ngIf="!esconderCriarNota" class="nota" style="cursor: pointer" (click)="criarNota()">
+    <img src="assets/nota.svg" alt="ícone" style="width: 20px; height: 20px; vertical-align: middle; margin-right: 8px;" />
+    Criar Nota
+  </div>
 
-    <div
-      class="modal"
-      [ngStyle]="{ display: showModal ? 'block' : 'none' }"
-      (click)="onModalBackgroundClick($event)"
-    >
-      <div class="modal-content" (click)="$event.stopPropagation()">
-        <span class="close" (click)="closeModal()">&times;</span>
+  <!-- Modal de Edição -->
+  <div class="modal" [ngStyle]="{ display: showModalEditar ? 'block' : 'none' }" (click)="onModalBackgroundClick($event, 'editar')">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <span class="close" (click)="fecharModais()">&times;</span>
+      <form [formGroup]="editarForm" (ngSubmit)="salvarEdicao()">
         <label for="descricao">Descrição</label>
-        <input id="descricao" class="modal-input" placeholder="XXXXXXX" />
+        <input id="descricao" class="modal-input" formControlName="descricao" placeholder="Digite a descrição da nota" />
+
         <label for="mes">Mês referente</label>
-        <input id="mes" class="modal-input" placeholder="XXXXXXX" />
+        <input id="mes" class="modal-input" formControlName="mesReferente" placeholder="Digite o mês referente" />
+
         <label for="concessao">Concessão</label>
-        <input id="concessao" class="modal-input" placeholder="XXXXXXX" />
+        <input id="concessao" class="modal-input" formControlName="concessao" placeholder="Digite a concessão" />
+
         <label for="status">Status</label>
-        <select id="status" class="modal-input">
-          <option value="">XXXXXXX</option>
+        <select id="status" class="modal-input" formControlName="status">
+          <option value="">Selecione status</option>
           <option value="Critico">Crítico</option>
           <option value="Alerta">Alerta</option>
           <option value="Estavel">Estável</option>
         </select>
-        <button class="modal-btn" (click)="closeModal()">Salvar</button>
-      </div>
+
+        <!-- Botões -->
+        <div class="botoes-acao">
+          <button *ngIf="!camposEditaveis" class="modal-btn-editar" type="button" (click)="ativarEdicao()">Editar</button>
+          <button *ngIf="camposEditaveis" class="modal-btn-salvar" type="submit" [disabled]="editarForm.invalid">Salvar</button>
+          <button class="modal-btn-excluir" type="button" (click)="excluirNota()">Excluir</button>
+        </div>
+      </form>
     </div>
+  </div>
 
+  <!-- Modal de Criação -->
+  <div class="modal" [ngStyle]="{ display: showModalCriar ? 'block' : 'none' }" (click)="onModalBackgroundClick($event, 'criar')">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <span class="close" (click)="fecharModais()">&times;</span>
+      <form [formGroup]="criarForm" (ngSubmit)="salvarCriacao()">
+        <label for="descricao">Descrição</label>
+        <input id="descricao" class="modal-input" formControlName="descricao" placeholder="Digite a descrição da nota" />
+
+        <label for="mes">Mês referente</label>
+        <input id="mes" class="modal-input" formControlName="mesReferente" placeholder="Digite o mês referente" />
+
+        <label for="concessao">Concessão</label>
+        <input id="concessao" class="modal-input" formControlName="concessao" placeholder="Digite a concessão" />
+
+        <label for="status">Status</label>
+        <select id="status" class="modal-input" formControlName="status">
+          <option value="">Selecione status</option>
+          <option value="Critico">Crítico</option>
+          <option value="Alerta">Alerta</option>
+          <option value="Estavel">Estável</option>
+        </select>
+
+        <button class="modal-btn-criar" type="submit" [disabled]="criarForm.invalid">Salvar</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Lista de Notas -->
   <div class="notas">
-      
-      <div class="alerta-nota" *ngFor="let nota of nota">
-
+    <div
+      class="alerta-nota"
+      *ngFor="let nota of nota"
+      (click)="abrirModalNota(nota)"
+      style="cursor: pointer;"
+    >
       <div class="header-nota">
-        <h3>{{nota.concessao}}</h3>
-        <span class="data-referente">{{nota.mesReferente}}</span>
+        <h3>{{ nota.concessao }}</h3>
+        <span class="data-referente">{{ nota.mesReferente }}</span>
       </div>
+      <span class="alerta-nota-titulo">{{ nota.status }}</span>
 
-         <span class="alerta-nota-titulo">{{nota.status}}</span>
-        <img
-        *ngIf="nota.status === 'Alerta'"
-        src="/images/notas/alerta_amarelo.svg"
-        alt="Alerta Amarelo"
-        class="nota-alerta-icone"
-        />
-        <img
-        *ngIf="nota.status === 'Crítico'"
-        src="/images/notas/alerta_vermelho.svg"
-        alt="Alerta Vermelho"
-        class="nota-alerta-icone"
-        />
-        <img
-        *ngIf="nota.status === 'Estável'"
-        src="/images/notas/alerta_verde.svg"
-        alt="Alerta Verde"
-        class="nota-alerta-icone"
-        />
-        <div class="descricao-nota">{{nota.descricao}}</div>
-      </div>
-    
+      <img *ngIf="nota.status === 'Alerta'" src="/images/notas/alerta_amarelo.svg" alt="Alerta Amarelo" class="nota-alerta-icone" />
+      <img *ngIf="nota.status === 'Critico'" src="/images/notas/alerta_vermelho.svg" alt="Alerta Vermelho" class="nota-alerta-icone" />
+      <img *ngIf="nota.status === 'Estavel'" src="/images/notas/alerta_verde.svg" alt="Alerta Verde" class="nota-alerta-icone" />
+
+      <div class="descricao-nota">{{ nota.descricao }}</div>
+    </div>
   </div>
 </div>
