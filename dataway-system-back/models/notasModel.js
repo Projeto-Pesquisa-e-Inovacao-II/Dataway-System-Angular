@@ -34,7 +34,6 @@ async function deletarNota(id) {
 }
 
 module.exports = {
-  listarNotas,
   criarNota,
   atualizarNota,
   deletarNota,
