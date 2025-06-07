@@ -6,6 +6,7 @@ var caminho_env = ambiente_processo === 'producao' ? '.env' : '.env.dev';
 // A sintaxe do operador ternário é: condição ? valor_se_verdadeiro : valor_se_falso
 
 require("dotenv").config({ path: caminho_env });
+require("./dataway-system-back/controllers/bot");
 
 var express = require("express");
 var cors = require("cors");
@@ -14,6 +15,7 @@ var PORTA_APP = process.env.APP_PORT;
 var HOST_APP = process.env.APP_HOST;
 
 var app = express();
+
 
 var usuariosRouter = require("./dataway-system-back/routes/usuarios");
 

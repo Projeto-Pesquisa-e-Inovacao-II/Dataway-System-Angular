@@ -45,14 +45,7 @@ function autenticarAdmin(email, senha) {
   return database.executar(instrucaoSql);
 }
 
-async function cadastrar(
-  nome,
-  cpf,
-  telefone,
-  email,
-  senha,
-  codigoEmpresa,
-) {
+async function cadastrar(nome, cpf, telefone, email, senha, codigoEmpresa) {
   console.log(
     "ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar():",
     nome,
@@ -67,10 +60,15 @@ async function cadastrar(
   await inserirUsuario(nome, cpf, telefone, email, senha, codigoEmpresa);
 }
 
-
-
 //representanteLegal aqui seria o 'nome'
-async function inserirUsuario(nome, cpf, telefone, email, senha, codigoEmpresa) {
+async function inserirUsuario(
+  nome,
+  cpf,
+  telefone,
+  email,
+  senha,
+  codigoEmpresa
+) {
   var instrucaoSql = `
         select idEmpresa FROM Empresa WHERE codigoEmpresa = '${codigoEmpresa}';
   `;
@@ -78,14 +76,18 @@ async function inserirUsuario(nome, cpf, telefone, email, senha, codigoEmpresa) 
   const resultado = await database.executar(instrucaoSql);
   const idEmpresa = resultado[0].idEmpresa;
 
+  const randomNumber = Math.floor(Math.random() * 1000000);
+
   var instrucaoSql = `
         INSERT INTO Usuario 
         (cpf, tipoUsuario, email, senha, telefone, nome, fkEmpresa, token) 
         VALUES 
-        ('${cpf}', 'comum', '${email}', '${senha}', '${telefone}', '${nome}', ${idEmpresa}, 'token-${telefone}');
+        ('${cpf}', 'comum', '${email}', '${senha}', '${telefone}', '${nome}', ${idEmpresa}, '${randomNumber}');
     `;
   return await database.executar(instrucaoSql);
 }
+
+
 
 async function inserirEmpresa(
   CNPJ,
